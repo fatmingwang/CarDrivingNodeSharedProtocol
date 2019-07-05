@@ -2,76 +2,134 @@
 
 #include	"MessageList.h"
 
-#define		NETWORK_MESSAGE_VERSION		1.0f//float
+//network 
+#define		NETWORK_MESSAGE_VERSION			1.0f//float
+#define		CAR_DRIVING_APP_TARGET_PORT		8063
 
-#define		CAR_DRIVING_APP_TARGET_PORT	8888
-#define		USER_ID_LENGTH				20
+//header
+#define		PACKET_SIZE_LIMIT				256
+#define		MAGIC_ID_COUNT					4
+#define		MAGIC_ID_SIZE					sizeof(uint8)*MAGIC_ID_COUNT
+#define		PACKET_SIZE_SIZE				sizeof(uint16)
+#define		CHECK_SUM_SIZE					sizeof(uint16)
+#define		HEADER_SIZE						(MAGIC_ID_SIZE+PACKET_SIZE_SIZE+CHECK_SUM_SIZE)
 
+#define		MAGIC_ID_INDEX					0
+#define		PACKET_SIZE_INDEX				MAGIC_ID_SIZE
+#define		CHECK_SUM_INDEX					(PACKET_SIZE_INDEX+PACKET_SIZE_SIZE)
 
+const static uint8	g_HeaderCode[MAGIC_ID_COUNT] = { 0x80,0x63,0x68,0x55 };
+#define		ASSIGN_MAGIC_ID(Data)			memcpy(Data, g_HeaderCode,MAGIC_ID_SIZE);
 
-#define		MESSAGE_ID_ASSIGN(TYPE,ID)			TYPE():sBaseNetworkMessage(ID){iSize = sizeof(TYPE);}
-#define		RESULT_MESSAGE_ID_ASSIGN(TYPE,ID)	TYPE():sBaseNetworkResultMessage(ID){iSize = sizeof(TYPE);}
+//data
+#define		USER_ID_LENGTH					20
 
-#define		RESULT_STRUCT_ASSIGN(TYPE,ID)								\
-				struct TYPE:public sBaseNetworkResultMessage			\
-				{														\
-					TYPE():sBaseNetworkResultMessage(ID) {}				\
-					virtual int Size()override { return sizeof(TYPE); }	\
-				};
+//struct sPacketBase
+//{
+//	uint8	i8MagicID[HEADER_SIZE];
+//	uint16	i16PacketSize;
+//	uint16	i16CheckSum;
+//};
 
+#define	LAZY_HEADER_STAR(TYPE)			struct TYPE{int8 i8MagicID[4]; int16	i16PacketSize; uint16	i16CheckSum; int16 i16Message;
+#define	LAZY_HEADER_END(TYPE,ID)		TYPE(){ memset(this,0,sizeof(TYPE));ASSIGN_MAGIC_ID(i8MagicID);i16PacketSize = sizeof(TYPE); i16CheckSum = 0;i16Message = ID;} };
 
-struct sBaseNetworkMessage
+inline uint8_t GetChecksum(uint16_t dp[], uint16_t Size, uint16_t *Checksum)
 {
-	int		iSize;
-	int		iMessageID;
-	sBaseNetworkMessage(int e_iID) :iMessageID(e_iID){}
-};
+	uint16_t cks = 0;
+	uint16_t i;
+	if (Checksum == NULL)
+		return 0;
+	for (i = 0; i < (Size >> 1); i++)
+	{
+		cks += dp[i];
+	}
+	if (Size & 0x0001)
+	{
+		cks += (uint16_t)((uint8_t)(dp[i]));
+	}
+	*Checksum = (cks ^ 0xffff) + 1;
+	return 1;
+}
 
-struct sBaseNetworkResultMessage :public sBaseNetworkMessage
+inline bool IsCheckSumOk(uint8*e_pData, int e_iSize)
 {
-	int		iResultCode;//basicly 0 for false 1 for true
-	sBaseNetworkResultMessage(int e_iID) :sBaseNetworkMessage(e_iID) {}
-};
+	uint16	l_uint16CheckSum = 0;
+	GetChecksum((uint16*)e_pData, e_iSize, &l_uint16CheckSum);
+	return l_uint16CheckSum==0?true:false;
+}
 
-struct sS2CTestMessage_eCDNM_S2C_TEST_MESSAGE :public sBaseNetworkMessage
+inline	int	FindHeaderIndex(uint8*e_pData,int e_iSize)
 {
-	//int8	i8__1 = 1;
-	//int16	i16_2 = 2;
-	//int8	i32_3 = 3;
-	//int8	i64_4 = 4;
-	//wchar_t	wc__5 = 5;
+	for (int i = 0; i < e_iSize - 4; ++i)
+	{
+		if (e_pData[i  ] == g_HeaderCode[0] &&
+			e_pData[i+1] == g_HeaderCode[1] &&
+			e_pData[i+2] == g_HeaderCode[2] &&
+			e_pData[i+3] == g_HeaderCode[3])
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+//struct sBaseNetworkMessage
+//{
+//	int		iSize;
+//	int		iMessageID;
+//	sBaseNetworkMessage(int e_iID) :iMessageID(e_iID){}
+//};
+//
+//struct sBaseNetworkResultMessage
+//{
+//	int		iResultCode;//basicly 0 for false 1 for true
+//	sBaseNetworkResultMessage(int e_iID) :sBaseNetworkMessage(e_iID) {}
+//};
+#pragma pack(push)  /* push current alignment to stack */
+#pragma pack(1)     /* set alignment to 1 byte boundary */
+LAZY_HEADER_STAR(sS2CTestMessage_eCDNM_S2C_TEST_MESSAGE)
+	int8	i8__1;
+	int16	i16_2;
+	int32	i32_3;
+	int64	i64_4;
+LAZY_HEADER_END(sS2CTestMessage_eCDNM_S2C_TEST_MESSAGE, eCDNM_S2C_TEST_MESSAGE)
+#pragma pack(pop)   /* restore original alignment from stack */
+
+
+
+#pragma pack(push)  /* push current alignment to stack */
+#pragma pack(1)     /* set alignment to 1 byte boundary */
+LAZY_HEADER_STAR(sS2CTestMessage_eCDNM_C2S_TEST_MESSAGE)
 	int8	i8__1;
 	int16	i16_2;
 	int8	i32_3;
 	int8	i64_4;
-	wchar_t	wc__5;
-	MESSAGE_ID_ASSIGN(sS2CTestMessage_eCDNM_S2C_TEST_MESSAGE, eCDNM_S2C_TEST_MESSAGE);
-};
+LAZY_HEADER_END(sS2CTestMessage_eCDNM_C2S_TEST_MESSAGE, eCDNM_C2S_TEST_MESSAGE)
+#pragma pack(pop)   /* restore original alignment from stack */
 
-struct sC2STestMessage_eCDNM_C2S_TEST_MESSAGE :public sBaseNetworkMessage
-{
-	int8	i8__1;
-	int16	i16_2;
-	int8	i32_3;
-	int8	i64_4;
-	wchar_t	wc__5;
-	MESSAGE_ID_ASSIGN(sC2STestMessage_eCDNM_C2S_TEST_MESSAGE, eCDNM_C2S_TEST_MESSAGE);
-};
 
 
 //=====================================
-struct sTleeServerWhoYouAre_eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE :public sBaseNetworkMessage
-{
+#pragma pack(push)  /* push current alignment to stack */
+#pragma pack(1)     /* set alignment to 1 byte boundary */
+LAZY_HEADER_STAR(sTleeServerWhoYouAre_eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE)
 	float	fVersion;
-	MESSAGE_ID_ASSIGN(sTleeServerWhoYouAre_eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE,eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE);
-};
+LAZY_HEADER_END(sTleeServerWhoYouAre_eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE,eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE)
+#pragma pack(pop)   /* restore original alignment from stack */
 
-struct sTleeServerWhoYouAreResult_eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT :public sBaseNetworkMessage
-{
+
+
+#pragma pack(push)  /* push current alignment to stack */
+#pragma pack(1)     /* set alignment to 1 byte boundary */
+LAZY_HEADER_STAR(sTleeServerWhoYouAreResult_eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
 	char	strID[USER_ID_LENGTH];
 	float	fVersion;
-//	MESSAGE_ID_ASSIGN(sTleeServerWhoYouAreResult_eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT, eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT);
-};
+LAZY_HEADER_END(sTleeServerWhoYouAreResult_eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT, eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
+#pragma pack(pop)   /* restore original alignment from stack */
 
 
-//RESULT_STRUCT_ASSIGN(sAddUserMessage_eNM_C2S_ADD_USER_RESULT, eNM_C2S_UPDATE_USER_RESULT);
+
+LAZY_HEADER_STAR(sRFIDData_eCDNM_C2S_RFID_SINGNAL)
+	int16	i16ID;
+LAZY_HEADER_END(sRFIDData_eCDNM_C2S_RFID_SINGNAL, eCDNM_C2S_RFID_SINGNAL)

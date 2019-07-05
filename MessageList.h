@@ -5,7 +5,7 @@ enum eNodeType
 	eNT_ROAD = 0,
 	eNT_CUSTOMER,
 	eNT_CHARGE_POINT,
-	eNT_DELIVER_POINT,//need this one?.server need to detect the deliver point is empty and ask idle card to move to next charge point or to deliver point!?
+	eNT_DELIVER_POINT,//it also is a charge point,need this one?.server need to detect the deliver point is empty and ask idle card to move to next charge point or to deliver point!?
 	eNT_TURN_POUNT_R15,//15
 	eNT_TURN_POUNT_R30,//30
 	eNT_TURN_POUNT_R45,//45
@@ -41,8 +41,12 @@ enum eCarDrivingNetworkMessage
 	eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT,
 	eCDNM_C2S_RFID_SINGNAL,
 	eCDNM_S2C_ALL_CAR_STOP,
-	eCDNM_S2C_CAR_GO_TO_DESTINATION,
+	eCDNM_S2C_CAR_GO_TO_DESTINATION_1,//id
+	eCDNM_S2C_CAR_GO_TO_DESTINATION_2,//time
+	eCDNM_S2C_CAR_GO_TO_DESTINATION_3,//speed
+	eCDNM_S2C_CAR_GO_TO_DESTINATION_END,//node type
 	eCDNM_S2C_CAR_STOP,
 	eCDNM_S2C_CAR_WAIT,
+	//
 	eCDNM_MAX
 };
