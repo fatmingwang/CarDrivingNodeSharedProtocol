@@ -3,13 +3,13 @@
 #include	"MessageList.h"
 
 //network 
-#define		NETWORK_MESSAGE_VERSION			1.0f//float
+#define		NETWORK_MESSAGE_VERSION			1//float
 #define		CAR_DRIVING_APP_TARGET_PORT		8063
 
 //header
 #define		PACKET_SIZE_LIMIT				256
 #define		MAGIC_ID_COUNT					4
-#define		MAGIC_ID_SIZE					sizeof(uint8)*MAGIC_ID_COUNT
+#define		MAGIC_ID_SIZE					(sizeof(uint8)*MAGIC_ID_COUNT)
 #define		PACKET_SIZE_SIZE				sizeof(uint16)
 #define		CHECK_SUM_SIZE					sizeof(uint16)
 #define		HEADER_SIZE						(MAGIC_ID_SIZE+PACKET_SIZE_SIZE+CHECK_SUM_SIZE)
@@ -25,6 +25,7 @@ const static uint8	g_HeaderCode[MAGIC_ID_COUNT] = { 0x55,0x68,0x63,0x80 };
 
 //data
 #define		CAR_A_TO_B_DATA_LENGTH			80
+#define		RFID_CARD_COUNT					40
 
 
 #define	LAZY_HEADER_STAR(TYPE)								struct TYPE{int8 i8MagicID[MAGIC_ID_COUNT]; int16	i16PacketSize; uint16	i16CheckSum; int16 i16Message;int16	i16HWID;
@@ -56,13 +57,18 @@ inline uint8_t GetChecksum(uint16_t dp[], uint16_t Size, uint16_t *Checksum)
 	*Checksum = (cks ^ 0xffff) + 1;
 	return 1;
 }
-inline	bool	IsCheckSumOk(uint8*e_pData, int e_iSize){	uint16	l_uint16CheckSum = 0;	GetChecksum((uint16*)e_pData, e_iSize, &l_uint16CheckSum);	return l_uint16CheckSum==0?true:false; }
+inline	bool	IsCheckSumOk(uint8*e_pData, int e_iSize)
+{
+	uint16	l_uint16CheckSum = 0;	
+	GetChecksum((uint16*)e_pData, e_iSize, &l_uint16CheckSum);	
+	return l_uint16CheckSum==0?true:false; 
+}
 inline	int		FindHeaderIndex(uint8*e_pData,int e_iSize)
 {
 	for (int i = 0; i < e_iSize - 4; ++i)
 	{
-		  if (e_pData[i] == g_HeaderCode[1] &&e_pData[i+1] == g_HeaderCode[0] && e_pData[i+2]== g_HeaderCode[3] &&  e_pData[i+3] == g_HeaderCode[2])
-		//if (e_pData[i] == g_HeaderCode[0] &&e_pData[i+1] == g_HeaderCode[1] &&e_pData[i+2] == g_HeaderCode[2] &&	e_pData[i+3] == g_HeaderCode[3])
+		  //if (e_pData[i] == g_HeaderCode[1] &&e_pData[i+1] == g_HeaderCode[0] && e_pData[i+2]== g_HeaderCode[3] &&  e_pData[i+3] == g_HeaderCode[2])
+		if (e_pData[i] == g_HeaderCode[0] &&e_pData[i+1] == g_HeaderCode[1] &&e_pData[i+2] == g_HeaderCode[2] &&	e_pData[i+3] == g_HeaderCode[3])
 		{
 			return i;
 		}
@@ -107,22 +113,27 @@ LAZY_HEADER_END(sS2CTestMessage_eCDNM_C2S_TEST_MESSAGE, eCDNM_C2S_TEST_MESSAGE)
 #pragma pack(push)
 #pragma pack(1)
 LAZY_HEADER_STAR(sTleeServerWhoYouAre_eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE)
-	float	fVersion;
+	int16	i16Version;
+	//int16	i16TagIDArrayCount;//or do if Tag ID is -1 end?,2
+	//int32	i32RFID[RFID_CARD_COUNT];//160
 LAZY_HEADER_END(sTleeServerWhoYouAre_eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE, eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE)
 #pragma pack(pop)
+
 #pragma pack(push)
 #pragma pack(1)
 LAZY_HEADER_STAR(sTleeServerWhoYouAreResult_eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
-	int32	i32HWID;
-	float	fVersion;
+	int16	i16Version;
+	//int16	i16NumRFID;
+	//int16	i16RFIDCheckSum;
 LAZY_HEADER_END(sTleeServerWhoYouAreResult_eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT, eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
 #pragma pack(pop)
 //=====================================
 #pragma pack(push)
 #pragma pack(1)
-LAZY_HEADER_STAR(sRFIDData_eCDNM_C2S_RFID_Signal)
+LAZY_HEADER_STAR(sRFIDData_eCDNM_C2S_CAR_STATUS)
 	int16	i16TagID;
-LAZY_HEADER_END(sRFIDData_eCDNM_C2S_RFID_Signal, eCDNM_C2S_RFID_Signal)
+	int16	i1Status;
+LAZY_HEADER_END(sRFIDData_eCDNM_C2S_CAR_STATUS, eCDNM_C2S_CAR_STATUS)
 //=====================================
 #pragma pack(1)
 //A TO B start
@@ -182,5 +193,27 @@ LAZY_HEADER_STAR(sCar_A_TO_B_eCDNM_C2S_CAR_GO_TO_DESTINATION_DISTANCE_4_RESULT)
 	int16	i16Count;
 LAZY_HEADER_END(sCar_A_TO_B_eCDNM_C2S_CAR_GO_TO_DESTINATION_DISTANCE_4_RESULT, eCDNM_C2S_CAR_GO_TO_DESTINATION_DISTANCE_4_RESULT)
 #pragma pack(pop)
+
+
+#pragma pack(push)
+#pragma pack(1)
+LAZY_HEADER_STAR(sRFIDInfo_eCDNM_S2C_RFID_INFO)
+	int16	i16TotalSendingTime;
+	int16	i16CurrentSendingIndex;
+	int16	i16RFIDCardCount;
+	int32	i32RFID[RFID_CARD_COUNT];
+LAZY_HEADER_END(sRFIDInfo_eCDNM_S2C_RFID_INFO, eCDNM_S2C_RFID_INFO)
+#pragma pack(pop)
+
+#pragma pack(push)
+#pragma pack(1)
+LAZY_HEADER_STAR(sRFIDInfoResult_eCDNM_S2C_RFID_INFO_RESULT)
+	int16	i16CurrentSendingIndex;
+LAZY_HEADER_END(sRFIDInfoResult_eCDNM_S2C_RFID_INFO_RESULT, eCDNM_S2C_RFID_INFO_RESULT)
+#pragma pack(pop)
+
+
+
+
 //A TO B end
 //=====================================

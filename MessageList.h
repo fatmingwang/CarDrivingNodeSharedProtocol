@@ -7,7 +7,7 @@ enum eCarDrivingNetworkMessage
 
 	eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE,//HW ID
 	eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT,//HW ID
-	eCDNM_C2S_RFID_Signal,//tag ID
+	eCDNM_C2S_CAR_STATUS,//tag ID
 	eCDNM_S2C_CAR_GO_TO_DESTINATION_ID_1,//id,int16
 	eCDNM_C2S_CAR_GO_TO_DESTINATION_ID_1_RESULT,
 	eCDNM_S2C_CAR_GO_TO_DESTINATION_SPEED_2,//speed,int16
@@ -16,6 +16,9 @@ enum eCarDrivingNetworkMessage
 	eCDNM_C2S_CAR_GO_TO_DESTINATION_ANGLE_3_RESULT,
 	eCDNM_S2C_CAR_GO_TO_DESTINATION_DISTANCE_4,//distance,int16,1unit is 1 cm
 	eCDNM_C2S_CAR_GO_TO_DESTINATION_DISTANCE_4_RESULT,
+	//
+	eCDNM_S2C_RFID_INFO,
+	eCDNM_S2C_RFID_INFO_RESULT,
 	//eCDNM_S2C_CAR_GO_TO_DESTINATION_END,//node type
 	eCDNM_S2C_CAR_STOP,//emgency situation!?
 	//eCDNM_S2C_CAR_WAIT,//
@@ -29,7 +32,7 @@ enum eNodeType
 	eNT_CUSTOMER,
 	eNT_CHARGE_POINT,
 	eNT_DELIVER_POINT,//it also is a charge point,need this one?.server need to detect the deliver point is empty and ask idle card to move to next charge point or to deliver point!?
-	eNT_TURN_POUNT_R15,//15
+	eNT_TURN_POUNT_R15 = 0x10,//15
 	eNT_TURN_POUNT_R30,//30
 	eNT_TURN_POUNT_R45,//45
 	eNT_TURN_POUNT_R60,//60
@@ -41,7 +44,7 @@ enum eNodeType
 	eNT_TURN_POUNT_R150,//150
 	eNT_TURN_POUNT_R165,//165
 	eNT_TURN_POUNT_R180,//180
-	eNT_TURN_POUNT_L15,//15
+	eNT_TURN_POUNT_L15 = 0x8010,//15
 	eNT_TURN_POUNT_L30,//30
 	eNT_TURN_POUNT_L45,//45
 	eNT_TURN_POUNT_L60,//60
