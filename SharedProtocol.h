@@ -24,6 +24,7 @@ const static uint8	g_HeaderCode[MAGIC_ID_COUNT] = { 0x55,0x68,0x63,0x80 };
 #define		ASSIGN_MAGIC_ID(Data)			memcpy(Data, g_HeaderCode,MAGIC_ID_SIZE);
 
 //data
+#define		CHARGE_POINT_DATA_LENGTH		20
 #define		CAR_A_TO_B_DATA_LENGTH			80
 #define		RFID_CARD_COUNT					40
 
@@ -114,6 +115,7 @@ LAZY_HEADER_END(sS2CTestMessage_eCDNM_C2S_TEST_MESSAGE, eCDNM_C2S_TEST_MESSAGE)
 #pragma pack(1)
 LAZY_HEADER_STAR(sTleeServerWhoYouAre_eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE)
 	int16	i16Version;
+	int16	i16ChargePointTagID[CHARGE_POINT_DATA_LENGTH];
 	//int16	i16TagIDArrayCount;//or do if Tag ID is -1 end?,2
 	//int32	i32RFID[RFID_CARD_COUNT];//160
 LAZY_HEADER_END(sTleeServerWhoYouAre_eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE, eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE)
