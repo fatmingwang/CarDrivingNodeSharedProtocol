@@ -92,3 +92,12 @@ static int16 g_si16NodeTypeSpeed[eNT_MAX] =
 	50,//eNT_TURN_POUNT_L180,//180
 	50,//eNT_DUMMY_POINT_FOR_COLLISION_TEST,//180
 };
+
+
+enum eCarSendingStatus
+{
+	eCSS_DRIVING = 0,
+	eCSS_IDLE_AND_MEAL_EMPTY,
+	eCSS_IDLE_AND_MEAL_FILLED,
+	eCSS_MAX
+};

@@ -3,7 +3,9 @@
 #include	"MessageList.h"
 
 //network 
-#define		NETWORK_MESSAGE_VERSION			1//float
+//2:	sTleeServerWhoYouAre_eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE	add i16ChargePointTagID
+//		sRFIDData_eCDNM_C2S_CAR_STATUS							add i1Status
+#define		NETWORK_MESSAGE_VERSION			2
 #define		CAR_DRIVING_APP_TARGET_PORT		8063
 
 //header
