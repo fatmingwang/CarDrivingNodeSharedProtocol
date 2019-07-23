@@ -136,7 +136,7 @@ LAZY_HEADER_END(sTleeServerWhoYouAreResult_eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RES
 #pragma pack(1)
 LAZY_HEADER_STAR(sRFIDData_eCDNM_C2S_CAR_STATUS)
 	int16	i16TagID;
-	int16	i1Status;
+	int16	i1Status;//eCarSendingStatus
 LAZY_HEADER_END(sRFIDData_eCDNM_C2S_CAR_STATUS, eCDNM_C2S_CAR_STATUS)
 //=====================================
 #pragma pack(1)

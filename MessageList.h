@@ -96,8 +96,8 @@ static int16 g_si16NodeTypeSpeed[eNT_MAX] =
 
 enum eCarSendingStatus
 {
-	eCSS_DRIVING = 0,
-	eCSS_IDLE_AND_MEAL_EMPTY,
+	eCSS_IDLE_AND_MEAL_EMPTY = 0,
 	eCSS_IDLE_AND_MEAL_FILLED,
+	eCSS_DRIVING,
 	eCSS_MAX
 };
