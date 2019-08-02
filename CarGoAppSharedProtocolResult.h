@@ -27,6 +27,7 @@ enum eCarGoAppSharedProtocolResult
 	eCGASPR_DELIVERPOINT_OCCUPIED_BY_OTHER_CAR_GO_APP,
 	eCGASPR_DELIVERPOINT_NO_CAR,
 	eCGASPR_SERVER_ERROR_PLEASE_RELOGIN_AGAIN,//
+	eCGASPR_CAR_GO_FAILED,
 	eCGASPR_MAX
 };
 
@@ -46,6 +47,8 @@ inline const wchar_t* ResultToString(eCarGoAppSharedProtocolResult e_eCarGoAppSh
 			return L"no cat at this deliver point";
 		case eCGASPR_SERVER_ERROR_PLEASE_RELOGIN_AGAIN:
 			return L"server shut down please restart app.";
+		case eCGASPR_CAR_GO_FAILED:
+			return L"ask car to go failed!,already received message!?";
 		default:
 			return L"not support result";
 			break;
