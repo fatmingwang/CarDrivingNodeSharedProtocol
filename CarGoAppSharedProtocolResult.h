@@ -10,6 +10,7 @@ enum eCarGoAppSharedProtocolResult
 	eCGASPR_DELIVERPOINT_NO_CAR,
 	eCGASPR_SERVER_ERROR_PLEASE_RELOGIN_AGAIN,//
 	eCGASPR_CAR_GO_FAILED,
+	eCGASPR_CAR_NOT_EXISTS,
 	eCGASPR_MAX
 };
 
@@ -58,8 +59,8 @@ enum eCarDrivingStatus
 	//
 	eCDS_CONNECTION_LOST,//network problem
 	//
-	eCDS_OUT_OF_CONTROL_ASK_USER_TO_TAKE_IT_TO_FIXT_IT,//still have connection but no RFID Signal,car problem.
-	eCDS_CAR_DISAPPEAR,//uset take car off
+	eCDS_OUT_OF_CONTROL_ASK_USER_TO_TAKE_IT_TO_FIXT_IT,//still have connection but no RFID Signal or else,car got problem.
+	eCDS_CAR_REMOVED_FROME_MAP,//uset take car off
 	eCDS_TRAFFIC_STUCK_WAIT_TOO_LONG,//target point was occupied by somecar?
 	eCDS_MAX
 };
@@ -80,6 +81,9 @@ inline const wchar_t * GetCarDrivingStatusString(eCarDrivingStatus e_eCarDriving
 		break;
 	case eCDS_STAY_AT_DELIVERY_POINT:
 		return L"stay at deliver point";
+		break;
+	case eCDS_STAY_AT_POINT:
+		return L"stay at point";
 		break;
 	case eCDS_STAY_AT_CUSTOMER_POINT_MEAL_IS_EMPTY_MAKE_CAR_GO_HOME:
 		return L"stay at customer point and meal is empty,ready to home";
@@ -117,6 +121,9 @@ inline const wchar_t * GetCarDrivingStatusString(eCarDrivingStatus e_eCarDriving
 	case eCDS_OUT_OF_CONTROL_ASK_USER_TO_TAKE_IT_TO_FIXT_IT:
 		return L"out of control ask user to take to fix it";
 		break;
+	case eCDS_CAR_REMOVED_FROME_MAP:
+		return L"car removed";
+		break;
 	case eCDS_TRAFFIC_STUCK_WAIT_TOO_LONG:
 		return L"traffic struck too long";
 		break;
@@ -125,4 +132,16 @@ inline const wchar_t * GetCarDrivingStatusString(eCarDrivingStatus e_eCarDriving
 		break;
 	}
 	return L"not support status";
+}
+
+
+inline bool IsCarDriving(eCarDrivingStatus e_eCarDrivingStatus)
+{
+	if (e_eCarDrivingStatus == eCDS_WAY_TO_CUSTOMER ||
+		e_eCarDrivingStatus == eCDS_WAY_TO_CHARGE_POINT ||
+		e_eCarDrivingStatus == eCDS_WAY_TO_DELIVER_POINT ||
+		e_eCarDrivingStatus == eCDS_WAY_TO_POINT ||
+		e_eCarDrivingStatus == eCDS_SEND_CAR_GO_SIGNAL_TO_CAR)
+		return true;
+	return false;
 }

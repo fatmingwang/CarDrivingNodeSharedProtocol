@@ -1,4 +1,4 @@
 #include "stdafx.h"
-#include "SharedProtocol.h"
-#include "MessageList.h"
+#include "CarDrivingSharedProtocol.h"
+#include "CarDrivingMessageList.h"
 #include "CarGoAppSharedProtocol.h"
