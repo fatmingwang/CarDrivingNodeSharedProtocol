@@ -42,7 +42,7 @@ inline const wchar_t* ResultToString(eCarGoAppSharedProtocolResult e_eCarGoAppSh
 enum eCarDrivingStatus
 {
 	eCDS_WAIT_FOR_INITIAL = 0,//wait HW ID,basiclly it won't happen
-	eCDS_WAIT_FOR_WHERE_I_AM,//fetch HW ID but have no idea where car is(lost connection and get still to re send HWID again).
+	eCDS_WAIT_FOR_WHERE_I_AM,//fetch HW ID but have no idea where car is(lost connection and get still to re send ID again).
 	eCDS_STAY_AT_CHARGE_POINT,//some resturant may design 3 charge point at a line and the first charge point is deliver,,if deliver car left make rest car queue up and moving.
 	eCDS_STAY_AT_DELIVERY_POINT,//car ready to go
 	eCDS_STAY_AT_POINT,//nor charge nor deliver nor customer

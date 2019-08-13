@@ -23,7 +23,7 @@ inline const char*GetAskCarGoResultMessageString(eAskCarGoResultMessage e_eAskCa
 		case eACGRM_OK:
 			return "Ok";
 		case eACGRM_NO_SUCH_HW_ID:
-			return "no HWID";
+			return "no ID";
 		case eACGRM_LOST_CONNECTION:
 			return "lost connection";
 		case eACGRM_CAR_DRIVING:

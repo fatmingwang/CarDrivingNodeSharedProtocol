@@ -1,31 +1,14 @@
 #pragma once
 
+#include "SharedProtocolCommonDefine.h"
 #include "CarGoAppSharedProtocolResult.h"
 
-#define		CAR_GO_APP_NETWORK_MESSAGE_VERSION			1
-#define		TCP_IP_PORT									430
-#define		MAX_CAR_COUNT								20
-
-#define		MESSAGE_ID_ASSIGN(TYPE,ID)TYPE():sBaseNetworkMessage(){memset(this,0,sizeof(TYPE));iMessage = ID;iSize = (int)sizeof(TYPE);}};
-#define		RESULT_MESSAGE_ID_ASSIGN(TYPE,ID)TYPE():sBaseNetworkResultMessage(){memset(this,0,sizeof(TYPE));iMessage = ID;iSize = (int)sizeof(TYPE);}};
-
-
-
-#define		LAZY_MESSAGE_HEADER_STAR(ID)						struct sNetwork_##ID:public sBaseNetworkMessage{
-#define		LAZY_MESSAGE_HEADER_END(ID)							MESSAGE_ID_ASSIGN(sNetwork_##ID,ID)
-
-#define		LAZY_RESULT_MESSAGE_HEADER_STAR(ID)					struct sNetwork_##ID:public sBaseNetworkResultMessage{
-#define		LAZY_RESULT_MESSAGE_HEADER_END(ID)					RESULT_MESSAGE_ID_ASSIGN(sNetwork_##ID,ID)
-
-
-#define		CAR_GO_APP_LAZY_SIZE_LOG(TYPE,YOUR_SIZE)						{auto l_strInfo = UT::ComposeMsgByFormat("%s,ExpectedSize:%d,RealSize:%d", #TYPE, sizeof(TYPE), YOUR_SIZE);FMLog::LogWithFlag(l_strInfo, CAR_GOAPP_NETWORK, true);}
-#define		CAR_GO_APP_DO_RETURN_FALSE_IF_SIZE_INCORRECT(TYPE,YOUR_SIZE)	if(sizeof(TYPE)!=YOUR_SIZE){ CAR_GO_APP_LAZY_SIZE_LOG(TYPE,YOUR_SIZE); return false;}
-
-
-#define		MAP_NAME_ARRAY_LENGTH		20
-#define		DELIVER_POINT_DATA_LENGTH	20
-#define		CUSTOMER_POINT_DATA_LENGTH	80
-
+#define		CAR_GO_APP_TCP_IP_PORT				5978
+#define		CAR_GO_APP_NETWORK_MESSAGE_VERSION	1
+#define		MAP_NAME_ARRAY_LENGTH				20
+#define		DELIVER_POINT_DATA_LENGTH			20
+#define		CUSTOMER_POINT_DATA_LENGTH			80
+#define		MAX_CAR_COUNT						20
 enum eCarGoAppNetworkMessage
 {
 	eCGANM_C2S_VERSION_AND_MAP_INFOR = 100000,//tell me your deliver point and map infomation and else...
@@ -52,21 +35,6 @@ enum eCarGoAppNetworkMessage
 	eCGANM_MAX,
 };
 
-//tcpip 1 packet default maximum size is 65k
-
-struct sBaseNetworkMessage
-{
-	int		iSize;
-	int		iMessage;
-	//sBaseNetworkMessage(int e_iID,int e_iSize) :iMessage(e_iID) { iSize= e_iSize;	}
-	sBaseNetworkMessage() {iSize = 0; iMessage= 0;}
-};
-
-struct sBaseNetworkResultMessage :public sBaseNetworkMessage
-{
-	int		iResultCode;//basicly 0 for false 1 for true
-	sBaseNetworkResultMessage(){}
-};
 ////=====================================
 LAZY_MESSAGE_HEADER_STAR(eCGANM_C2S_VERSION_AND_MAP_INFOR)
 	int		iVersion;
@@ -105,7 +73,7 @@ LAZY_MESSAGE_HEADER_STAR(eCGANM_C2S_CAR_GO)
 LAZY_MESSAGE_HEADER_END(eCGANM_C2S_CAR_GO)
 
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCGANM_S2C_CAR_GO_RESULT)
-	int iCarHWID;
+	int iCarID;
 	int iStartID;
 	int iEndID;
 LAZY_RESULT_MESSAGE_HEADER_END(eCGANM_S2C_CAR_GO_RESULT)
@@ -117,20 +85,20 @@ LAZY_MESSAGE_HEADER_END(eCGANM_C2S_CAR_TROUBLESHOOTING_INFO_REQUEST)
 
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCGANM_S2C_CAR_TROUBLESHOOTING_INFO_RESULT)
 	int	iNumCar;
-	int iCarHWIDArray[MAX_CAR_COUNT];
+	int iCarIDArray[MAX_CAR_COUNT];
 	int iNodeIDArray[MAX_CAR_COUNT];
 	int iCarStatusArray[MAX_CAR_COUNT];
 LAZY_RESULT_MESSAGE_HEADER_END(eCGANM_S2C_CAR_TROUBLESHOOTING_INFO_RESULT)
 
 
 LAZY_MESSAGE_HEADER_STAR(eCGANM_C2S_CAR_TROUBLESHOOTING_CAR_STATUS_CHANGE_REQUEST)
-	int iCarHWID;
+	int iCarID;
 	int iCarStatus;//enum eTurobleshootingButtonType{eTBT_CAR_REMOVE = 0,eTBT_REJOIN,eTBT_GO_HOME,eTBT_MAX};
 LAZY_MESSAGE_HEADER_END(eCGANM_C2S_CAR_TROUBLESHOOTING_CAR_STATUS_CHANGE_REQUEST)
 
 
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCGANM_C2S_CAR_TROUBLESHOOTING_CAR_STATUS_CHANGE_RESULT)
-	int iCarHWID;
+	int iCarID;
 	int iNodeID;
 	int iCarStatus;
 LAZY_RESULT_MESSAGE_HEADER_END(eCGANM_C2S_CAR_TROUBLESHOOTING_CAR_STATUS_CHANGE_RESULT)
