@@ -9,17 +9,24 @@ enum eArduinoRasPIMessage
 	eARM_A2R_MAX
 };
 
+#define	MOTOR_OVER_HEAT	1<<1
+#define	EXP_1			2<<1
+#define	EXP_2			3<<1
 //make sure
 #pragma pack(push)  /* push current alignment to stack */
 #pragma pack(1)     /* set alignment to n byte boundary */
 LAZY_HEADER_STAR(eARM_A2R_HWARDWARE_INFO)
-	uint16	ui16Obstacle;
+	int		iExpcptionCode;//
 	uint16	ui16TagID;
-	int		iLeftLoad;
-	int		iRightLoad;
-	uint16	ui16LeftSpeed;
-	uint16	ui16RightSpeed;
-	uint16	ui16Power;
+	char	i8Obstacle;
+	char	i8MealSettle;
+	char	i8Power;
+	int16	i16LeftSpeed;//-100,100
+	int16	i16RightSpeed;//-100,100
+	uint16	ui16LeftDistabce;
+	uint16	ui16RightDistabce;
+	char	i8LeftMotorLoading;
+	char	i8RightMotorLoading;
 LAZY_HEADER_END(eARM_A2R_HWARDWARE_INFO)
 #pragma pack()     /* cancel previous alignment to n byte boundary */ 
 
@@ -27,6 +34,11 @@ LAZY_HEADER_END(eARM_A2R_HWARDWARE_INFO)
 #pragma pack(push)  /* push current alignment to stack */
 #pragma pack(1)     /* set alignment to n byte boundary */
 LAZY_HEADER_STAR(eARM_R2A_COMMAND)
+	int iDistance;
+	int iAcceLeft;
+	int iAcceRight;
+	int iSpeedLeft;
+	int iSpeedRight;
 LAZY_HEADER_END(eARM_R2A_COMMAND)
 #pragma pack()     /* cancel previous alignment to n byte boundary */ 
 
