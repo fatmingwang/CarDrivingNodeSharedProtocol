@@ -15,8 +15,8 @@ enum eArduinoRasPIMessage
 LAZY_HEADER_STAR(eARM_A2R_HWARDWARE_INFO)
 	uint16	ui16Obstacle;
 	uint16	ui16TagID;
-	uint16	ui16LeftLoad;
-	uint16	ui16RightLoad;
+	int		iLeftLoad;
+	int		iRightLoad;
 	uint16	ui16LeftSpeed;
 	uint16	ui16RightSpeed;
 	uint16	ui16Power;
