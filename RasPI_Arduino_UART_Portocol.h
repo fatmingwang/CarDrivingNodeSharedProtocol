@@ -39,6 +39,7 @@ LAZY_HEADER_STAR(eARM_R2A_COMMAND)
 	int iAcceRight;
 	int iSpeedLeft;
 	int iSpeedRight;
+	int16 i16TagID;
 LAZY_HEADER_END(eARM_R2A_COMMAND)
 #pragma pack()     /* cancel previous alignment to n byte boundary */ 
 

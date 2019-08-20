@@ -1,4 +1,4 @@
-#pragma once
+//#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -39,13 +39,6 @@
 
 const static int8	g_i8StreamingDataMagicID[MAGIC_ID_COUNT] = { 55,68,63,80 };
 #define		ASSIGN_MAGIC_ID(Data)			memcpy(Data, g_i8StreamingDataMagicID,MAGIC_ID_SIZE);
-
-//MyStructure2 ll;
-//ll.a = 9;
-//ll.b = 10;
-//ll.i16CheckSum = GetCheckSum(&ll, size);
-//send(ll, ll.iSize);
-//
 
 
 inline int BufferAndSizeGetCheckSum(char*e_pData,int e_iSize)

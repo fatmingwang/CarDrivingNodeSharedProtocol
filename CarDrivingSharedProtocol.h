@@ -5,6 +5,7 @@
 //#define		ASSIGN_MAGIC_ID(Data)			memcpy(Data, g_HeaderCode,MAGIC_ID_SIZE);
 #include	"SharedProtocolCommonDefine.h"
 #include	"CarDrivingMessageList.h"
+#include	"CarDrivingResultMessage.h"
 
 #define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			1
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
@@ -12,14 +13,19 @@
 //data
 #define		CAR_A_TO_B_DATA_LENGTH			80
 
+#ifndef		MAP_NAME_ARRAY_LENGTH
+#define		MAP_NAME_ARRAY_LENGTH			40
+#endif
 //=====================================
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
-	int	iVersion;
+	int		iVersion;
+	char	strMapFileName[MAP_NAME_ARRAY_LENGTH];
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
-	int	iCarID;
-	int	iVersion;
+	int		iCarID;
+	int		iVersion;
+	char	strMapFileName[MAP_NAME_ARRAY_LENGTH];
 LAZY_RESULT_MESSAGE_HEADER_END(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
 
 LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
@@ -41,3 +47,23 @@ LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_GO_TO_DESTINATION_RESULT)
 	int	iCarID;
 	int	iCount;
 LAZY_RESULT_MESSAGE_HEADER_END(eCDNM_C2S_CAR_GO_TO_DESTINATION_RESULT)
+
+
+//struct sDataAndLength
+//{
+//	char*	pData;
+//	int		iSize;
+//	void	Add(char*e_pData,int e_iSize);
+//	void	Strip(int e_iBeforeIndexDataDelete);
+//};
+//struct sPacketParse
+//{
+//	sDataAndLength	DataAndLength;
+//	bool	GetMagicIDIndex(char*e_pData,int e_iDataSize,int&e_iNumMagicMatched,int&e_iFirstMatchedIndex);
+//	int		GetCheckSum(char*e_pData, int e_iDataSize);
+//	bool	GetData(char*e_pOutData,int&e_iDataSize);
+//	static  char*GetHeader(int e_iDataSize)
+//	{
+//
+//	}
+//};
