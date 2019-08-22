@@ -163,6 +163,7 @@ inline char*	BufferAndSizeGetData(sBufferAndSize*e_pStreamingDataReceiver, int*e
 		memcpy(l_pOutData, &e_pStreamingDataReceiver->pBuffer[l_iMatchIndex[l_iFori]], l_iu16PacketSize);
 		BufferAndSizeRemoveBuffer(e_pStreamingDataReceiver, l_iBufferEndIndex);
 		*e_pi16MessageID = *(int16*)&l_pOutData[l_iMessageIDIndex];
+		*e_piSize = l_iu16PacketSize;
 		return l_pOutData;
 	}
 	return 0;
