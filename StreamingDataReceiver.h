@@ -18,6 +18,13 @@
 #define uint16 unsigned short
 #endif
 
+#ifndef int32
+#define int32 long
+#endif
+
+#ifndef uint32
+#define uint32 unsigned long
+#endif
 
 #define		LAZY_HEADER_STAR(ID)			struct sStreamingData_##ID{int8 i8MagicID[MAGIC_ID_COUNT]; int16	i16PacketSize; uint16	i16CheckSum; int16 i16Message;
 #define		LAZY_HEADER_END(ID)				sStreamingData_##ID(){ memset(this,0,sizeof(sStreamingData_##ID));ASSIGN_MAGIC_ID(i8MagicID);i16PacketSize = sizeof(sStreamingData_##ID); i16CheckSum = 0;i16Message = ID;} };
