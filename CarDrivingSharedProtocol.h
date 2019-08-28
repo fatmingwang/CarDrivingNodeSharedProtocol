@@ -86,9 +86,6 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_CAR_GO_TO_DESTINATION_REQUEST)
 	int								iSmallPartDataCount;
 	int								iCarID;
 	int16							i16TagIDArray[CAR_A_TO_B_DATA_LENGTH];//160
-	//i16DistanceArray,i8AngleTypeArray not necessary data,because put data into RouteDividedIntoSmallPartDataArray
-	int16							i16DistanceArray[CAR_A_TO_B_DATA_LENGTH];
-	int8							i8AngleTypeArray[CAR_A_TO_B_DATA_LENGTH];
 	sRouteDividedIntoSmallPartData	RouteDividedIntoSmallPartDataArray[ROUTE_KEY_POINT_DATA_LENGTH];
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_CAR_GO_TO_DESTINATION_REQUEST)
 

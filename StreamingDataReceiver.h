@@ -66,7 +66,15 @@ struct sBufferAndSize
 };
 
 inline void	BufferAndSizeInit(sBufferAndSize*e_pStreamingDataReceiver){e_pStreamingDataReceiver->pBuffer = 0; e_pStreamingDataReceiver->iSize = 0;}
-inline void	BufferAndSizeFree(sBufferAndSize*e_pStreamingDataReceiver) { if (e_pStreamingDataReceiver->pBuffer)free(e_pStreamingDataReceiver->pBuffer); e_pStreamingDataReceiver->iSize = 0; }
+inline void	BufferAndSizeFree(sBufferAndSize*e_pStreamingDataReceiver)
+{
+	if (e_pStreamingDataReceiver->pBuffer)
+	{
+		free(e_pStreamingDataReceiver->pBuffer);
+		e_pStreamingDataReceiver->pBuffer = 0;
+	}
+	e_pStreamingDataReceiver->iSize = 0; 
+}
 inline void	BufferAndSizeRemoveBuffer(sBufferAndSize*e_pStreamingDataReceiver,int e_iSize)
 {
 	char*l_pNewBuffer = 0;
@@ -77,13 +85,15 @@ inline void	BufferAndSizeRemoveBuffer(sBufferAndSize*e_pStreamingDataReceiver,in
 		return;
 	}
 	l_pNewBuffer = (char*)malloc(l_iNewSize);
-	memcpy(l_pNewBuffer, &e_pStreamingDataReceiver[e_iSize], l_iNewSize);
+	memcpy(l_pNewBuffer, &e_pStreamingDataReceiver->pBuffer[e_iSize], l_iNewSize);
 	BufferAndSizeFree(e_pStreamingDataReceiver);
 	e_pStreamingDataReceiver->pBuffer = l_pNewBuffer;
 	e_pStreamingDataReceiver->iSize = l_iNewSize;
 }
 inline int		BufferAndSizeAddBuffer(sBufferAndSize*e_pStreamingDataReceiver, char*e_pNewBuffer, int e_iSize)
 {
+	if (e_iSize < 1)
+		return -1;
 	int l_iNewSize = e_iSize + e_pStreamingDataReceiver->iSize;
 	char*l_pNewBuffer = 0;
 	//old data over 4k???remove old data
@@ -93,21 +103,18 @@ inline int		BufferAndSizeAddBuffer(sBufferAndSize*e_pStreamingDataReceiver, char
 		BufferAndSizeFree(e_pStreamingDataReceiver);
 		return -1;
 	}
-	if (e_iSize == 0)
-		return -1;
 	//malloc old and new buffer size
 	l_pNewBuffer = (char*)malloc(l_iNewSize);
 	//copy old
-	if (e_pStreamingDataReceiver->iSize)
+	if (e_pStreamingDataReceiver->iSize > 0)
 		memcpy(l_pNewBuffer, e_pStreamingDataReceiver->pBuffer, e_pStreamingDataReceiver->iSize);
 	//copy new
 	memcpy(&l_pNewBuffer[e_pStreamingDataReceiver->iSize], e_pNewBuffer, e_iSize);
 	//free old
-	if (e_pStreamingDataReceiver->pBuffer)
-		free(e_pStreamingDataReceiver->pBuffer);
+	BufferAndSizeFree(e_pStreamingDataReceiver);
 	//assign to new
 	e_pStreamingDataReceiver->pBuffer = l_pNewBuffer;
-	e_pStreamingDataReceiver->iSize += e_iSize;
+	e_pStreamingDataReceiver->iSize = l_iNewSize;
 	return 1;
 }
 inline int		BufferAndSizeGetMatchedMagicID(sBufferAndSize*e_pStreamingDataReceiver, int*e_piMatchedIndex, int*e_piNumMatched)
