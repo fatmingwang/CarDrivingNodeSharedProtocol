@@ -11,7 +11,7 @@ enum eCarDrivingNetworkMessage
 	eCDNM_S2C_RFID_INFO,
 	eCDNM_S2C_RFID_INFO_RESULT,
 	//eCDNM_S2C_CAR_GO_TO_DESTINATION_END,//node type
-	eCDNM_S2C_CAR_STOP,//emgency situation!?
+	eCDNM_S2C_ASK_CAR_STOP,//emgency situation!?
 	//eCDNM_S2C_CAR_WAIT,//
 	//
 	eCDNM_MAX
@@ -90,5 +90,7 @@ enum eCarSendingStatus
 	eCSS_IDLE_AND_MEAL_EMPTY = 0,
 	eCSS_IDLE_AND_MEAL_FILLED,
 	eCSS_DRIVING,
+	eCSS_CAR_GOT_ACCIDENT_STRUCK_ON_THE_WAY,
+	eCSS_REVERSING,
 	eCSS_MAX
 };
