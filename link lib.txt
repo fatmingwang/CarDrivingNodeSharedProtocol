@@ -1,0 +1,68 @@
+1.
+sudo apt-get install openssh-server g++ gdb gdbserver
+2.
+//remove office
+sudo apt-get remove --purge libreoffice*
+sudo apt-get clean
+sudo apt-get autoremove
+//opengles openal
+sudo apt-get install libgles2-mesa-dev
+apt-get install libopenal-dev
+
+//freetype
+sudo apt-get install cmake
+??????????????????need this one?
+sudo apt-get install libfreetype6 libfreetype6-dev -y
+???????????????????
+rm -rf freetype2
+git clone git://git.sv.nongnu.org/freetype/freetype2.git
+
+cd freetype2
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+
+setup remote desktop 
+3.
+sudo /etc/init.d/xrdp start
+sudo service xrdp start
+
+4.
+setup remote debugging
+sudo service ssh start
+
+
+
+PLEASE USE
+
+-lbrcmEGL
+-lbrcmGLESv2
+
+
+NOT USE 
+
+-lEGL
+-lGLESv2
+
+
+or opengl ES can't run
+
+c/c++ -> Command Line
+add 
+-I/opt/vc/include 
+Linker -> Command Line
+add 
+-L/opt/vc/lib 
+
+
+-lopenal
+-pthread
+-lbrcmGLESv2
+-lstdc++
+-lc
+-lm
+-lfreetype
+-lbrcmEGL
+-lbcm_host

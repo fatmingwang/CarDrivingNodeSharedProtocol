@@ -60,6 +60,7 @@ enum eCarDrivingStatus
 	eCDS_CONNECTION_LOST,//network problem
 	//
 	eCDS_OUT_OF_CONTROL_ASK_USER_TO_TAKE_IT_TO_FIXT_IT,//still have connection but no RFID Signal or else,car got problem.
+	eCDS_CAR_ARDUINI_NOT_WORKING,
 	eCDS_CAR_REMOVED_FROME_MAP,//uset take car off
 	eCDS_TRAFFIC_STUCK_WAIT_TOO_LONG,//target point was occupied by somecar?
 	eCDS_MAX
@@ -120,6 +121,9 @@ inline const wchar_t * GetCarDrivingStatusString(eCarDrivingStatus e_eCarDriving
 		break;
 	case eCDS_OUT_OF_CONTROL_ASK_USER_TO_TAKE_IT_TO_FIXT_IT:
 		return L"out of control ask user to take to fix it";
+		break;
+	case eCDS_CAR_ARDUINI_NOT_WORKING:
+		return L"Car Arduino no signal";
 		break;
 	case eCDS_CAR_REMOVED_FROME_MAP:
 		return L"car removed";
