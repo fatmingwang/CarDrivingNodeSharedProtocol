@@ -27,7 +27,21 @@
 #endif
 
 #define		LAZY_HEADER_STAR(ID)			struct sStreamingData_##ID{int8 i8MagicID[MAGIC_ID_COUNT]; int16	i16PacketSize; uint16	i16CheckSum; int16 i16Message;
+
+
+#ifdef RPI
 #define		LAZY_HEADER_END(ID)				sStreamingData_##ID(){ memset(this,0,sizeof(sStreamingData_##ID));ASSIGN_MAGIC_ID(i8MagicID);i16PacketSize = sizeof(sStreamingData_##ID); i16CheckSum = 0;i16Message = ID;} };
+#else
+#define    LAZY_HEADER_END(ID)      };                            \
+void Init_sStreamingData_##ID(sStreamingData_##ID*e_pInData)      \
+{                                                                 \
+  memset(e_pInData,0,sizeof(sStreamingData_##ID));                \
+  ASSIGN_MAGIC_ID(e_pInData->i8MagicID);                          \
+  e_pInData->i16PacketSize = sizeof(sStreamingData_##ID);         \
+  e_pInData->i16CheckSum = 0;                                     \
+  e_pInData->i16Message = ID;                                    \
+}
+#endif
 
 
 #define		MAGIC_ID_COUNT					4
