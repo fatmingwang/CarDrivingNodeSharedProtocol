@@ -33,7 +33,7 @@
 #define		LAZY_HEADER_END(ID)				sStreamingData_##ID(){ memset(this,0,sizeof(sStreamingData_##ID));ASSIGN_MAGIC_ID(i8MagicID);i16PacketSize = sizeof(sStreamingData_##ID); i16CheckSum = 0;i16Message = ID;} };
 #else
 #define    LAZY_HEADER_END(ID)      };                            \
-void Init_sStreamingData_##ID(sStreamingData_##ID*e_pInData)      \
+inline void Init_sStreamingData_##ID(sStreamingData_##ID*e_pInData)      \
 {                                                                 \
   memset(e_pInData,0,sizeof(sStreamingData_##ID));                \
   ASSIGN_MAGIC_ID(e_pInData->i8MagicID);                          \
@@ -93,7 +93,7 @@ inline void	BufferAndSizeRemoveBuffer(sBufferAndSize*e_pStreamingDataReceiver,in
 {
 	char*l_pNewBuffer = 0;
 	int l_iNewSize = e_pStreamingDataReceiver->iSize-e_iSize;
-	if (l_iNewSize == 0)
+	if (l_iNewSize <= 0)
 	{
 		BufferAndSizeFree(e_pStreamingDataReceiver);
 		return;
@@ -111,9 +111,11 @@ inline int		BufferAndSizeAddBuffer(sBufferAndSize*e_pStreamingDataReceiver, char
 	int l_iNewSize = e_iSize + e_pStreamingDataReceiver->iSize;
 	char*l_pNewBuffer = 0;
 	//old data over 4k???remove old data
-	if (l_iNewSize > 4096)
+	if (l_iNewSize > 4096 || l_iNewSize < 1)
 	{
-		printf("buffer over 4096 bytes");
+#ifdef DEBUG
+		printf("buffer over 4096 bytes or size smaller than 1");
+#endif
 		BufferAndSizeFree(e_pStreamingDataReceiver);
 		return -1;
 	}
@@ -184,7 +186,14 @@ inline char*	BufferAndSizeGetData(sBufferAndSize*e_pStreamingDataReceiver, int*e
 		*l_pui16OriginalCheckSumValue = 0;
 		if (l_ui16CheckSum != BufferAndSizeGetCheckSum(&e_pStreamingDataReceiver->pBuffer[l_iMatchIndex[l_iFori]], l_iu16PacketSize))
 		{
-			printf("check sum not matched!");
+			//printf("check sum not matched!");
+			//continue;
+		}
+		if (l_iu16PacketSize < 1 || l_iu16PacketSize >= 1024)
+		{
+#ifdef DEBUG
+			printf("packet not correct:%d!", (int)l_iu16PacketSize);
+#endif
 			continue;
 		}
 		l_pOutData = (char*)malloc(l_iu16PacketSize);
