@@ -1,8 +1,5 @@
 #pragma once
 
-//#define		MAGIC_ID_COUNT					4
-//const static uint8	g_HeaderCode[MAGIC_ID_COUNT] = { 0x80,0x63,0x68,0x55 };
-//#define		ASSIGN_MAGIC_ID(Data)			memcpy(Data, g_HeaderCode,MAGIC_ID_SIZE);
 #include	"SharedProtocolCommonDefine.h"
 #include	"CarDrivingMessageList.h"
 #include	"CarDrivingResultMessage.h"
