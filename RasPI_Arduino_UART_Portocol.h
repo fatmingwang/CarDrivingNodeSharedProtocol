@@ -28,6 +28,7 @@ LAZY_HEADER_STAR(eARM_A2R_HWARDWARE_INFO)
 	uint32	ui32RightDistabce;  //讀取右馬達轉動距離 範圍0~2147483648(單位mm) 
 	uint16	ui16LeftMotorLoading;   //讀取左馬達負載量 範圍0~100(%) 
 	uint16	ui16RightMotorLoading;  //讀取右馬達負載量 範圍0~100(%) 
+	uint16	ui16ReceivedMessageCount;//
 LAZY_HEADER_END(eARM_A2R_HWARDWARE_INFO)
 #pragma pack()     /* cancel previous alignment to n byte boundary */ 
 
