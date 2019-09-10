@@ -60,6 +60,8 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 	int	iCarID;
 	int	iTagID;
 	int	i1Status;//eCarSendingStatus
+	int	iBattery;
+	int	iExceptionCode;
 LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 
 
