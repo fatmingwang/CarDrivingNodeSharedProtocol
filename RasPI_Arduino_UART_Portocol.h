@@ -22,8 +22,8 @@ LAZY_HEADER_STAR(eARM_A2R_HWARDWARE_INFO)
 //	uint16	i8Obstacle;   //合併到異常代碼中  
 	uint16	ui16MealSettle;   //餐盤感測器狀態   00=沒有   01=第一節車有 10=第二節車有  11=兩節車都有     
 	uint16	ui16Power;        //電池電量   0~100(%)
-	uint16	ui16LeftSpeed;//讀取左馬達速度 0~100(%)    
-	uint16	ui16RightSpeed;//讀取右馬達速度 0~100(%)  
+	int16	ui16LeftSpeed;//讀取左馬達速度 +/- 0~100(%)    
+	int16	ui16RightSpeed;//讀取右馬達速度 +/- 0~100(%)  
 	uint32	ui32LeftDistabce;   //讀取左馬達轉動距離 範圍0~2147483648(單位mm) 
 	uint32	ui32RightDistabce;  //讀取右馬達轉動距離 範圍0~2147483648(單位mm) 
 	uint16	ui16LeftMotorLoading;   //讀取左馬達負載量 範圍0~100(%) 
@@ -40,8 +40,8 @@ LAZY_HEADER_STAR(eARM_R2A_COMMAND)
 	uint32 ui32DistanceRight; //設定右馬達轉動距離 範圍0~2147483648(單位mm)
   uint16 ui16AcceLeft;     //設定左馬達加速度 範圍0~300(%)
 	uint16 ui16AcceRight;    //設定右馬達加速度 範圍0~300(%)
-	uint16 ui16SpeedLeft;    //設定左馬達速度  範圍0~100(%)
-	uint16 ui16SpeedRight;   //設定右馬達速度  範圍0~100(%)
+	int16 ui16SpeedLeft;    //設定左馬達速度  範圍+/- 0~100(%)
+	int16 ui16SpeedRight;   //設定右馬達速度  範圍+/- 0~100(%)
 	uint16 ui16voice;        //設定語音模組  0=停止 1=撥放  *之後預定修改成播放"xx桌的客人請取餐",請送出xx*  
 	uint32 ui32TagID;   //設定目標TAG ID  範圍0000000~FFFFFFF  
 LAZY_HEADER_END(eARM_R2A_COMMAND)
