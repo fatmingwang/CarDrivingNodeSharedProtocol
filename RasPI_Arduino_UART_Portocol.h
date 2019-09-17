@@ -4,14 +4,37 @@
 
 enum eArduinoRasPIMessage
 {
-	eARM_A2R_HWARDWARE_INFO = 0,
+	eARM_R2A_VERSION_REQUEST = 0,
+	eARM_R2A_VERSION_RESULT,
+	eARM_A2R_HWARDWARE_INFO,
 	eARM_R2A_COMMAND,
+	eARM_R2A_COUNT_TEST,
 	eARM_A2R_MAX
 };
 
-#define	MOTOR_OVER_HEAT	1<<1
-#define	EXP_1			2<<1
-#define	EXP_2			3<<1
+//#define	MOTOR_OVER_HEAT	1<<1
+//#define	EXP_1			2<<1
+//#define	EXP_2			3<<1
+
+//Sep/7/2019 version 1
+//remove uint32 ui32TagID from eARM_R2A_COMMAND.
+#define		RASPI_ARDUINO_COMMUNCIATUION_VERSION	1
+
+#pragma pack(push)  /* push current alignment to stack */
+#pragma pack(1)     /* set alignment to n byte boundary */
+LAZY_HEADER_STAR(eARM_R2A_VERSION_REQUEST)
+	uint32	ui32Version;
+LAZY_HEADER_END(eARM_R2A_VERSION_REQUEST)
+#pragma pack()     /* cancel previous alignment to n byte boundary */ 
+
+#pragma pack(push)  /* push current alignment to stack */
+#pragma pack(1)     /* set alignment to n byte boundary */
+LAZY_HEADER_STAR(eARM_R2A_VERSION_RESULT)
+uint32	ui32Version;
+LAZY_HEADER_END(eARM_R2A_VERSION_RESULT)
+#pragma pack()     /* cancel previous alignment to n byte boundary */ 
+
+
 //make sure
 #pragma pack(push)  /* push current alignment to stack */
 #pragma pack(1)     /* set alignment to n byte boundary */
@@ -43,10 +66,15 @@ LAZY_HEADER_STAR(eARM_R2A_COMMAND)
 	int16  i16SpeedLeft;    //設定左馬達速度  範圍+/- 0~100(%)
 	int16  i16SpeedRight;   //設定右馬達速度  範圍+/- 0~100(%)
 	uint16 ui16voice;        //設定語音模組  0=停止 1=撥放  *之後預定修改成播放"xx桌的客人請取餐",請送出xx*  
-	uint32 ui32TagID;   //設定目標TAG ID  範圍0000000~FFFFFFF  
-LAZY_HEADER_END(eARM_R2A_COMMAND)
+	LAZY_HEADER_END(eARM_R2A_COMMAND)
 #pragma pack()     /* cancel previous alignment to n byte boundary */ 
 
+#pragma pack(push)  /* push current alignment to stack */
+#pragma pack(1)     /* set alignment to n byte boundary */
+LAZY_HEADER_STAR(eARM_R2A_COUNT_TEST)
+		uint32 ui32SendCount;
+LAZY_HEADER_END(eARM_R2A_COUNT_TEST)
+#pragma pack()     /* cancel previous alignment to n byte boundary */ 
 
 
 
