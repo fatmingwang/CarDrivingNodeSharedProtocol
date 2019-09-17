@@ -5,7 +5,7 @@
 enum eArduinoRasPIMessage
 {
 	eARM_R2A_VERSION_REQUEST = 0,
-	eARM_R2A_VERSION_RESULT,
+	eARM_A2R_VERSION_RESULT,
 	eARM_A2R_HWARDWARE_INFO,
 	eARM_R2A_COMMAND,
 	eARM_R2A_COUNT_TEST,
@@ -18,6 +18,7 @@ enum eArduinoRasPIMessage
 
 //Sep/7/2019 version 1
 //remove uint32 ui32TagID from eARM_R2A_COMMAND.
+//add version check.
 #define		RASPI_ARDUINO_COMMUNCIATUION_VERSION	1
 
 #pragma pack(push)  /* push current alignment to stack */
@@ -29,9 +30,9 @@ LAZY_HEADER_END(eARM_R2A_VERSION_REQUEST)
 
 #pragma pack(push)  /* push current alignment to stack */
 #pragma pack(1)     /* set alignment to n byte boundary */
-LAZY_HEADER_STAR(eARM_R2A_VERSION_RESULT)
+LAZY_HEADER_STAR(eARM_A2R_VERSION_RESULT)
 uint32	ui32Version;
-LAZY_HEADER_END(eARM_R2A_VERSION_RESULT)
+LAZY_HEADER_END(eARM_A2R_VERSION_RESULT)
 #pragma pack()     /* cancel previous alignment to n byte boundary */ 
 
 
@@ -39,14 +40,14 @@ LAZY_HEADER_END(eARM_R2A_VERSION_RESULT)
 #pragma pack(push)  /* push current alignment to stack */
 #pragma pack(1)     /* set alignment to n byte boundary */
 LAZY_HEADER_STAR(eARM_A2R_HWARDWARE_INFO)
-	uint16		ui16ExpcptionCode;  //   異常代碼 0=正常  1=馬達異常 2=避障感測器觸發  
+	uint16	ui16ExpcptionCode;  //   異常代碼 0=正常  1=馬達異常 2=避障感測器觸發  
 	uint32	ui32TagID;      //目前最新讀到的TAG ID  範圍0000000~FFFFFFF  
-  uint16  ui16RfidReadStatus; //rfid的當次迴圈的讀取狀態 1=有讀取 0=沒讀取
+	uint16  ui16RfidReadStatus; //rfid的當次迴圈的讀取狀態 1=有讀取 0=沒讀取
 //	uint16	i8Obstacle;   //合併到異常代碼中  
 	uint16	ui16MealSettle;   //餐盤感測器狀態   00=沒有   01=第一節車有 10=第二節車有  11=兩節車都有     
 	uint16	ui16Power;        //電池電量   0~100(%)
-	int16	  i16LeftSpeed;//讀取左馬達速度 +/- 0~100(%)    
-	int16	  i16RightSpeed;//讀取右馬達速度 +/- 0~100(%)  
+	int16	i16LeftSpeed;//讀取左馬達速度 +/- 0~100(%)    
+	int16	i16RightSpeed;//讀取右馬達速度 +/- 0~100(%)  
 	uint32	ui32LeftDistabce;   //讀取左馬達轉動距離 範圍0~2147483648(單位mm) 
 	uint32	ui32RightDistabce;  //讀取右馬達轉動距離 範圍0~2147483648(單位mm) 
 	uint16	ui16LeftMotorLoading;   //讀取左馬達負載量 範圍0~100(%) 
