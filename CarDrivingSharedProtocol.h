@@ -48,6 +48,10 @@ struct sSlowDownParameters
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 	int					iVersion;
 	char				strMapFileName[MAP_NAME_ARRAY_LENGTH];
+	int8				i8DontSendBackToServer;//for server test slowbreak.
+	int16				i16SlowBreakAcc;
+	int16				i16SlowBreakSpeed;
+	uint32				ui32SlowBreakDis;
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
