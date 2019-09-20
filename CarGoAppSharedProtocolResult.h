@@ -27,7 +27,7 @@ inline const wchar_t* ResultToString(eCarGoAppSharedProtocolResult e_eCarGoAppSh
 		case eCGASPR_DELIVERPOINT_OCCUPIED_BY_OTHER_CAR_GO_APP:
 			return L"deliver point is occupied by other car go app";
 		case eCGASPR_DELIVERPOINT_NO_CAR:
-			return L"no cat at this deliver point";
+			return L"no car at this deliver point";
 		case eCGASPR_SERVER_ERROR_PLEASE_RELOGIN_AGAIN:
 			return L"server shut down please restart app.";
 		case eCGASPR_CAR_GO_FAILED:
