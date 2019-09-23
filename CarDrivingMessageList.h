@@ -48,6 +48,11 @@ enum eNodeType
 	eNT_TURN_POUNT_L165,//165
 	eNT_TURN_POUNT_L180,//180
 	eNT_DUMMY_POINT_FOR_COLLISION_TEST,//a not exists node (no rfid card),only for route collision test.
+	//some turn position don't have wall,so make a more quick turn.
+	eNT_TURN_POUNT_RAPID_L90,//
+	eNT_TURN_POUNT_RAPID_L180,//
+	eNT_TURN_POUNT_RAPID_R90,//
+	eNT_TURN_POUNT_RAPID_R180,//
 	eNT_MAX,
 };
 
