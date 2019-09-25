@@ -68,10 +68,20 @@ const static int8	g_i8StreamingDataMagicID[MAGIC_ID_COUNT] = { 55,68,63,80 };
 
 inline int BufferAndSizeGetCheckSum(char*e_pData,int e_iSize)
 {
+	//int l_iCheckSum = 0;
+	//for (int i = 0; i < e_iSize; ++i)
+	//{
+	//	l_iCheckSum += e_pData[i];
+	//}
+	//return l_iCheckSum;
 	int l_iCheckSum = 0;
-	for (int i = 0; i < e_iSize; ++i)
+	int l_iInt32Size = sizeof(int32);
+	int l_iCount = e_iSize / l_iInt32Size;
+	for (int i = 0; i < l_iCount; ++i)
 	{
-		l_iCheckSum += e_pData[i];
+		char*l_pData = &e_pData[i*l_iInt32Size];
+		int32 l_i32Value = *(int32*)l_pData;
+		l_iCheckSum += (int)l_i32Value;
 	}
 	return l_iCheckSum;
 }
@@ -168,7 +178,7 @@ inline int		BufferAndSizeAddBuffer(sBufferAndSize*e_pStreamingDataReceiver, char
 }
 inline int		BufferAndSizeGetMatchedMagicID(sBufferAndSize*e_pStreamingDataReceiver, int*e_piMatchedIndex, int*e_piNumMatched)
 {
-	int		l_iBufferSize = e_pStreamingDataReceiver->iSize - MAGIC_ID_COUNT;
+	int		l_iBufferSize = e_pStreamingDataReceiver->iSize;
 	int		l_iFori = 0;
 	*e_piNumMatched = 0;
 	if (e_pStreamingDataReceiver->iSize < MESSAGE_ID_INDEX)
@@ -222,12 +232,12 @@ inline char*	BufferAndSizeGetData(sBufferAndSize*e_pStreamingDataReceiver, int*e
 		l_pui16OriginalCheckSumValue = (uint16*)&e_pStreamingDataReceiver->pBuffer[l_iCheckSumIndex];
 		*l_pui16OriginalCheckSumValue = 0;
 #ifdef SHOW_ERROR_CODE//have no idea why check is not working....
-		if (l_ui16CheckSum != BufferAndSizeGetCheckSum(&e_pStreamingDataReceiver->pBuffer[l_iMatchIndex[l_iFori]], l_iu16PacketSize))
-		{
-			*e_pioutErrorCode = 2;
-			//printf("check sum not matched!");
-			continue;
-		}
+		//if (l_ui16CheckSum != BufferAndSizeGetCheckSum(&e_pStreamingDataReceiver->pBuffer[l_iMatchIndex[l_iFori]], l_iu16PacketSize))
+		//{
+		//	*e_pioutErrorCode = 2;
+		//	//printf("check sum not matched!");
+		//	continue;
+		//}
 #endif
 		if (l_iu16PacketSize < 1 || l_iu16PacketSize >= 2048)
 		{
