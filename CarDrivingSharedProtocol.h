@@ -48,15 +48,17 @@ struct sSlowDownParameters
 };
 
 //=====================================
+#pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 	int					iVersion;
 	char				strMapFileName[MAP_NAME_ARRAY_LENGTH];
-	int8				i8DontSendBackToServer;//for server test slowbreak.
-	int16				i16SlowBreakAcc;
-	int16				i16SlowBreakSpeed;
-	uint16				ui16SlowBreakDis;
+	int					iDontSendBackToServer;//for server test slowbreak.
+	int					iSlowBreakAcc;
+	int					iSlowBreakSpeed;
+	int					iSlowBreakDis;
 	int					iDeliverPointRFID[IMMEDIATELY_STOP_RFID_COUNT];
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
+#pragma pack(pop)
 
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
 	int		iCarID;
@@ -73,7 +75,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 	int	iWIFISignalStrength;
 LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 
-
+#pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
 struct sRouteDividedIntoSmallPartData
 {
 	int8	i8AngleType;
@@ -87,7 +89,9 @@ struct sRouteDividedIntoSmallPartData
 	int16	i16SafeAcc[CAR_WHEEL_COUNT];
 	int16	i16SafeSpeed[CAR_WHEEL_COUNT];
 };
+#pragma pack(pop)
 
+#pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_CAR_GO_TO_DESTINATION_REQUEST)
 	int								iCount;//or do if Tag ID is -1 end?,2
 	int								iSmallPartDataCount;
@@ -95,6 +99,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_CAR_GO_TO_DESTINATION_REQUEST)
 	int32							i32TagIDArray[CAR_A_TO_B_DATA_LENGTH];//160
 	sRouteDividedIntoSmallPartData	RouteDividedIntoSmallPartDataArray[ROUTE_KEY_POINT_DATA_LENGTH];
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_CAR_GO_TO_DESTINATION_REQUEST)
+#pragma pack(pop)
 
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_GO_TO_DESTINATION_RESULT)
 	int	iCarID;
