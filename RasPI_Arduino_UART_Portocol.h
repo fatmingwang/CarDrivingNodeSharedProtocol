@@ -60,13 +60,13 @@ LAZY_HEADER_END(eARM_A2R_HWARDWARE_INFO)
 #pragma pack(push)  /* push current alignment to stack */
 #pragma pack(1)     /* set alignment to n byte boundary */
 LAZY_HEADER_STAR(eARM_R2A_COMMAND)
-	uint32 ui32DistanceLeft;  //設定左馬達轉動距離 範圍0~2147483648(單位mm) 
-	uint32 ui32DistanceRight; //設定右馬達轉動距離 範圍0~2147483648(單位mm)
-  uint16 ui16AcceLeft;     //設定左馬達加速度 範圍0~300(%)
-	uint16 ui16AcceRight;    //設定右馬達加速度 範圍0~300(%)
-	int16  i16SpeedLeft;    //設定左馬達速度  範圍+/- 0~100(%)
-	int16  i16SpeedRight;   //設定右馬達速度  範圍+/- 0~100(%)
-	uint16 ui16voice;        //設定語音模組  0=停止 1=撥放  *之後預定修改成播放"xx桌的客人請取餐",請送出xx*  
+	uint16	ui16DistanceLeft;  //設定左馬達轉動距離 範圍0~2147483648(單位mm) 
+	uint16	ui16DistanceRight; //設定右馬達轉動距離 範圍0~2147483648(單位mm)
+	uint8	ui8AcceLeft;     //設定左馬達加速度 範圍0~300(%)
+	uint8	ui8AcceRight;    //設定右馬達加速度 範圍0~300(%)
+	int16	i8SpeedLeft;    //設定左馬達速度  範圍+/- 0~100(%)
+	int16	i8SpeedRight;   //設定右馬達速度  範圍+/- 0~100(%)
+	uint8	ui8voice;        //設定語音模組  0=停止 1=撥放  *之後預定修改成播放"xx桌的客人請取餐",請送出xx*  
 LAZY_HEADER_END(eARM_R2A_COMMAND)
 #pragma pack()     /* cancel previous alignment to n byte boundary */
 

@@ -54,7 +54,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 	int8				i8DontSendBackToServer;//for server test slowbreak.
 	int16				i16SlowBreakAcc;
 	int16				i16SlowBreakSpeed;
-	uint32				ui32SlowBreakDis;
+	uint16				ui16SlowBreakDis;
 	int					iDeliverPointRFID[IMMEDIATELY_STOP_RFID_COUNT];
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 
@@ -70,6 +70,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 	int	i1Status;//eCarSendingStatus
 	int	iBattery;
 	int	iExceptionCode;
+	int	iWIFISignalStrength;
 LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 
 
