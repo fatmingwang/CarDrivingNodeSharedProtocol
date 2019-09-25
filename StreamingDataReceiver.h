@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef DEBUG
+#define SHOW_ERROR_CODE
+#endif
+
 #ifndef int8
 #define int8 char
 #endif
@@ -82,7 +86,7 @@ struct sBufferAndSize
 inline void	BufferAndSizeInit(sBufferAndSize*e_pStreamingDataReceiver){e_pStreamingDataReceiver->pBuffer = 0; e_pStreamingDataReceiver->iSize = 0;}
 inline void	BufferAndSizeFree(sBufferAndSize*e_pStreamingDataReceiver)
 {
-#ifdef DEBUG
+#ifdef SHOW_ERROR_CODE
 	if (e_pStreamingDataReceiver->iSize == 0 && e_pStreamingDataReceiver->pBuffer)
 	{
 		printf("BufferAndSizeFree:size is 0 but buffer is not null,memory leak!?");
@@ -99,7 +103,7 @@ inline void	BufferAndSizeRemoveBuffer(sBufferAndSize*e_pStreamingDataReceiver,in
 {
 	char*l_pNewBuffer = 0;
 	int l_iNewSize = e_pStreamingDataReceiver->iSize - e_iBeforeIndexToRemove;
-#ifdef DEBUG
+#ifdef SHOW_ERROR_CODE
 	if (e_pStreamingDataReceiver->iSize < e_iBeforeIndexToRemove || e_iBeforeIndexToRemove < 0)
 	{
 		printf("BufferAndSizeRemoveBuffer remove index is not correct!");
@@ -133,14 +137,14 @@ inline int		BufferAndSizeAddBuffer(sBufferAndSize*e_pStreamingDataReceiver, char
 	//old data over 4k???remove old data
 	if (l_iNewSize < 1)
 	{
-#ifdef DEBUG
+#ifdef SHOW_ERROR_CODE
 		printf("buffer size smaller than 1\n");
 #endif
 		return -1;
 	}
 	if (l_iNewSize >= 4096 )
 	{
-#ifdef DEBUG
+#ifdef SHOW_ERROR_CODE
 		printf("buffer over 4096 bytes \n");
 #endif
 		BufferAndSizeFree(e_pStreamingDataReceiver);
@@ -185,8 +189,9 @@ inline int		BufferAndSizeGetMatchedMagicID(sBufferAndSize*e_pStreamingDataReceiv
 	return *e_piNumMatched;
 }
 
-inline char*	BufferAndSizeGetData(sBufferAndSize*e_pStreamingDataReceiver, int*e_piSize,int16*e_pi16MessageID)
+inline char*	BufferAndSizeGetData(sBufferAndSize*e_pStreamingDataReceiver, int*e_piSize,int16*e_pi16MessageID,int16*e_pioutErrorCode)
 {
+	*e_pioutErrorCode = 0;
 	char*	l_pOutData = 0;
 	int		l_iMatchIndex[NUM_MAGIC_ID_MATCHED];
 	int		l_iCheckSumIndex = -1;
@@ -198,8 +203,11 @@ inline char*	BufferAndSizeGetData(sBufferAndSize*e_pStreamingDataReceiver, int*e
 	uint16	l_ui16CheckSum = -1;
 	uint16*	l_pui16OriginalCheckSumValue = 0;
 	int		l_iMessageIDIndex = MESSAGE_ID_INDEX;
-	if(!BufferAndSizeGetMatchedMagicID(e_pStreamingDataReceiver,l_iMatchIndex,&l_iNumMatch))
+	if (!BufferAndSizeGetMatchedMagicID(e_pStreamingDataReceiver, l_iMatchIndex, &l_iNumMatch))
+	{
+		*e_pioutErrorCode = 1;
 		return 0;
+	}
 	for (; l_iFori < l_iNumMatch; ++l_iFori)
 	{
 		l_iPacketSizeIndex = l_iMatchIndex[l_iFori] + PACKET_SIZE_INDEX;
@@ -213,21 +221,23 @@ inline char*	BufferAndSizeGetData(sBufferAndSize*e_pStreamingDataReceiver, int*e
 		l_ui16CheckSum = *(uint16*)&e_pStreamingDataReceiver->pBuffer[l_iCheckSumIndex];
 		l_pui16OriginalCheckSumValue = (uint16*)&e_pStreamingDataReceiver->pBuffer[l_iCheckSumIndex];
 		*l_pui16OriginalCheckSumValue = 0;
-#ifdef DEBUG//have no idea why check is not working....
+#ifdef SHOW_ERROR_CODE//have no idea why check is not working....
 		if (l_ui16CheckSum != BufferAndSizeGetCheckSum(&e_pStreamingDataReceiver->pBuffer[l_iMatchIndex[l_iFori]], l_iu16PacketSize))
 		{
+			*e_pioutErrorCode = 2;
 			//printf("check sum not matched!");
-			//continue;
+			continue;
 		}
 #endif
 		if (l_iu16PacketSize < 1 || l_iu16PacketSize >= 2048)
 		{
-#ifdef DEBUG
+			*e_pioutErrorCode = 3;
+#ifdef SHOW_ERROR_CODE
 			printf("packet not correct:%d!\n", (int)l_iu16PacketSize);
 #endif
 			continue;
 		}
-#ifdef DEBUG//change size(38) for test
+#ifdef SHOW_ERROR_CODE//change size(38) for test
 		//if (l_iu16PacketSize != 38)
 		//{
 		//	printf("packet size is not 38!\n");
@@ -236,9 +246,10 @@ inline char*	BufferAndSizeGetData(sBufferAndSize*e_pStreamingDataReceiver, int*e
 		//}
 #endif
 		l_pOutData = (char*)malloc(l_iu16PacketSize);
-#ifdef DEBUG
+#ifdef SHOW_ERROR_CODE
 		if (l_iMatchIndex[l_iFori] + l_iu16PacketSize > e_pStreamingDataReceiver->iSize)
 		{
+			*e_pioutErrorCode = 4;
 			BufferAndSizeFree(e_pStreamingDataReceiver);
 			printf("out of memory!");
 			return 0;
