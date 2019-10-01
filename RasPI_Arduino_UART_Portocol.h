@@ -49,7 +49,7 @@ LAZY_HEADER_STAR(eARM_A2R_HWARDWARE_INFO)
 	uint16	ui16LeftMotorLoading;   //讀取左馬達負載量 範圍0~100(%) 
 	uint16	ui16RightMotorLoading;  //讀取右馬達負載量 範圍0~100(%) 
 	uint16	ui16ReceivedMessageCount;//回傳arduino收到正確封包的次數
-	uint8	i8UseObstacleSensor;   //0 for sendor close,1 sensor open
+	uint8	ui8UseObstacleSensorProjectDistance;   //0 for sendor close, the other value for projection distance
 LAZY_HEADER_END(eARM_A2R_HWARDWARE_INFO)
 #pragma pack(pop)
 
