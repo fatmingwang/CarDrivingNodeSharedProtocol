@@ -49,7 +49,6 @@ LAZY_HEADER_STAR(eARM_A2R_HWARDWARE_INFO)
 	uint16	ui16LeftMotorLoading;   //讀取左馬達負載量 範圍0~100(%) 
 	uint16	ui16RightMotorLoading;  //讀取右馬達負載量 範圍0~100(%) 
 	uint16	ui16ReceivedMessageCount;//回傳arduino收到正確封包的次數
-	uint8	ui8UseObstacleSensorProjectDistance;   //0 for sendor close, the other value for projection distance
 LAZY_HEADER_END(eARM_A2R_HWARDWARE_INFO)
 #pragma pack(pop)
 
@@ -63,6 +62,7 @@ LAZY_HEADER_STAR(eARM_R2A_COMMAND)
 	int16	i8SpeedLeft;    //設定左馬達速度  範圍+/- 0~100(%)
 	int16	i8SpeedRight;   //設定右馬達速度  範圍+/- 0~100(%)
 	uint8	ui8voice;        //設定語音模組  0=停止 1=撥放  *之後預定修改成播放"xx桌的客人請取餐",請送出xx*  
+	uint8	ui8UseObstacleSensorProjectDistance;   //0 for sendor close, the other value for projection distance.
 LAZY_HEADER_END(eARM_R2A_COMMAND)
 #pragma pack(pop)
 
