@@ -97,6 +97,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_CAR_GO_TO_DESTINATION_REQUEST)
 	int								iCount;//or do if Tag ID is -1 end?,2
 	int								iSmallPartDataCount;
 	int								iCarID;
+	int								iStopNodeID;//play sound by customer node ID
 	int32							i32TagIDArray[CAR_A_TO_B_DATA_LENGTH];//160
 	sRouteDividedIntoSmallPartData	RouteDividedIntoSmallPartDataArray[ROUTE_KEY_POINT_DATA_LENGTH];
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_CAR_GO_TO_DESTINATION_REQUEST)
