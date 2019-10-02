@@ -12,7 +12,7 @@ enum eCarDrivingNetworkMessage
 	eCDNM_S2C_RFID_INFO_RESULT,
 	//eCDNM_S2C_CAR_GO_TO_DESTINATION_END,//node type
 	eCDNM_S2C_ASK_CAR_STOP,//emgency situation!?
-	//eCDNM_S2C_CAR_WAIT,//
+	eCDNM_S2C_VOICE_TEST,//
 	//
 	eCDNM_MAX
 };
