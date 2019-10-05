@@ -74,6 +74,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 	int	iExceptionCode;
 	int	iWIFISignalStrength;
 	int	iMotorMovedDistance[2];
+	int	iMotorLoading[2];
 LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 
 #pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
