@@ -62,7 +62,9 @@ LAZY_MESSAGE_HEADER_END(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
 	int		iCarID;
-	int		iVersion;
+	int		iNetworkProtocolVersion;
+	int		iCarDrivingVersion;
+	int64	i64RASPI_SN;
 	char	strMapFileName[MAP_NAME_ARRAY_LENGTH];
 LAZY_RESULT_MESSAGE_HEADER_END(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
 
@@ -75,6 +77,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 	int	iWIFISignalStrength;
 	int	iMotorMovedDistance[2];
 	int	iMotorLoading[2];
+	int	iMotorExceptionCode;
 LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 
 #pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
