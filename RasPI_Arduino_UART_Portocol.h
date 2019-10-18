@@ -38,6 +38,7 @@ LAZY_HEADER_END(eARM_A2R_VERSION_RESULT)
 #pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_A2R_HWARDWARE_INFO)
 	uint16	ui16ExpcptionCode;  //   異常代碼 0=正常  1=馬達異常 2=避障感測器觸發  
+  uint16  ui16motorerrorCode;  //   異常代碼 0=正常  其他=異常(參考下面的馬達故障代碼表)
 	uint32	ui32TagID;      //目前最新讀到的TAG ID  範圍0000000~FFFFFFF  
 	uint16  ui16RfidReadStatus; //rfid的當次迴圈的讀取狀態 1=有讀取 0=沒讀取
 	uint16	ui16MealSettle;   //餐盤感測器狀態   00=沒有   01=第一節車有 10=第二節車有  11=兩節車都有     
@@ -52,6 +53,27 @@ LAZY_HEADER_STAR(eARM_A2R_HWARDWARE_INFO)
 LAZY_HEADER_END(eARM_A2R_HWARDWARE_INFO)
 #pragma pack(pop)
 
+//--------------------------------
+//馬達故障代碼表
+//正常 = 0
+//左馬達電流超過限制 = 1
+//右馬達電流超過限制 = 2
+//緊急停止(電路) = 3
+//左馬達溫度錯誤 = 4
+//右馬達溫度錯誤 = 5
+//馬達電源電壓錯誤 = 6
+//編碼器電源電壓過高 = 7
+//編碼器電源電壓過低 = 8
+//左馬達驅動異常故障 = 9
+//右馬達驅動異常故障 = 10
+//馬達電源電壓過高 = 11
+//馬達電源電壓過低 = 12
+//左馬達溫度過高(85度c) =  13
+//右馬達溫度過高(85度c) =  14
+//左馬達編碼器異常 = 15
+//右馬達編碼器異常 = 16
+//--------------------------------
+
 
 #pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_R2A_COMMAND)
@@ -61,7 +83,7 @@ LAZY_HEADER_STAR(eARM_R2A_COMMAND)
 	uint8	ui8AcceRight;    //設定右馬達加速度 範圍0~300(%)
 	int16	i8SpeedLeft;    //設定左馬達速度  範圍+/- 0~100(%)
 	int16	i8SpeedRight;   //設定右馬達速度  範圍+/- 0~100(%)
-	uint8	ui8voice;        //設定語音模組  0=停止 1=撥放  *之後預定修改成播放"xx桌的客人請取餐",請送出xx*  
+	uint8	ui8voice;        //設定語音模組  0=停止   xx=播放"您好 xx桌的客人請取餐"*  
 	uint8	ui8UseObstacleSensorProjectDistance;   //0 for sendor close, the other value for projection distance.
 LAZY_HEADER_END(eARM_R2A_COMMAND)
 #pragma pack(pop)
@@ -132,3 +154,5 @@ LAZY_HEADER_END(eARM_R2A_COUNT_TEST)
 //	}
 //	BufferAndSizeFree(&l_sBufferAndSize);
 //}
+
+
