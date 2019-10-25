@@ -81,8 +81,8 @@ LAZY_HEADER_STAR(eARM_R2A_COMMAND)
 	uint16	ui16DistanceRight; //設定右馬達轉動距離 範圍0~2147483648(單位mm)
 	uint8	ui8AcceLeft;     //設定左馬達加速度 範圍0~300(%)
 	uint8	ui8AcceRight;    //設定右馬達加速度 範圍0~300(%)
-	int16	i8SpeedLeft;    //設定左馬達速度  範圍+/- 0~100(%)
-	int16	i8SpeedRight;   //設定右馬達速度  範圍+/- 0~100(%)
+	int16	i16SpeedLeft;    //設定左馬達速度  範圍+/- 0~100(%)
+	int16	i16SpeedRight;   //設定右馬達速度  範圍+/- 0~100(%)
 	uint8	ui8voice;        //設定語音模組  0=停止   xx=播放"您好 xx桌的客人請取餐"*  
 	uint8	ui8UseObstacleSensorProjectDistance;   //0 for sendor close, the other value for projection distance.
 LAZY_HEADER_END(eARM_R2A_COMMAND)
@@ -91,6 +91,9 @@ LAZY_HEADER_END(eARM_R2A_COMMAND)
 #pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_R2A_COUNT_TEST)
 		uint32 ui32SendCount;
+		int8  i81Start;//1,evert data add 1 for compare test.
+		int16 i1610Start;//10
+		int32 i32100Start;//100
 LAZY_HEADER_END(eARM_R2A_COUNT_TEST)
 #pragma pack(pop)
 
