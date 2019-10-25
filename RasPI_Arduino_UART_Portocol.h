@@ -91,20 +91,20 @@ LAZY_HEADER_END(eARM_R2A_COMMAND)
 
 #pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_R2A_COUNT_TEST_REQUEST)
-		uint32 ui32SendCount;
-		int8  i81Start;//1,evert data add 1 for compare test.
 		int16 i1610Start;//10
+		uint32 ui32SendCount;
 		int32 i32100Start;//100
+		int8  i81Start;//1,evert data add 1 for compare test.
 LAZY_HEADER_END(eARM_R2A_COUNT_TEST_REQUEST)
 #pragma pack(pop)
 
 
 #pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_A2R_COUNT_TEST_RESULT)
-	uint32 ui32SendCount;
-	int8  i81Start;//1,evert data add 1 for compare test.
 	int16 i1610Start;//10
+	uint32 ui32SendCount;
 	int32 i32100Start;//100
+	int8  i81Start;//1,evert data add 1 for compare test.
 LAZY_HEADER_END(eARM_A2R_COUNT_TEST_RESULT)
 #pragma pack(pop)
 
