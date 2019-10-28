@@ -36,15 +36,7 @@
 #ifdef RPI
 #define		LAZY_HEADER_END(ID)				sStreamingData_##ID(){ memset(this,0,sizeof(sStreamingData_##ID));ASSIGN_MAGIC_ID(i8MagicID);i16PacketSize = sizeof(sStreamingData_##ID); i16CheckSum = 0;i16Message = ID;} }__attribute__ ((packed));
 #else
-#define    LAZY_HEADER_END(ID)      }__attribute__ ((packed));                            \
-inline void Init_sStreamingData_##ID(sStreamingData_##ID*e_pInData)      \
-{                                                                 \
-  memset(e_pInData,0,sizeof(sStreamingData_##ID));                \
-  ASSIGN_MAGIC_ID(e_pInData->i8MagicID);                          \
-  e_pInData->i16PacketSize = sizeof(sStreamingData_##ID);         \
-  e_pInData->i16CheckSum = 0;                                     \
-  e_pInData->i16Message = ID;                                    \
-}
+#define		LAZY_HEADER_END(ID)				sStreamingData_##ID(){ memset(this,0,sizeof(sStreamingData_##ID));ASSIGN_MAGIC_ID(i8MagicID);i16PacketSize = sizeof(sStreamingData_##ID); i16CheckSum = 0;i16Message = ID;} };
 #endif
 
 
