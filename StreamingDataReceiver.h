@@ -33,10 +33,10 @@
 #define		LAZY_HEADER_STAR(ID)			struct sStreamingData_##ID{int8 i8MagicID[MAGIC_ID_COUNT]; int16	i16PacketSize; uint16	i16CheckSum; int16 i16Message;
 
 
-#ifdef RPI
-#define		LAZY_HEADER_END(ID)				sStreamingData_##ID(){ memset(this,0,sizeof(sStreamingData_##ID));ASSIGN_MAGIC_ID(i8MagicID);i16PacketSize = sizeof(sStreamingData_##ID); i16CheckSum = 0;i16Message = ID;} }__attribute__ ((packed));
-#else
+#ifdef WIN32
 #define		LAZY_HEADER_END(ID)				sStreamingData_##ID(){ memset(this,0,sizeof(sStreamingData_##ID));ASSIGN_MAGIC_ID(i8MagicID);i16PacketSize = sizeof(sStreamingData_##ID); i16CheckSum = 0;i16Message = ID;} };
+#else
+#define		LAZY_HEADER_END(ID)				sStreamingData_##ID(){ memset(this,0,sizeof(sStreamingData_##ID));ASSIGN_MAGIC_ID(i8MagicID);i16PacketSize = sizeof(sStreamingData_##ID); i16CheckSum = 0;i16Message = ID;} }__attribute__ ((packed));
 #endif
 
 
@@ -58,7 +58,7 @@ const static int8	g_i8StreamingDataMagicID[MAGIC_ID_COUNT] = { 55,68,63,80 };
 #define		ASSIGN_MAGIC_ID(Data)			memcpy(Data, g_i8StreamingDataMagicID,MAGIC_ID_SIZE);
 
 
-inline int16 BufferAndSizeGetCheckSum(char*e_pData,int16 e_iSize)
+inline int16 BufferAndSizeGetCheckSum(unsigned char*e_pData,int16 e_iSize)
 {
 	int16 l_i16CheckSum = 0;
 	for (int16 i = 0; i < e_iSize; ++i)
@@ -66,16 +66,6 @@ inline int16 BufferAndSizeGetCheckSum(char*e_pData,int16 e_iSize)
 		l_i16CheckSum += e_pData[i];
 	}
 	return l_i16CheckSum;
-	//int l_iCheckSum = 0;
-	//int l_iInt32Size = sizeof(int32);
-	//int l_iCount = e_iSize / l_iInt32Size;
-	//for (int i = 0; i < l_iCount; ++i)
-	//{
-	//	char*l_pData = &e_pData[i*l_iInt32Size];
-	//	int32 l_i32Value = *(int32*)l_pData;
-	//	l_iCheckSum += (int)l_i32Value;
-	//}
-	//return l_iCheckSum;
 }
 #define	NUM_MAGIC_ID_MATCHED	10
 typedef struct sBufferAndSize sBufferAndSize;
@@ -224,13 +214,15 @@ inline char*	BufferAndSizeGetData(sBufferAndSize*e_pStreamingDataReceiver, int*e
 		l_pui16OriginalCheckSumValue = (uint16*)&e_pStreamingDataReceiver->pBuffer[l_iCheckSumIndex];
 		*l_pui16OriginalCheckSumValue = 0;
 #ifdef SHOW_ERROR_CODE//have no idea why check is not working....
-		//if (l_ui16CheckSum != BufferAndSizeGetCheckSum(&e_pStreamingDataReceiver->pBuffer[l_iMatchIndex[l_iFori]], l_iu16PacketSize))
-		//{
-		//	*e_pioutErrorCode = 2;
-		//	//printf("check sum not matched!");
-		//	continue;
-		//}
+		auto l_i16TargetCheckSum = BufferAndSizeGetCheckSum((unsigned char*)&e_pStreamingDataReceiver->pBuffer[l_iMatchIndex[l_iFori]], l_iu16PacketSize);
+		if (l_ui16CheckSum != l_i16TargetCheckSum)
+		{
+			*e_pioutErrorCode = 2;
+			printf("check sum not matched!\n");
+			//continue;
+		}
 #endif
+		*l_pui16OriginalCheckSumValue = l_ui16CheckSum;
 		if (l_iu16PacketSize < 1 || l_iu16PacketSize >= 2048)
 		{
 			*e_pioutErrorCode = 3;
