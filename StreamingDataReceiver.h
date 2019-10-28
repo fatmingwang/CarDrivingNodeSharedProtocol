@@ -68,22 +68,22 @@ const static int8	g_i8StreamingDataMagicID[MAGIC_ID_COUNT] = { 55,68,63,80 };
 
 inline int BufferAndSizeGetCheckSum(char*e_pData,int e_iSize)
 {
-	//int l_iCheckSum = 0;
-	//for (int i = 0; i < e_iSize; ++i)
-	//{
-	//	l_iCheckSum += e_pData[i];
-	//}
-	//return l_iCheckSum;
 	int l_iCheckSum = 0;
-	int l_iInt32Size = sizeof(int32);
-	int l_iCount = e_iSize / l_iInt32Size;
-	for (int i = 0; i < l_iCount; ++i)
+	for (int i = 0; i < e_iSize; ++i)
 	{
-		char*l_pData = &e_pData[i*l_iInt32Size];
-		int32 l_i32Value = *(int32*)l_pData;
-		l_iCheckSum += (int)l_i32Value;
+		l_iCheckSum += e_pData[i];
 	}
 	return l_iCheckSum;
+	//int l_iCheckSum = 0;
+	//int l_iInt32Size = sizeof(int32);
+	//int l_iCount = e_iSize / l_iInt32Size;
+	//for (int i = 0; i < l_iCount; ++i)
+	//{
+	//	char*l_pData = &e_pData[i*l_iInt32Size];
+	//	int32 l_i32Value = *(int32*)l_pData;
+	//	l_iCheckSum += (int)l_i32Value;
+	//}
+	//return l_iCheckSum;
 }
 #define	NUM_MAGIC_ID_MATCHED	10
 typedef struct sBufferAndSize sBufferAndSize;
