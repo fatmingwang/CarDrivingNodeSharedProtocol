@@ -58,14 +58,14 @@ const static int8	g_i8StreamingDataMagicID[MAGIC_ID_COUNT] = { 55,68,63,80 };
 #define		ASSIGN_MAGIC_ID(Data)			memcpy(Data, g_i8StreamingDataMagicID,MAGIC_ID_SIZE);
 
 
-inline int BufferAndSizeGetCheckSum(char*e_pData,int e_iSize)
+inline int16 BufferAndSizeGetCheckSum(char*e_pData,int16 e_iSize)
 {
-	int l_iCheckSum = 0;
-	for (int i = 0; i < e_iSize; ++i)
+	int16 l_i16CheckSum = 0;
+	for (int16 i = 0; i < e_iSize; ++i)
 	{
-		l_iCheckSum += e_pData[i];
+		l_i16CheckSum += e_pData[i];
 	}
-	return l_iCheckSum;
+	return l_i16CheckSum;
 	//int l_iCheckSum = 0;
 	//int l_iInt32Size = sizeof(int32);
 	//int l_iCount = e_iSize / l_iInt32Size;
