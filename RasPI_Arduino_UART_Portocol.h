@@ -12,6 +12,9 @@ enum eArduinoRasPIMessage
 	eARM_A2R_COUNT_TEST_RESULT,
 	eARM_A2R_MAX
 };
+//arduino is 16 bit processor
+#define	PACK_SIZE	2
+
 
 //#define	MOTOR_OVER_HEAT	1<<1
 //#define	EXP_1			2<<1
@@ -22,13 +25,13 @@ enum eArduinoRasPIMessage
 //add version check.
 #define		RASPI_ARDUINO_COMMUNCIATUION_VERSION	1
 
-#pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
+#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_R2A_VERSION_REQUEST)
 	uint32	ui32Version;
 LAZY_HEADER_END(eARM_R2A_VERSION_REQUEST)
 #pragma pack(pop)
 
-#pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
+#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_A2R_VERSION_RESULT)
 uint32	ui32Version;
 LAZY_HEADER_END(eARM_A2R_VERSION_RESULT)
@@ -36,7 +39,7 @@ LAZY_HEADER_END(eARM_A2R_VERSION_RESULT)
 
 
 //make sure
-#pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
+#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_A2R_HWARDWARE_INFO)
 	uint16	ui16ExpcptionCode;				//異常代碼 0=正常  1=馬達異常 2=避障感測器觸發  
 	uint16  ui16motorerrorCode;				//異常代碼 0=正常  其他=異常(參考下面的馬達故障代碼表)
@@ -76,7 +79,7 @@ LAZY_HEADER_END(eARM_A2R_HWARDWARE_INFO)
 //--------------------------------
 
 
-#pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
+#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_R2A_COMMAND)
 	uint16	ui16DistanceLeft;  //設定左馬達轉動距離 範圍0~2147483648(單位mm) 
 	uint16	ui16DistanceRight; //設定右馬達轉動距離 範圍0~2147483648(單位mm)
@@ -89,22 +92,22 @@ LAZY_HEADER_STAR(eARM_R2A_COMMAND)
 LAZY_HEADER_END(eARM_R2A_COMMAND)
 #pragma pack(pop)
 
-//#pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
+#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_R2A_COUNT_TEST_REQUEST)
-		int32 i1610Start;//10
-		int32 ui32SendCount;
-		int32 i32100Start;//100
-		int32  i81Start;//1,evert data add 1 for compare test.
+	uint32	ui32SendCount;
+	int8	i81Start;//1,evert data add 1 for compare test.
+	int16	i1610Start;//10
+	int32	i32100Start;//100
 LAZY_HEADER_END(eARM_R2A_COUNT_TEST_REQUEST)
 //#pragma pack(pop)
 
 
-//#pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
+#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_A2R_COUNT_TEST_RESULT)
-int32 i1610Start;//10
-int32 ui32SendCount;
-int32 i32100Start;//100
-int32  i81Start;//1,evert data add 1 for compare test.
+	uint32	ui32SendCount;
+	int8	i81Start;//1,evert data add 1 for compare test.
+	int16	i1610Start;//10
+	int32	i32100Start;//100
 LAZY_HEADER_END(eARM_A2R_COUNT_TEST_RESULT)
 //#pragma pack(pop)
 
