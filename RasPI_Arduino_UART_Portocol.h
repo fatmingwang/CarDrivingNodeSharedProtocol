@@ -25,21 +25,21 @@ enum eArduinoRasPIMessage
 //add version check.
 #define		RASPI_ARDUINO_COMMUNCIATUION_VERSION	1
 
-#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
+//#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_R2A_VERSION_REQUEST)
 	uint32	ui32Version;
 LAZY_HEADER_END(eARM_R2A_VERSION_REQUEST)
-#pragma pack(pop)
+//#pragma pack(pop)
 
-#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
+//#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_A2R_VERSION_RESULT)
 uint32	ui32Version;
 LAZY_HEADER_END(eARM_A2R_VERSION_RESULT)
-#pragma pack(pop)
+//#pragma pack(pop)
 
 
 //make sure
-#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
+//#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_A2R_HWARDWARE_INFO)
 	uint16	ui16ExpcptionCode;				//異常代碼 0=正常  1=馬達異常 2=避障感測器觸發  
 	uint16  ui16motorerrorCode;				//異常代碼 0=正常  其他=異常(參考下面的馬達故障代碼表)
@@ -55,7 +55,7 @@ LAZY_HEADER_STAR(eARM_A2R_HWARDWARE_INFO)
 	uint16	ui16RightMotorLoading;			//讀取右馬達負載量 範圍0~100(%) 
 	uint16	ui16ReceivedMessageCount;		//回傳arduino收到正確封包的次數
 LAZY_HEADER_END(eARM_A2R_HWARDWARE_INFO)
-#pragma pack(pop)
+//#pragma pack(pop)
 
 //--------------------------------
 //馬達故障代碼表
@@ -92,7 +92,7 @@ LAZY_HEADER_STAR(eARM_R2A_COMMAND)
 LAZY_HEADER_END(eARM_R2A_COMMAND)
 #pragma pack(pop)
 
-#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
+//#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_R2A_COUNT_TEST_REQUEST)
 	uint32	ui32SendCount;
 	int8	i81Start;//1,evert data add 1 for compare test.
@@ -102,7 +102,7 @@ LAZY_HEADER_END(eARM_R2A_COUNT_TEST_REQUEST)
 //#pragma pack(pop)
 
 
-#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
+//#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_A2R_COUNT_TEST_RESULT)
 	uint32	ui32SendCount;
 	int8	i81Start;//1,evert data add 1 for compare test.
