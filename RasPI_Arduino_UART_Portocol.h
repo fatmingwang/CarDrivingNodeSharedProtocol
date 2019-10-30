@@ -79,7 +79,7 @@ LAZY_HEADER_END(eARM_A2R_HWARDWARE_INFO)
 //--------------------------------
 
 
-#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
+//#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_R2A_COMMAND)
 	uint16	ui16DistanceLeft;  //設定左馬達轉動距離 範圍0~2147483648(單位mm) 
 	uint16	ui16DistanceRight; //設定右馬達轉動距離 範圍0~2147483648(單位mm)
@@ -90,7 +90,7 @@ LAZY_HEADER_STAR(eARM_R2A_COMMAND)
 	uint8	ui8voice;        //設定語音模組  0=停止   xx=播放"您好 xx桌的客人請取餐"*  
 	uint8	ui8UseObstacleSensorProjectDistance;   //0 for sendor close, the other value for projection distance.
 LAZY_HEADER_END(eARM_R2A_COMMAND)
-#pragma pack(pop)
+//#pragma pack(pop)
 
 //#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_R2A_COUNT_TEST_REQUEST)

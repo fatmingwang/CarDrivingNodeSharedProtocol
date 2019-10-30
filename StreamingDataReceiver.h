@@ -217,9 +217,14 @@ inline char*	BufferAndSizeGetData(sBufferAndSize*e_pStreamingDataReceiver, int*e
 		auto l_i16TargetCheckSum = BufferAndSizeGetCheckSum((unsigned char*)&e_pStreamingDataReceiver->pBuffer[l_iMatchIndex[l_iFori]], l_iu16PacketSize);
 		if (l_ui16CheckSum != l_i16TargetCheckSum)
 		{
+#ifdef DEBUG
+			char l_TestData[250];
+			memset(l_TestData, 0, 250);
+			memcpy(l_TestData, &e_pStreamingDataReceiver->pBuffer[l_iMatchIndex[l_iFori]], l_iu16PacketSize);
+#endif
 			*e_pioutErrorCode = 2;
 			printf("check sum not matched!\n");
-			//continue;
+			continue;
 		}
 #endif
 		*l_pui16OriginalCheckSumValue = l_ui16CheckSum;
