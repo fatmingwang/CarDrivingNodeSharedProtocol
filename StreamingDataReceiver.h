@@ -213,7 +213,7 @@ inline char*	BufferAndSizeGetData(sBufferAndSize*e_pStreamingDataReceiver, int*e
 		l_ui16CheckSum = *(uint16*)&e_pStreamingDataReceiver->pBuffer[l_iCheckSumIndex];
 		l_pui16OriginalCheckSumValue = (uint16*)&e_pStreamingDataReceiver->pBuffer[l_iCheckSumIndex];
 		*l_pui16OriginalCheckSumValue = 0;
-#ifdef SHOW_ERROR_CODE//have no idea why check is not working....
+//#ifdef SHOW_ERROR_CODE//have no idea why check is not working....
 		auto l_i16TargetCheckSum = BufferAndSizeGetCheckSum((unsigned char*)&e_pStreamingDataReceiver->pBuffer[l_iMatchIndex[l_iFori]], l_iu16PacketSize);
 		if (l_ui16CheckSum != l_i16TargetCheckSum)
 		{
@@ -226,7 +226,7 @@ inline char*	BufferAndSizeGetData(sBufferAndSize*e_pStreamingDataReceiver, int*e
 			printf("check sum not matched!\n");
 			continue;
 		}
-#endif
+//#endif
 		*l_pui16OriginalCheckSumValue = l_ui16CheckSum;
 		if (l_iu16PacketSize < 1 || l_iu16PacketSize >= 2048)
 		{
