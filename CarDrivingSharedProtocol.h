@@ -4,8 +4,16 @@
 #include	"CarDrivingMessageList.h"
 #include	"CarDrivingResultMessage.h"
 
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			1
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20200102
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
+//for fetch meal type
+//0 for detect weight
+//1 for detect door open and close
+#define		WAIT_FETCH_MEAL_TYPE_WEIGHT_DETECT	0
+#define		WAIT_FETCH_MEAL_TYPE_GATE_DETECT	1
+
+#define		GATE_CLOSE	true
+#define		GATE_OPEN	false
 
 //data
 
@@ -57,6 +65,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 	int					iSlowBreakSpeed;
 	int					iSlowBreakDis;
 	int					iDeliverPointRFID[IMMEDIATELY_STOP_RFID_COUNT];
+	int					iFetchMealType;//
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 #pragma pack(pop)
 
