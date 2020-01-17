@@ -5,7 +5,7 @@
 
 
 #define		CAR_GO_APP_TCP_IP_PORT				5978
-#define		CAR_GO_APP_NETWORK_MESSAGE_VERSION	20191224
+#define		CAR_GO_APP_NETWORK_MESSAGE_VERSION	20200114
 #define		MAP_NAME_ARRAY_LENGTH				40
 #define		DELIVER_POINT_DATA_LENGTH			20
 #define		CUSTOMER_POINT_DATA_LENGTH			80
@@ -145,10 +145,20 @@ LAZY_MESSAGE_HEADER_STAR(eCGANM_C2S_QUERY_DELIVERPOINT_CAR_REQUEST)
 	int	iDeliverPoint;
 LAZY_MESSAGE_HEADER_END(eCGANM_C2S_QUERY_DELIVERPOINT_CAR_REQUEST)
 
+
+struct sCarCurrentAndTargetInfo
+{
+	int		CarID;
+	int		CarCurrentCustomerTableID;
+	int		CarTargetCustomerTableID;
+};
+
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCGANM_S2C_QUERY_DELIVERPOINT_CAR_RESULT)
-	int		iCarID;//-1 no car
-	int		iCarStatus;//eCarDrivingStatus,show car is waiting or read y to go.
-	bool	bMealSettled;
+	int							iCarID;//-1 no car
+	int							iCarStatus;//eCarDrivingStatus,show car is waiting or read y to go.
+	bool						bMealSettled;
+	int							iNumCar;
+	sCarCurrentAndTargetInfo	CarCurrentAndTargetInfoArray[MAX_CAR_COUNT];
 LAZY_RESULT_MESSAGE_HEADER_END(eCGANM_S2C_QUERY_DELIVERPOINT_CAR_RESULT)
 
 
@@ -172,8 +182,12 @@ struct sServerParameter
 	float	fAskCarWhoYouAraTC;
 	float	fTrafficCheckTC;
 	float	fTrafficStruckTC;
-	bool	bCarWillGoStableESoIgnoeLastOverlapNode;
+	bool	bCarWillGoStableESoIgnoeLastOverlapNode;//10
 	int		iCarWayToFirstHitIndexSafeStep;
+	bool	bDoWheelOffsetForWall;
+	bool	bWheelOffsetForWallSameSettingIgnore;
+	float	fCarLoginChargePointToDeliverPointDelayTC;
+	float	fCarDrivingSafeGoDistanc;//15
 };
 
 LAZY_MESSAGE_HEADER_STAR(eCGANM_C2S_CHANGE_PARAMETER_SETTING_REQUEST)
