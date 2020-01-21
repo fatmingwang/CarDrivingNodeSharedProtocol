@@ -53,6 +53,17 @@ enum eNodeType
 	eNT_TURN_POUNT_RAPID_L180,//
 	eNT_TURN_POUNT_RAPID_R90,//
 	eNT_TURN_POUNT_RAPID_R180,//
+	//for extend more special data
+	eNT_EXT1,
+	eNT_EXT2,
+	eNT_EXT3,
+	eNT_EXT4,
+	eNT_EXT5,
+	eNT_EXT6,
+	eNT_EXT7,
+	eNT_EXT8,
+	eNT_EXT9,
+	eNT_EXT10,
 	eNT_MAX,
 };
 
