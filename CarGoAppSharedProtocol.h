@@ -3,6 +3,10 @@
 #include "SharedProtocolCommonDefine.h"
 #include "CarGoAppSharedProtocolResult.h"
 
+//20200206 
+//add setup IP at AppInfoPage
+//CarGoApp/Setup.xml add Amin attribute if 1 the CarGoApp won't be kicked,if the deliver point was selected
+#define		CAR_GO_APP_VERSION					2020207
 
 #define		CAR_GO_APP_TCP_IP_PORT				5978
 #define		CAR_GO_APP_NETWORK_MESSAGE_VERSION	20200114
@@ -10,6 +14,27 @@
 #define		DELIVER_POINT_DATA_LENGTH			20
 #define		CUSTOMER_POINT_DATA_LENGTH			80
 #define		MAX_CAR_COUNT						10
+
+//1
+//eCGANM_C2S_VERSION_AND_MAP_INFOR
+//2
+//eCGANM_C2S_REQUIRE_DELIVER_POINT_INFO
+//3
+//eCGANM_C2S_SELECTED_DELIVER_POINT
+//4 every 1 second
+//eCGANM_C2S_QUERY_DELIVERPOINT_CAR_REQUEST
+
+//5
+//ask car to go from A to B
+//eCGANM_C2S_CAR_GO
+//warning for customer did't fetch the meal
+//eCGANM_S2C_MEAL_NOT_BEEN_FETCHED
+//car stuck ono the way or lost connection
+//eCGANM_C2S_CAR_ACCIDENT_HAPPEN
+//ask car to home,iCarStatus = 2:car go home
+//eCGANM_C2S_CAR_TROUBLESHOOTING_CAR_STATUS_CHANGE_REQUEST
+//car info where car stay and goes.
+//eCGANM_C2S_QUERY_DELIVERPOINT_CAR_REQUEST
 enum eCarGoAppNetworkMessage
 {
 	eCGANM_C2S_VERSION_AND_MAP_INFOR = 100000,//tell me your deliver point and map infomation and else...
@@ -21,16 +46,13 @@ enum eCarGoAppNetworkMessage
 	eCGANM_C2S_SELECTED_DELIVER_POINT,
 	eCGANM_S2C_SELECTED_DELIVER_POINT_RESULT,
 	//
-	eCGANM_C2S_QUERY_DELIVER_POINT_CAR_INFORMATION,//every 1 second try to fetch information.
-	eCGANM_S2C_QUERY_DELIVER_POINT_CAR_INFORMATION_RESULT,
-	//
 	eCGANM_C2S_CAR_GO,
 	eCGANM_S2C_CAR_GO_RESULT,
 	//
 	eCGANM_S2C_MEAL_NOT_BEEN_FETCHED,
 
 	eCGANM_C2S_CAR_ACCIDENT_HAPPEN,
-	//for demo page
+	//query deliver point status,every 1 second try to fetch information.
 	eCGANM_C2S_QUERY_DELIVERPOINT_CAR_REQUEST,
 	eCGANM_S2C_QUERY_DELIVERPOINT_CAR_RESULT,
 	//
@@ -51,15 +73,15 @@ enum eCarGoAppNetworkMessage
 
 ////=====================================
 LAZY_MESSAGE_HEADER_STAR(eCGANM_C2S_VERSION_AND_MAP_INFOR)
-	int		iVersion;
-	char	strMapName[MAP_NAME_ARRAY_LENGTH];
+	int		iVersion;//CAR_GO_APP_NETWORK_MESSAGE_VERSION
+	char	strMapName[MAP_NAME_ARRAY_LENGTH];//Maps/Wang_DoubleCow.xml
 LAZY_MESSAGE_HEADER_END(eCGANM_C2S_VERSION_AND_MAP_INFOR)
 //
 
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCGANM_S2C_VERSION_AND_MAP_INFOR_RESULT)
 	int	iUserID;
 	int	iDeliverPointNodeIDArray[DELIVER_POINT_DATA_LENGTH];
-	int	iCustomerPointNodeIDArray[CUSTOMER_POINT_DATA_LENGTH];//node ID not RFID
+	int	iCustomerPointNodeIDArray[CUSTOMER_POINT_DATA_LENGTH];//customer tabler ID or node ID not RFID
 LAZY_RESULT_MESSAGE_HEADER_END(eCGANM_S2C_VERSION_AND_MAP_INFOR_RESULT)
 
 
@@ -67,33 +89,34 @@ LAZY_MESSAGE_HEADER_STAR(eCGANM_C2S_REQUIRE_DELIVER_POINT_INFO)
 LAZY_MESSAGE_HEADER_END(eCGANM_C2S_REQUIRE_DELIVER_POINT_INFO)
 
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCGANM_S2C_REQUIRE_DELIVER_POINT_INFO_RESULT)
-	bool	bDeliverPointOccupied[DELIVER_POINT_DATA_LENGTH];
+	bool	bDeliverPointOccupied[DELIVER_POINT_DATA_LENGTH];//eCGANM_S2C_VERSION_AND_MAP_INFOR_RESULT::iDeliverPointNodeIDArray is any point occupied?
 LAZY_RESULT_MESSAGE_HEADER_END(eCGANM_S2C_REQUIRE_DELIVER_POINT_INFO_RESULT)
 
 
 LAZY_MESSAGE_HEADER_STAR(eCGANM_C2S_SELECTED_DELIVER_POINT)
-	int	iUserID;
-	int iSelectDeliverPointID;
+	int	iUserID;//eCGANM_S2C_VERSION_AND_MAP_INFOR_RESULT:iUserID
+	int iSelectDeliverPointID;//one of eCGANM_S2C_VERSION_AND_MAP_INFOR_RESULT::iDeliverPointNodeIDArray
 LAZY_MESSAGE_HEADER_END(eCGANM_C2S_SELECTED_DELIVER_POINT)
 
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCGANM_S2C_SELECTED_DELIVER_POINT_RESULT)
-	bool	bDeliverPointOccupied[DELIVER_POINT_DATA_LENGTH];
+	bool	bDeliverPointOccupied[DELIVER_POINT_DATA_LENGTH];//if result is not ok,it's possible someone occupied the deliver point,renew buttons again
 LAZY_RESULT_MESSAGE_HEADER_END(eCGANM_S2C_SELECTED_DELIVER_POINT_RESULT)
 
 LAZY_MESSAGE_HEADER_STAR(eCGANM_C2S_CAR_GO)
-	int		iStartID;
-	int		iEndID;
+	int		iStartID;//deliver point
+	int		iEndID;//customer table ID
 	//if true don't wait customer fetch meal
 	bool	bDemoMode;
 LAZY_MESSAGE_HEADER_END(eCGANM_C2S_CAR_GO)
 
+//result eCarGoAppSharedProtocolResult
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCGANM_S2C_CAR_GO_RESULT)
 	int iCarID;
 	int iStartID;
 	int iEndID;
 LAZY_RESULT_MESSAGE_HEADER_END(eCGANM_S2C_CAR_GO_RESULT)
 
-
+//show warning message
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCGANM_S2C_MEAL_NOT_BEEN_FETCHED)
 	int		iCarID;
 	int		iTableID;
@@ -101,7 +124,7 @@ LAZY_RESULT_MESSAGE_HEADER_STAR(eCGANM_S2C_MEAL_NOT_BEEN_FETCHED)
 LAZY_RESULT_MESSAGE_HEADER_END(eCGANM_S2C_MEAL_NOT_BEEN_FETCHED)
 
 
-
+//show error message
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCGANM_C2S_CAR_ACCIDENT_HAPPEN)
 	int		iCarID;
 	int		iNodeID;
@@ -115,11 +138,11 @@ LAZY_RESULT_MESSAGE_HEADER_END(eCGANM_C2S_CAR_ACCIDENT_HAPPEN)
 LAZY_MESSAGE_HEADER_STAR(eCGANM_C2S_CAR_TROUBLESHOOTING_INFO_REQUEST)
 LAZY_MESSAGE_HEADER_END(eCGANM_C2S_CAR_TROUBLESHOOTING_INFO_REQUEST)
 
-
+//query car status.
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCGANM_S2C_CAR_TROUBLESHOOTING_INFO_RESULT)
 	int	iNumCar;
 	int iCarIDArray[MAX_CAR_COUNT];
-	int iNodeIDArray[MAX_CAR_COUNT];
+	int iNodeIDArray[MAX_CAR_COUNT];//where the car is
 	int iCarStatusArray[MAX_CAR_COUNT];
 	int iBatteryArray[MAX_CAR_COUNT];
 	int iExceptionCodeArray[MAX_CAR_COUNT];
@@ -129,7 +152,7 @@ LAZY_RESULT_MESSAGE_HEADER_END(eCGANM_S2C_CAR_TROUBLESHOOTING_INFO_RESULT)
 
 LAZY_MESSAGE_HEADER_STAR(eCGANM_C2S_CAR_TROUBLESHOOTING_CAR_STATUS_CHANGE_REQUEST)
 	int iCarID;
-	int iCarStatus;//enum eTurobleshootingButtonType{eTBT_CAR_REMOVE = 0,eTBT_REJOIN,eTBT_GO_HOME,eTBT_MAX};
+	int iCarStatus;//enum eTurobleshootingButtonType{eTBT_CAR_REMOVE = 0,eTBT_REJOIN = 1,eTBT_GO_HOME = 2,eTBT_MAX};
 LAZY_MESSAGE_HEADER_END(eCGANM_C2S_CAR_TROUBLESHOOTING_CAR_STATUS_CHANGE_REQUEST)
 
 
@@ -156,7 +179,7 @@ struct sCarCurrentAndTargetInfo
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCGANM_S2C_QUERY_DELIVERPOINT_CAR_RESULT)
 	int							iCarID;//-1 no car
 	int							iCarStatus;//eCarDrivingStatus,show car is waiting or read y to go.
-	bool						bMealSettled;
+	bool						bMealSettled;//gate open(0) or close(1)
 	int							iNumCar;
 	sCarCurrentAndTargetInfo	CarCurrentAndTargetInfoArray[MAX_CAR_COUNT];
 LAZY_RESULT_MESSAGE_HEADER_END(eCGANM_S2C_QUERY_DELIVERPOINT_CAR_RESULT)
