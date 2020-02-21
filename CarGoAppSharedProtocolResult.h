@@ -4,14 +4,24 @@
 enum eCarGoAppSharedProtocolResult
 {
 	eCGASPR_OK = 0,
+	//below for eCGANM_S2C_VERSION_AND_MAP_INFOR_RESULT
 	eCGASPR_VERSION_NOT_MATCH,
 	eCGASPR_VERSION_MAP_NAME_NOT_MATCH,
+	//below for eCGANM_S2C_SELECTED_DELIVER_POINT_RESULT
 	eCGASPR_DELIVERPOINT_OCCUPIED_BY_OTHER_CAR_GO_APP,
 	eCGASPR_DELIVERPOINT_NO_CAR,
 	eCGASPR_SERVER_ERROR_PLEASE_RELOGIN_AGAIN,//
+	//below for eCGANM_S2C_CAR_GO_RESULT
 	eCGASPR_CAR_GO_FAILED,
 	eCGASPR_CAR_NOT_EXISTS,
 	eCGASPR_CAR_GATE_OPEN,
+	//below for eCGANM_S2C_CANCEL_DELIVER_ORDER_RESULT
+	eCGASPR_CAR_CANCEL_DELIVER_ORDER_CAR_STAY_AT_DELIVER_POINT_OK,
+	eCGASPR_CAR_CANCEL_DELIVER_ORDER_STOP_AT_CANCEL_DELIVER_POINT_OK,
+	eCGASPR_CAR_CANCEL_DELIVER_ORDER_CAR_PASS_OVER_DELIVER_POINT_FAILED,
+	eCGASPR_CAR_CANCEL_DELIVER_ORDER_CAR_NOT_START_FROM_DELIVER_POINT_FAILED,
+	eCGASPR_CAR_CANCEL_DELIVER_ORDER_CAR_ID_NOT_EORRECT_FAILED,
+	//
 	eCGASPR_MAX
 };
 
@@ -33,6 +43,17 @@ inline const wchar_t* ResultToString(eCarGoAppSharedProtocolResult e_eCarGoAppSh
 			return L"server shut down please restart app.";
 		case eCGASPR_CAR_GO_FAILED:
 			return L"ask car to go failed!,already received message!?";
+		case eCGASPR_CAR_CANCEL_DELIVER_ORDER_CAR_STAY_AT_DELIVER_POINT_OK:
+			return L"order canceled";
+		case eCGASPR_CAR_CANCEL_DELIVER_ORDER_STOP_AT_CANCEL_DELIVER_POINT_OK:
+			return L"car will stop at cancel deliver point";
+		case eCGASPR_CAR_CANCEL_DELIVER_ORDER_CAR_PASS_OVER_DELIVER_POINT_FAILED:
+			return L"car pass over stop point,please call it back to home or wait 30 seconds car will go home.";
+		case eCGASPR_CAR_CANCEL_DELIVER_ORDER_CAR_NOT_START_FROM_DELIVER_POINT_FAILED:
+			return L"car not start from deliver point";
+		case eCGASPR_CAR_CANCEL_DELIVER_ORDER_CAR_ID_NOT_EORRECT_FAILED:
+			return L"cancel deliver order:no such car";
+			break;
 		default:
 			return L"not support result";
 			break;
@@ -47,23 +68,31 @@ enum eCarDrivingStatus
 	eCDS_STAY_AT_CHARGE_POINT,//some resturant may design 3 charge point at a line and the first charge point is deliver,,if deliver car left make rest car queue up and moving.
 	eCDS_STAY_AT_DELIVERY_POINT,//car ready to go
 	eCDS_STAY_AT_POINT,//nor charge nor deliver nor customer
-	eCDS_STAY_AT_CUSTOMER_POINT,
+	eCDS_STAY_AT_CUSTOMER_POINT,//5
 	eCDS_STAY_AT_CUSTOMER_POINT_MEAL_IS_EMPTY_MAKE_CAR_GO_HOME,
+	//
 	eCDS_WAIT_CHECK_TRAFFIC,//ask car go to some where,wait car send me it's going
 	eCDS_SEND_CAR_GO_SIGNAL_TO_CAR,//traffic is safe to go then send message to car
+	//
 	eCDS_WAY_TO_CUSTOMER,//
-	eCDS_WAY_TO_CHARGE_POINT,//
+	eCDS_WAY_TO_CHARGE_POINT,//10
 	eCDS_WAY_TO_DELIVER_POINT,//
 	eCDS_WAY_TO_POINT,//
+	//
 	eCDS_WAIT_FOR_CUSTOMER_FETCH_MEAL,
 	eCDS_EMRGENCY_STOP,//no reason and don't know why,for safty
 	//
-	eCDS_CONNECTION_LOST,//network problem
+	eCDS_CONNECTION_LOST,//network problem,15
 	//
 	eCDS_OUT_OF_CONTROL_ASK_USER_TO_TAKE_IT_TO_FIXT_IT,//still have connection but no RFID Signal or else,car got problem.
 	eCDS_CAR_ARDUINI_NOT_WORKING,
 	eCDS_CAR_REMOVED_FROME_MAP,//uset take car off
 	eCDS_TRAFFIC_STUCK_WAIT_TOO_LONG,//target point was occupied by somecar?
+	//add at Feb/02/2020.new function for cat stop at specific point for go home or to customer point
+	eCDS_WAY_TO_DELIVER_TRAFFIC_WAIT_POINT,//20
+	eCDS_WAY_TO_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT,//
+	eCDS_STAY_AT_DELIVER_TRAFFIC_WAIT_POINT,
+	eCDS_STAY_AT_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT,//23
 	eCDS_MAX
 };
 
@@ -132,6 +161,18 @@ inline const wchar_t * GetCarDrivingStatusString(eCarDrivingStatus e_eCarDriving
 	case eCDS_TRAFFIC_STUCK_WAIT_TOO_LONG:
 		return L"traffic struck too long";
 		break;
+	case eCDS_WAY_TO_DELIVER_TRAFFIC_WAIT_POINT:
+		return L"way to deliver traffic wait point";
+		break;
+	case eCDS_WAY_TO_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT:
+		return L"way to chancel deliver and go home point";
+		break;
+	case eCDS_STAY_AT_DELIVER_TRAFFIC_WAIT_POINT:
+		return L"stay at deliver traffic wait point";
+		break;
+	case eCDS_STAY_AT_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT:
+		return L"stay at chancel deliver and go home point";
+		break;
 	default:
 		return L"not support status";
 		break;
@@ -146,7 +187,9 @@ inline bool IsCarDriving(eCarDrivingStatus e_eCarDrivingStatus)
 		e_eCarDrivingStatus == eCDS_WAY_TO_CHARGE_POINT ||
 		e_eCarDrivingStatus == eCDS_WAY_TO_DELIVER_POINT ||
 		e_eCarDrivingStatus == eCDS_WAY_TO_POINT ||
-		e_eCarDrivingStatus == eCDS_SEND_CAR_GO_SIGNAL_TO_CAR)
+		e_eCarDrivingStatus == eCDS_SEND_CAR_GO_SIGNAL_TO_CAR ||
+		e_eCarDrivingStatus == eCDS_WAY_TO_DELIVER_TRAFFIC_WAIT_POINT ||
+		e_eCarDrivingStatus == eCDS_WAY_TO_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT)
 		return true;
 	return false;
 }

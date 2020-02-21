@@ -13,6 +13,12 @@ enum eCarDrivingNetworkMessage
 	//eCDNM_S2C_CAR_GO_TO_DESTINATION_END,//node type
 	eCDNM_S2C_ASK_CAR_STOP,//emgency situation!?
 	eCDNM_S2C_VOICE_TEST,//
+
+	//if car still stay at deliver point chancel order or make car slow down and stop at chancel deliver point and wait go home
+	//if car already apart and pass over chancel deliver,car keep going and keep deliver
+	eCDNM_S2C_CANCEL_DELIVER_ORDER_REQUEST,
+	eCDNM_C2S_CANCEL_DELIVER_ORDER_RESULT,//
+
 	//
 	eCDNM_MAX
 };
@@ -64,6 +70,8 @@ enum eNodeType
 	eNT_EXT8,
 	eNT_EXT9,
 	eNT_EXT10,
+	eNT_DELIVER_TRAFFIC_WAIT_POINT,
+	eNT_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT,
 	eNT_MAX,
 };
 

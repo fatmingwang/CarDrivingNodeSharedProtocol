@@ -132,6 +132,18 @@ LAZY_MESSAGE_HEADER_END(eCDNM_S2C_VOICE_TEST)
 
 
 
+LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_CANCEL_DELIVER_ORDER_REQUEST)
+	int	iStopRFID;
+LAZY_MESSAGE_HEADER_END(eCDNM_S2C_CANCEL_DELIVER_ORDER_REQUEST)
+
+//result code 0 car pass over,1 car will stop at chancel deliver point
+LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_CANCEL_DELIVER_ORDER_RESULT)
+	int	iCarID;
+LAZY_RESULT_MESSAGE_HEADER_END(eCDNM_C2S_CANCEL_DELIVER_ORDER_RESULT)
+
+
+//result code 0 car pass over,1 car will stop at chancel deliver point
+
 //struct sDataAndLength
 //{
 //	char*	pData;
