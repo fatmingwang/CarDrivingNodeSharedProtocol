@@ -34,6 +34,7 @@ LAZY_HEADER_END(eARM_R2A_VERSION_REQUEST)
 //#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_A2R_VERSION_RESULT)
 	uint32	ui32Version;
+	uint32	ui32ErrorCode;//0 version not match,1 version matched
 LAZY_HEADER_END(eARM_A2R_VERSION_RESULT)
 //#pragma pack(pop)
 
