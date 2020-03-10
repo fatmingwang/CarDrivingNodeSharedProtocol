@@ -16,7 +16,7 @@ enum eArduinoRasPIMessage
 #define	PACK_SIZE	2
 
 
-//#define	MOTOR_OVER_HEAT	1<<1
+//#define	MOTOR_OVER_HEAT	1<<1 
 //#define	EXP_1			2<<1
 //#define	EXP_2			3<<1
 
@@ -54,8 +54,8 @@ LAZY_HEADER_STAR(eARM_A2R_HWARDWARE_INFO)
 	uint32	ui32RightDistabce;				//讀取右馬達轉動距離 範圍0~2147483648(單位mm) 
 	uint16	ui16LeftMotorLoading;			//讀取左馬達負載量 範圍0~100(%) 
 	uint16	ui16RightMotorLoading;			//讀取右馬達負載量 範圍0~100(%) 
-	uint16	ui16R2AMessageCount;			//raspi to arduino message count
-	uint16	ui16A2RMessageCount;			//arduino to raspi message count
+	uint32	ui32R2AMessageCount;			//raspi to arduino message count
+	uint32	ui32A2RMessageCount;			//arduino to raspi message count
 LAZY_HEADER_END(eARM_A2R_HWARDWARE_INFO)
 //#pragma pack(pop)
 
