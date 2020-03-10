@@ -23,7 +23,7 @@ enum eArduinoRasPIMessage
 //Sep/7/2019 version 1
 //remove uint32 ui32TagID from eARM_R2A_COMMAND.
 //add version check.
-#define		RASPI_ARDUINO_COMMUNCIATUION_VERSION	1
+#define		RASPI_ARDUINO_COMMUNCIATUION_VERSION	20200310
 
 //#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_R2A_VERSION_REQUEST)
@@ -53,7 +53,8 @@ LAZY_HEADER_STAR(eARM_A2R_HWARDWARE_INFO)
 	uint32	ui32RightDistabce;				//讀取右馬達轉動距離 範圍0~2147483648(單位mm) 
 	uint16	ui16LeftMotorLoading;			//讀取左馬達負載量 範圍0~100(%) 
 	uint16	ui16RightMotorLoading;			//讀取右馬達負載量 範圍0~100(%) 
-	uint16	ui16ReceivedMessageCount;		//回傳arduino收到正確封包的次數
+	uint16	ui16R2AMessageCount;			//raspi to arduino message count
+	uint16	ui16A2RMessageCount;			//arduino to raspi message count
 LAZY_HEADER_END(eARM_A2R_HWARDWARE_INFO)
 //#pragma pack(pop)
 
@@ -89,6 +90,7 @@ LAZY_HEADER_STAR(eARM_R2A_COMMAND)
 	int16	i16SpeedRight;   //設定右馬達速度  範圍+/- 0~100(%)
 	uint8	ui8voice;        //設定語音模組  0=停止   xx=播放"您好 xx桌的客人請取餐"*  
 	uint8	ui8UseObstacleSensorProjectDistance;   //0 for sendor close, the other value for projection distance.
+	//int8	i8MotorEncoderCounterRest;//
 LAZY_HEADER_END(eARM_R2A_COMMAND)
 //#pragma pack(pop)
 

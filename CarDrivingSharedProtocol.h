@@ -3,8 +3,9 @@
 #include	"SharedProtocolCommonDefine.h"
 #include	"CarDrivingMessageList.h"
 #include	"CarDrivingResultMessage.h"
-
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20200102
+//first version 20200102
+//20200304 add motor speed eCDNM_C2S_CAR_STATUS:iMotorSpeed
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20200304
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
 //0 for detect weight
@@ -86,6 +87,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 	int	iWIFISignalStrength;
 	int	iMotorMovedDistance[2];
 	int	iMotorLoading[2];
+	int	iMotorSpeed[2];
 	int	iMotorExceptionCode;
 LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 
