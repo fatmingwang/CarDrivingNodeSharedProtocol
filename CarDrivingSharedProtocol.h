@@ -5,7 +5,8 @@
 #include	"CarDrivingResultMessage.h"
 //first version 20200102
 //20200304 add motor speed eCDNM_C2S_CAR_STATUS:iMotorSpeed
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20200304
+//20200311 add eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST:fSendHardwareDataToServerTC
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20200311
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
 //0 for detect weight
@@ -22,6 +23,8 @@
 
 #define		CAR_A_TO_B_DATA_LENGTH			80
 #define		ROUTE_KEY_POINT_DATA_LENGTH		20
+#define		TOTAL_CARD_COUNT				100
+
 
 #ifndef		MAP_NAME_ARRAY_LENGTH
 #define		MAP_NAME_ARRAY_LENGTH			40
@@ -67,6 +70,8 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 	int					iSlowBreakDis;
 	int					iDeliverPointRFID[IMMEDIATELY_STOP_RFID_COUNT];
 	int					iFetchMealType;//
+	float				fSendHardwareDataToServerTC;//
+	int16				i16MaxAllowMotorOverLoading;//
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 #pragma pack(pop)
 
@@ -74,6 +79,7 @@ LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
 	int		iCarID;
 	int		iNetworkProtocolVersion;
 	int		iCarDrivingVersion;
+	int		iArduinoVersion;
 	int64	i64RASPI_SN;
 	char	strMapFileName[MAP_NAME_ARRAY_LENGTH];
 LAZY_RESULT_MESSAGE_HEADER_END(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
@@ -113,7 +119,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_CAR_GO_TO_DESTINATION_REQUEST)
 	int								iSmallPartDataCount;
 	int								iCarID;
 	int								iStopNodeID;//play sound by customer node ID
-	int32							i32TagIDArray[CAR_A_TO_B_DATA_LENGTH];//160
+	int32							i32RFIDArray[CAR_A_TO_B_DATA_LENGTH];//160
 	sRouteDividedIntoSmallPartData	RouteDividedIntoSmallPartDataArray[ROUTE_KEY_POINT_DATA_LENGTH];
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_CAR_GO_TO_DESTINATION_REQUEST)
 #pragma pack(pop)
@@ -142,6 +148,14 @@ LAZY_MESSAGE_HEADER_END(eCDNM_S2C_CANCEL_DELIVER_ORDER_REQUEST)
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_CANCEL_DELIVER_ORDER_RESULT)
 	int	iCarID;
 LAZY_RESULT_MESSAGE_HEADER_END(eCDNM_C2S_CANCEL_DELIVER_ORDER_RESULT)
+
+
+
+LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_ALL_RFID_AND_NODE_ID_INFO)
+	int32		iCount;
+	int32		i32RFIDArray[TOTAL_CARD_COUNT];//160
+	int32		i32NodeIDArray[TOTAL_CARD_COUNT];//160
+LAZY_MESSAGE_HEADER_END(eCDNM_S2C_ALL_RFID_AND_NODE_ID_INFO)
 
 
 //result code 0 car pass over,1 car will stop at chancel deliver point

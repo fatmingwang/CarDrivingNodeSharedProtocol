@@ -4,6 +4,7 @@ enum eCarDrivingNetworkMessage
 {
 	eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST = 0,//HW ID
 	eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT,//HW ID
+	//
 	eCDNM_C2S_CAR_STATUS,//tag ID
 	eCDNM_S2C_CAR_GO_TO_DESTINATION_REQUEST,//
 	eCDNM_C2S_CAR_GO_TO_DESTINATION_RESULT,
@@ -18,7 +19,8 @@ enum eCarDrivingNetworkMessage
 	//if car already apart and pass over chancel deliver,car keep going and keep deliver
 	eCDNM_S2C_CANCEL_DELIVER_ORDER_REQUEST,
 	eCDNM_C2S_CANCEL_DELIVER_ORDER_RESULT,//
-
+	//
+	eCDNM_S2C_ALL_RFID_AND_NODE_ID_INFO,
 	//
 	eCDNM_MAX
 };
