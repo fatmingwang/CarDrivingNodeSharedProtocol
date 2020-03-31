@@ -15,7 +15,7 @@ enum eArduinoRasPIMessage
 //arduino is 16 bit processor
 #define	PACK_SIZE	2
 
-//
+
 //#define	MOTOR_OVER_HEAT	1<<1 
 //#define	EXP_1			2<<1
 //#define	EXP_2			3<<1
