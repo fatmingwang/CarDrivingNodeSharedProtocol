@@ -84,6 +84,15 @@ LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
 	char	strMapFileName[MAP_NAME_ARRAY_LENGTH];
 LAZY_RESULT_MESSAGE_HEADER_END(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
 
+struct sCarRunningData
+{
+	double	dbAppRunningTime;
+	double	dbDrivingTime;
+	int64	i64LeftWheelMovingDistance;
+	int64	i64RighttWheelMovingDistance;
+	sCarRunningData() { memset(this, 0, sizeof(sCarRunningData)); }
+};
+
 LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 	int	iCarID;
 	int	iTagID;
@@ -95,6 +104,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 	int	iMotorLoading[2];
 	int	iMotorSpeed[2];
 	int	iMotorExceptionCode;
+	sCarRunningData	CarRunningData;
 LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 
 #pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
