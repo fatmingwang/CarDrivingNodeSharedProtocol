@@ -61,24 +61,22 @@ LAZY_HEADER_END(eARM_A2R_HWARDWARE_INFO)
 //#pragma pack(pop)
 
 //--------------------------------
-//馬達故障代碼表
-//正常 = 0
-//左馬達電流超過限制 = 1
-//右馬達電流超過限制 = 2
-//緊急停止(電路) = 3
-//左馬達溫度錯誤 = 4
-//右馬達溫度錯誤 = 5
-//馬達電源電壓錯誤 = 6
-//編碼器電源電壓過高 = 7
-//編碼器電源電壓過低 = 8
-//左馬達驅動異常故障 = 9
-//右馬達驅動異常故障 = 10
-//馬達電源電壓過高 = 11
-//馬達電源電壓過低 = 12
-//左馬達溫度過高(85度c) =  13
-//右馬達溫度過高(85度c) =  14
-//左馬達編碼器異常 = 15
-//右馬達編碼器異常 = 16
+//馬達故障代碼表       20200331 更新
+//    motorerrorCode=0;   //正常
+//    motorerrorCode=1;  //緊急停止(電路)
+//    motorerrorCode=2;  //左馬達溫度錯誤
+//    motorerrorCode=3;  //右馬達溫度錯誤  
+//    motorerrorCode=4;  //馬達電源電壓過高
+//    motorerrorCode=5;  //編碼器電源電壓過高
+//    motorerrorCode=6;  //編碼器電源電壓過低
+//    motorerrorCode=7;  //左馬達故障(無法正常驅動)
+//    motorerrorCode=8;  //右馬達故障(無法正常驅動)
+//    motorerrorCode=9;  //左馬達速度超過限制
+//    motorerrorCode=10; //右馬達速度超過限制
+//    motorerrorCode=11;  //左馬達距離超過限制
+//    motorerrorCode=12;  //右馬達距離超過限制
+//    motorerrorCode=13;  //馬達因為欠電壓造成自由空轉(非控制錯誤)
+//    motorerrorCode=14;  //馬達因為過電壓造成自由空轉(非控制錯誤)
 //--------------------------------
 
 
@@ -90,7 +88,7 @@ LAZY_HEADER_STAR(eARM_R2A_COMMAND)
 	uint8	ui8AcceRight;    //設定右馬達加速度 範圍0~300(%)
 	int16	i16SpeedLeft;    //設定左馬達速度  範圍+/- 0~100(%)
 	int16	i16SpeedRight;   //設定右馬達速度  範圍+/- 0~100(%)
-	uint8	ui8voice;        //設定語音模組  0=停止   xx=播放"您好 xx桌的客人請取餐"*  
+	uint8	ui8voice;        //設定語音模組  0=停止   0~98=播放"您好 請取餐"  99=取餐後關門提示音  100=等待路權提示音    
 	uint8	ui8UseObstacleSensorProjectDistance;   //0 for sendor close, the other value for projection distance.
 	//int8	i8MotorEncoderCounterRest;//
 LAZY_HEADER_END(eARM_R2A_COMMAND)
@@ -174,5 +172,3 @@ LAZY_HEADER_END(eARM_A2R_COUNT_TEST_RESULT)
 //	}
 //	BufferAndSizeFree(&l_sBufferAndSize);
 //}
-
-
