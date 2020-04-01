@@ -24,7 +24,8 @@ enum eArduinoRasPIMessage
 //remove uint32 ui32TagID from eARM_R2A_COMMAND.
 //add version check.
 //20200318 loading and distance remove unsigned
-#define		RASPI_ARDUINO_COMMUNCIATUION_VERSION	20200318
+//20200401 eARM_R2A_COMMAND::ui8voice add 100 for wait traffic
+#define		RASPI_ARDUINO_COMMUNCIATUION_VERSION	20200401
 
 //#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_R2A_VERSION_REQUEST)
