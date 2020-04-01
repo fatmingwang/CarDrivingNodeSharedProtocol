@@ -80,7 +80,8 @@ LAZY_HEADER_END(eARM_A2R_HWARDWARE_INFO)
 //    motorerrorCode=14;  //馬達因為過電壓造成自由空轉(非控制錯誤)
 //--------------------------------
 
-
+#define	AFTER_CLOSE_DOOR_AFTER_FETCH_MEAL_SOUND_ID	99
+#define	WAIT_TRAFFIC_SOUND_ID	100
 //#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_R2A_COMMAND)
 	uint16	ui16DistanceLeft;  //設定左馬達轉動距離 範圍0~2147483648(單位mm) 
