@@ -25,7 +25,7 @@ enum eArduinoRasPIMessage
 //add version check.
 //20200318 loading and distance remove unsigned
 //20200401 eARM_R2A_COMMAND::ui8voice add 100 for wait traffic
-#define		RASPI_ARDUINO_COMMUNCIATUION_VERSION	20200401
+#define		RASPI_ARDUINO_COMMUNCIATUION_VERSION	20200416
 
 //#pragma pack(push,PACK_SIZE)// push current alignment to stack,set alignment to n byte boundary
 LAZY_HEADER_STAR(eARM_R2A_VERSION_REQUEST)
@@ -62,7 +62,7 @@ LAZY_HEADER_END(eARM_A2R_HWARDWARE_INFO)
 //#pragma pack(pop)
 
 //--------------------------------
-//馬達故障代碼表       20200331 更新
+//馬達故障代碼表       20200416 更新
 //    motorerrorCode=0;   //正常
 //    motorerrorCode=1;  //緊急停止(電路)
 //    motorerrorCode=2;  //左馬達溫度錯誤
@@ -78,6 +78,14 @@ LAZY_HEADER_END(eARM_A2R_HWARDWARE_INFO)
 //    motorerrorCode=12;  //右馬達距離超過限制
 //    motorerrorCode=13;  //馬達因為欠電壓造成自由空轉(非控制錯誤)
 //    motorerrorCode=14;  //馬達因為過電壓造成自由空轉(非控制錯誤)
+//    motorerrorCode=15;  //左馬達過電流
+//    motorerrorCode=16;  //右馬達過電流
+//    motorerrorCode=17;  //馬達電源過電壓提醒
+//    motorerrorCode=18;  //馬達電源過電壓提醒
+//    motorerrorCode=19;  //左馬達高溫提醒
+//    motorerrorCode=20;  //右馬達高溫提醒
+//    motorerrorCode=21;  //s4按鈕功能錯誤(未使用)
+//    motorerrorCode=22;  //s5按鈕功能錯誤(未使用)
 //--------------------------------
 
 #define	AFTER_CLOSE_DOOR_AFTER_FETCH_MEAL_SOUND_ID	99
