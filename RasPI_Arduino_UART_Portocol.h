@@ -58,6 +58,7 @@ LAZY_HEADER_STAR(eARM_A2R_HWARDWARE_INFO)
 	int16	i16RightMotorLoading;			//讀取右馬達負載量 範圍0~100(%) 
 	uint32	ui32R2AMessageCount;			//raspi to arduino message count
 	uint32	ui32A2RMessageCount;			//arduino to raspi message count
+	//int8	i8MotorUnlockMode;				//0 unlock 1 lock.
 LAZY_HEADER_END(eARM_A2R_HWARDWARE_INFO)
 //#pragma pack(pop)
 
