@@ -6,7 +6,10 @@
 //first version 20200102
 //20200304 add motor speed eCDNM_C2S_CAR_STATUS:iMotorSpeed
 //20200311 add eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST:fSendHardwareDataToServerTC
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20200311
+//20200423 add eCSS_RFID_NOT_CORRECT event while car has accidently reach wrong RFID
+
+
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20200423
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
 //0 for detect weight
