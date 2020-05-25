@@ -71,7 +71,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 	int					iSlowBreakAcc;
 	int					iSlowBreakSpeed;
 	int					iSlowBreakDis;
-	int					iDeliverPointRFID[IMMEDIATELY_STOP_RFID_COUNT];
+	int64				i64DeliverPointRFID[IMMEDIATELY_STOP_RFID_COUNT];
 	int					iFetchMealType;//
 	float				fSendHardwareDataToServerTC;//
 	int16				i16MaxAllowMotorOverLoading;//
@@ -114,8 +114,8 @@ LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 struct sRouteDividedIntoSmallPartData
 {
 	int8	i8AngleType;
-	int64	i64StartTagID;
-	int64	i64EndTagID;
+	int64	i64StartRFID;
+	int64	i64EndRFID;
 	int16	i16Distance[CAR_WHEEL_COUNT];
 	int16	i16Acc[CAR_WHEEL_COUNT];
 	int16	i16Speed[CAR_WHEEL_COUNT];
