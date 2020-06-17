@@ -7,7 +7,7 @@
 //20200304 add motor speed eCDNM_C2S_CAR_STATUS:iMotorSpeed
 //20200311 add eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST:fSendHardwareDataToServerTC
 //20200423 add eCSS_RFID_NOT_CORRECT event while car has accidently reach wrong RFID
-
+//20200617 add RFID_DATA_TYPE
 
 #define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20200519
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
@@ -22,7 +22,7 @@
 
 //data
 
-#define		IMMEDIATELY_STOP_RFID_COUNT		10
+#define		IMMEDIATELY_STOP_RFID_COUNT		20
 
 #define		CAR_A_TO_B_DATA_LENGTH			80
 #define		ROUTE_KEY_POINT_DATA_LENGTH		20
@@ -32,7 +32,7 @@
 #ifndef		MAP_NAME_ARRAY_LENGTH
 #define		MAP_NAME_ARRAY_LENGTH			40
 #endif
-
+#define		RFID_DATA_TYPE					int64
 enum eCarDrivingTurnAngleList
 {
 	eCDTAL_0 = 0,
@@ -71,7 +71,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 	int					iSlowBreakAcc;
 	int					iSlowBreakSpeed;
 	int					iSlowBreakDis;
-	int64				i64DeliverPointRFID[IMMEDIATELY_STOP_RFID_COUNT];
+	RFID_DATA_TYPE		i64DeliverPointRFID[IMMEDIATELY_STOP_RFID_COUNT];
 	int					iFetchMealType;//
 	float				fSendHardwareDataToServerTC;//
 	int16				i16MaxAllowMotorOverLoading;//
@@ -97,32 +97,32 @@ struct sCarRunningData
 };
 
 LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
-	int		iCarID;
-	int64	i64RFID;
-	int		i1Status;//eCarSendingStatus
-	int		iBattery;
-	int		iExceptionCode;
-	int		iWIFISignalStrength;
-	int		iMotorMovedDistance[2];
-	int		iMotorLoading[2];
-	int		iMotorSpeed[2];
-	int		iMotorExceptionCode;
+	int				iCarID;
+	RFID_DATA_TYPE	i64RFID;
+	int				i1Status;//eCarSendingStatus
+	int				iBattery;
+	int				iExceptionCode;
+	int				iWIFISignalStrength;
+	int				iMotorMovedDistance[2];
+	int				iMotorLoading[2];
+	int				iMotorSpeed[2];
+	int				iMotorExceptionCode;
 	sCarRunningData	CarRunningData;
 LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 
 #pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
 struct sRouteDividedIntoSmallPartData
 {
-	int8	i8AngleType;
-	int64	i64StartRFID;
-	int64	i64EndRFID;
-	int16	i16Distance[CAR_WHEEL_COUNT];
-	int16	i16Acc[CAR_WHEEL_COUNT];
-	int16	i16Speed[CAR_WHEEL_COUNT];
+	int8			i8AngleType;
+	RFID_DATA_TYPE	i64StartRFID;
+	RFID_DATA_TYPE	i64EndRFID;
+	int16			i16Distance[CAR_WHEEL_COUNT];
+	int16			i16Acc[CAR_WHEEL_COUNT];
+	int16			i16Speed[CAR_WHEEL_COUNT];
 	//for safe driving to avoid accident.
-	int16	i16SafeDistance[CAR_WHEEL_COUNT];
-	int16	i16SafeAcc[CAR_WHEEL_COUNT];
-	int16	i16SafeSpeed[CAR_WHEEL_COUNT];
+	int16			i16SafeDistance[CAR_WHEEL_COUNT];
+	int16			i16SafeAcc[CAR_WHEEL_COUNT];
+	int16			i16SafeSpeed[CAR_WHEEL_COUNT];
 };
 #pragma pack(pop)
 
@@ -132,7 +132,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_CAR_GO_TO_DESTINATION_REQUEST)
 	int								iSmallPartDataCount;
 	int								iCarID;
 	int								iStopNodeID;//play sound by customer node ID
-	int64							i64RFIDArray[CAR_A_TO_B_DATA_LENGTH];//160
+	RFID_DATA_TYPE					i64RFIDArray[CAR_A_TO_B_DATA_LENGTH];//160
 	sRouteDividedIntoSmallPartData	RouteDividedIntoSmallPartDataArray[ROUTE_KEY_POINT_DATA_LENGTH];
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_CAR_GO_TO_DESTINATION_REQUEST)
 #pragma pack(pop)
@@ -153,7 +153,7 @@ LAZY_MESSAGE_HEADER_END(eCDNM_S2C_VOICE_TEST)
 
 
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_LID_HW_TEST)
-	float	fOpenTime;
+	unsigned char	ucColor[3];
 	int		iSpeed;
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_LID_HW_TEST)
 
@@ -162,7 +162,7 @@ LAZY_MESSAGE_HEADER_END(eCDNM_S2C_LID_HW_TEST)
 
 
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_CANCEL_DELIVER_ORDER_REQUEST)
-	int64	i64StopRFID;
+	RFID_DATA_TYPE	i64StopRFID;
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_CANCEL_DELIVER_ORDER_REQUEST)
 
 //result code 0 car pass over,1 car will stop at chancel deliver point
@@ -173,9 +173,9 @@ LAZY_RESULT_MESSAGE_HEADER_END(eCDNM_C2S_CANCEL_DELIVER_ORDER_RESULT)
 
 
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_ALL_RFID_AND_NODE_ID_INFO)
-	int32		iCount;
-	int64		i64RFIDArray[TOTAL_CARD_COUNT];
-	int16		i16NodeIDArray[TOTAL_CARD_COUNT];
+	int32			iCount;
+	RFID_DATA_TYPE	i64RFIDArray[TOTAL_CARD_COUNT];
+	int16			i16NodeIDArray[TOTAL_CARD_COUNT];
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_ALL_RFID_AND_NODE_ID_INFO)
 
 
