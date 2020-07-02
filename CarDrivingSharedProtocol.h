@@ -14,8 +14,26 @@
 //for fetch meal type
 //0 for detect weight
 //1 for detect door open and close
-#define		WAIT_FETCH_MEAL_TYPE_WEIGHT_DETECT	0
-#define		WAIT_FETCH_MEAL_TYPE_GATE_DETECT	1
+enum eFetchMealHouseType
+{
+	eFMHT_WEIGHT_DECTOR = 0,
+	eFMHT_WANG_DOUBLE_COW_MAGNATIC_GATE,
+	eFMHT_MOTOR_UPPER_LID_GATE,
+	eFMHT_PLATE_COLLECTOR,
+	eFMHT_MAX
+};
+
+//#define		WAIT_FETCH_MEAL_TYPE_WEIGHT_DETECT	0
+//#define		WAIT_FETCH_MEAL_TYPE_GATE_DETECT	1
+//
+//#define		WAIT_FETCH_MEAL_TYPE_MOTOR_LID		2
+//#define		WAIT_FETCH_MEAL_TYPE_PLATE_COLLECT	3
+
+
+#define		LID_OPEN_STATUS_CLOSE_NO_FOOD		0
+#define		LID_OPEN_STATUS_CLOSE_WITH_FOOD		1
+#define		LID_OPEN_STATUS_OPEN_WITH_FOOD		2
+#define		LID_OPEN_STATUS_OPEN_NO_FOOD		4
 
 #define		GATE_CLOSE	true
 #define		GATE_OPEN	false
@@ -72,7 +90,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 	int					iSlowBreakSpeed;
 	int					iSlowBreakDis;
 	RFID_DATA_TYPE		i64DeliverPointRFID[IMMEDIATELY_STOP_RFID_COUNT];
-	int					iFetchMealType;//
+	//int					iFetchMealType;//
 	float				fSendHardwareDataToServerTC;//
 	int16				i16MaxAllowMotorOverLoading;//
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
@@ -84,6 +102,8 @@ LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
 	int		iCarDrivingVersion;
 	int		iArduinoVersion;
 	int64	i64RASPI_SN;
+	int 	iFetchMealType;
+	int 	iTargetDeliverPointID;
 	char	strMapFileName[MAP_NAME_ARRAY_LENGTH];
 LAZY_RESULT_MESSAGE_HEADER_END(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
 

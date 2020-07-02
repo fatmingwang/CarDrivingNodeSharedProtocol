@@ -79,6 +79,35 @@ enum eNodeType
 	eNT_MAX,
 };
 
+//although path is inverted but same wheel with nagative speed,so just give same type is fine.
+inline eNodeType	GetInvertNodeType(eNodeType e_eNodeType)
+{
+	return e_eNodeType;
+	//if (e_eNodeType >= eNT_TURN_POUNT_R15 && e_eNodeType <= eNT_TURN_POUNT_R180)
+	//{
+	//	int l_iOffset = e_eNodeType - eNT_TURN_POUNT_R15;
+	//	return (eNodeType)(eNT_TURN_POUNT_L15+l_iOffset);
+	//}
+	//else
+	//if (e_eNodeType >= eNT_TURN_POUNT_L15 && e_eNodeType <= eNT_TURN_POUNT_L180)
+	//{
+	//	int l_iOffset = e_eNodeType - eNT_TURN_POUNT_L15;
+	//	return (eNodeType)(eNT_TURN_POUNT_R15 + l_iOffset);
+	//}
+	//else
+	//{
+	//	if (e_eNodeType == eNT_TURN_POUNT_RAPID_L90)
+	//		return eNT_TURN_POUNT_RAPID_R90;
+	//	if (e_eNodeType == eNT_TURN_POUNT_RAPID_L180)
+	//		return eNT_TURN_POUNT_RAPID_R180;
+	//	if (e_eNodeType == eNT_TURN_POUNT_RAPID_R90)
+	//		return eNT_TURN_POUNT_RAPID_L90;
+	//	if (e_eNodeType == eNT_TURN_POUNT_RAPID_R180)
+	//		return eNT_TURN_POUNT_RAPID_L180;
+	//}		
+	//return e_eNodeType;
+}
+
 static int16 g_si16NodeTypeSpeed[eNT_MAX] = 
 {
 	100,//eNT_ROAD = 0,
@@ -122,5 +151,7 @@ enum eCarSendingStatus
 	eCSS_ARDUINO_NO_SIGNAL,
 	eCSS_REVERSING,
 	eCSS_RFID_NOT_CORRECT,
+	//
+	eCSS_CAR_HW_ERROR_LID_OPEN_FAILED,
 	eCSS_MAX
 };
