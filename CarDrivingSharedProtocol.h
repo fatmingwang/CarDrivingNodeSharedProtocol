@@ -134,8 +134,10 @@ LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 struct sRouteDividedIntoSmallPartData
 {
 	int8			i8AngleType;
-	RFID_DATA_TYPE	i64StartRFID;
-	RFID_DATA_TYPE	i64EndRFID;
+	//RFID_DATA_TYPE	i64StartRFID;
+	//RFID_DATA_TYPE	i64EndRFID;
+	int8			i8StartNodeID;
+	int8			i8EndNodeID;
 	int16			i16Distance[CAR_WHEEL_COUNT];
 	int16			i16Acc[CAR_WHEEL_COUNT];
 	int16			i16Speed[CAR_WHEEL_COUNT];
@@ -151,17 +153,19 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_CAR_GO_TO_DESTINATION_REQUEST)
 	int								iCount;//or do if Tag ID is -1 end?,2
 	int								iSmallPartDataCount;
 	int								iCarID;
-	int								iStopNodeID;//play sound by customer node ID
-	RFID_DATA_TYPE					i64RFIDArray[CAR_A_TO_B_DATA_LENGTH];//160
+	int8							i8StopNodeID;//play sound by customer node ID
+	//RFID_DATA_TYPE					i64RFIDArray[CAR_A_TO_B_DATA_LENGTH];//160
+	int8							i8NodeIDArray[CAR_A_TO_B_DATA_LENGTH];//160
 	sRouteDividedIntoSmallPartData	RouteDividedIntoSmallPartDataArray[ROUTE_KEY_POINT_DATA_LENGTH];
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_CAR_GO_TO_DESTINATION_REQUEST)
 #pragma pack(pop)
 
+#pragma pack(push,1)
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_GO_TO_DESTINATION_RESULT)
 	int	iCarID;
 	int	iCount;
 LAZY_RESULT_MESSAGE_HEADER_END(eCDNM_C2S_CAR_GO_TO_DESTINATION_RESULT)
-
+#pragma pack(pop)
 
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_ASK_CAR_STOP)
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_ASK_CAR_STOP)
@@ -191,13 +195,13 @@ LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_CANCEL_DELIVER_ORDER_RESULT)
 LAZY_RESULT_MESSAGE_HEADER_END(eCDNM_C2S_CANCEL_DELIVER_ORDER_RESULT)
 
 
-
+#pragma pack(push,1)
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_ALL_RFID_AND_NODE_ID_INFO)
 	int32			iCount;
 	RFID_DATA_TYPE	i64RFIDArray[TOTAL_CARD_COUNT];
-	int16			i16NodeIDArray[TOTAL_CARD_COUNT];
+	int8			i8NodeIDArray[TOTAL_CARD_COUNT];
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_ALL_RFID_AND_NODE_ID_INFO)
-
+#pragma pack(pop)
 
 //result code 0 car pass over,1 car will stop at chancel deliver point
 
