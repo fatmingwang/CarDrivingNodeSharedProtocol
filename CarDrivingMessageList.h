@@ -22,7 +22,8 @@ enum eCarDrivingNetworkMessage
 	//
 	eCDNM_S2C_ALL_RFID_AND_NODE_ID_INFO,
 	//
-	eCDNM_S2C_LID_HW_TEST,//
+	eCDNM_S2C_LED_HW_TEST,//
+	eCDNM_S2C_LID_MOTOR_HW_TEST,//
 	//
 	eCDNM_MAX
 };
