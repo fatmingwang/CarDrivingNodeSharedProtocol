@@ -220,6 +220,16 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_ALL_RFID_AND_NODE_ID_INFO)
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_ALL_RFID_AND_NODE_ID_INFO)
 #pragma pack(pop)
 
+#pragma pack(push,1)
+LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_COLLISION_TEST)
+	bool bHitted;
+LAZY_MESSAGE_HEADER_END(eCDNM_S2C_COLLISION_TEST)
+#pragma pack(pop)
+
+
+
+
+
 //result code 0 car pass over,1 car will stop at chancel deliver point
 
 //struct sDataAndLength

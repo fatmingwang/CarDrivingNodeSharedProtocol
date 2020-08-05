@@ -25,6 +25,8 @@ enum eCarDrivingNetworkMessage
 	eCDNM_S2C_LED_HW_TEST,//
 	eCDNM_S2C_LID_MOTOR_HW_TEST,//
 	//
+	eCDNM_S2C_COLLISION_TEST,
+	//
 	eCDNM_MAX
 };
 
