@@ -8,8 +8,9 @@
 //20200311 add eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST:fSendHardwareDataToServerTC
 //20200423 add eCSS_RFID_NOT_CORRECT event while car has accidently reach wrong RFID
 //20200617 add RFID_DATA_TYPE
+//20200819 immediately stop RFID change to deliver and charge point
 
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20200519
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			2020819
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
 //0 for detect weight
@@ -41,7 +42,9 @@ enum eFetchMealHouseType
 
 //data
 
-#define		IMMEDIATELY_STOP_RFID_COUNT		20
+
+#define		CHARGE_POINT_COUNT				15
+#define		DELIVER_POINT_COUNT				5
 
 #define		CAR_A_TO_B_DATA_LENGTH			80
 #define		ROUTE_KEY_POINT_DATA_LENGTH		20
@@ -90,7 +93,8 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 	int					iSlowBreakAcc;
 	int					iSlowBreakSpeed;
 	int					iSlowBreakDis;
-	RFID_DATA_TYPE		i64DeliverPointRFID[IMMEDIATELY_STOP_RFID_COUNT];
+	RFID_DATA_TYPE		i64DeliverPoint[CHARGE_POINT_COUNT];
+	RFID_DATA_TYPE		i64ChargePoint[DELIVER_POINT_COUNT];
 	//int					iFetchMealType;//
 	float				fSendHardwareDataToServerTC;//
 	int16				i16MaxAllowMotorOverLoading;//
