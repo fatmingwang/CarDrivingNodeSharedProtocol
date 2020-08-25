@@ -93,8 +93,8 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 	int					iSlowBreakAcc;
 	int					iSlowBreakSpeed;
 	int					iSlowBreakDis;
-	RFID_DATA_TYPE		i64DeliverPoint[CHARGE_POINT_COUNT];
-	RFID_DATA_TYPE		i64ChargePoint[DELIVER_POINT_COUNT];
+	RFID_DATA_TYPE		i64DeliverPoint[DELIVER_POINT_COUNT];
+	RFID_DATA_TYPE		i64ChargePoint[CHARGE_POINT_COUNT];
 	//int					iFetchMealType;//
 	float				fSendHardwareDataToServerTC;//
 	int16				i16MaxAllowMotorOverLoading;//
