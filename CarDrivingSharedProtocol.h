@@ -10,7 +10,7 @@
 //20200617 add RFID_DATA_TYPE
 //20200819 immediately stop RFID change to deliver and charge point
 
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			2020819
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			2020908
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
 //0 for detect weight
@@ -132,6 +132,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 	int				iMotorLoading[2];
 	int				iMotorSpeed[2];
 	int				iMotorExceptionCode;
+	int				iCPUTemperature;
 	sCarRunningData	CarRunningData;
 LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 
