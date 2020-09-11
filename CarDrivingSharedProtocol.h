@@ -9,8 +9,9 @@
 //20200423 add eCSS_RFID_NOT_CORRECT event while car has accidently reach wrong RFID
 //20200617 add RFID_DATA_TYPE
 //20200819 immediately stop RFID change to deliver and charge point
+//20200914 Enlarge the maximum count of RFID cards(TOTAL_CARD_COUNT)
 
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			2020908
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			2020914
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
 //0 for detect weight
@@ -48,7 +49,7 @@ enum eFetchMealHouseType
 
 #define		CAR_A_TO_B_DATA_LENGTH			80
 #define		ROUTE_KEY_POINT_DATA_LENGTH		20
-#define		TOTAL_CARD_COUNT				100
+#define		TOTAL_CARD_COUNT				150
 
 
 #ifndef		MAP_NAME_ARRAY_LENGTH
@@ -221,7 +222,7 @@ LAZY_RESULT_MESSAGE_HEADER_END(eCDNM_C2S_CANCEL_DELIVER_ORDER_RESULT)
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_ALL_RFID_AND_NODE_ID_INFO)
 	int32			iCount;
 	RFID_DATA_TYPE	i64RFIDArray[TOTAL_CARD_COUNT];
-	int8			i8NodeIDArray[TOTAL_CARD_COUNT];
+	uint8			ui8NodeIDArray[TOTAL_CARD_COUNT];
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_ALL_RFID_AND_NODE_ID_INFO)
 #pragma pack(pop)
 
