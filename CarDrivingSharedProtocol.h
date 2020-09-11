@@ -48,7 +48,7 @@ enum eFetchMealHouseType
 
 #define		CAR_A_TO_B_DATA_LENGTH			80
 #define		ROUTE_KEY_POINT_DATA_LENGTH		20
-#define		TOTAL_CARD_COUNT				100
+#define		TOTAL_CARD_COUNT				150
 
 
 #ifndef		MAP_NAME_ARRAY_LENGTH
