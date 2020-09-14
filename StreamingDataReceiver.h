@@ -6,29 +6,29 @@
 #ifdef DEBUG
 #define SHOW_ERROR_CODE
 #endif
-
-#ifndef int8
-#define int8 signed char
-#endif
-
-#ifndef int16
-#define int16 short
-#endif
-
-#ifndef uint8
-#define uint8 unsigned char
-#endif
-#ifndef uint16
-#define uint16 unsigned short
-#endif
-
-#ifndef int32
-#define int32 long
-#endif
-
-#ifndef uint32
-#define uint32 unsigned long
-#endif
+//
+//#ifndef int8
+//#define int8 signed char
+//#endif
+//
+//#ifndef int16
+//#define int16 short
+//#endif
+//
+//#ifndef uint8
+//#define uint8 unsigned char
+//#endif
+//#ifndef uint16
+//#define uint16 unsigned short
+//#endif
+//
+//#ifndef int32
+//#define int32 long
+//#endif
+//
+//#ifndef uint32
+//#define uint32 unsigned long
+//#endif
 
 #define		LAZY_HEADER_STAR(ID)			struct sStreamingData_##ID{int8 i8MagicID[MAGIC_ID_COUNT]; int16	i16PacketSize; uint16	i16CheckSum; int16 i16Message;
 
