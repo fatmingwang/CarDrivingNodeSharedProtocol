@@ -140,11 +140,12 @@ LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 #pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
 struct sRouteDividedIntoSmallPartData
 {
+	//eNodeType:eNT_ROAD
 	int8			i8AngleType;
 	//RFID_DATA_TYPE	i64StartRFID;
 	//RFID_DATA_TYPE	i64EndRFID;
-	int8			i8StartNodeID;
-	int8			i8EndNodeID;
+	uint8			ui8StartNodeID;
+	uint8			ui8EndNodeID;
 	int16			i16Distance[CAR_WHEEL_COUNT];
 	int16			i16Acc[CAR_WHEEL_COUNT];
 	int16			i16Speed[CAR_WHEEL_COUNT];
@@ -157,12 +158,12 @@ struct sRouteDividedIntoSmallPartData
 
 #pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_CAR_GO_TO_DESTINATION_REQUEST)
+	//node(RFID) count
 	int								iCount;//or do if Tag ID is -1 end?,2
 	int								iSmallPartDataCount;
 	int								iCarID;
-	int8							i8StopNodeID;//play sound by customer node ID
-	//RFID_DATA_TYPE					i64RFIDArray[CAR_A_TO_B_DATA_LENGTH];//160
-	int8							i8NodeIDArray[CAR_A_TO_B_DATA_LENGTH];//160
+	uint8							ui8StopNodeID;//play sound by customer node ID
+	uint8							ui8NodeIDArray[CAR_A_TO_B_DATA_LENGTH];//160
 	sRouteDividedIntoSmallPartData	RouteDividedIntoSmallPartDataArray[ROUTE_KEY_POINT_DATA_LENGTH];
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_CAR_GO_TO_DESTINATION_REQUEST)
 #pragma pack(pop)
