@@ -10,8 +10,9 @@
 //20200617 add RFID_DATA_TYPE
 //20200819 immediately stop RFID change to deliver and charge point
 //20200914 Enlarge the maximum count of RFID cards(TOTAL_CARD_COUNT)
+//20200915 ROUTE_KEY_POINT_DATA_LENGTH		from 20 to 30
 
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			2020914
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			2020915
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
 //0 for detect weight
@@ -48,7 +49,7 @@ enum eFetchMealHouseType
 #define		DELIVER_POINT_COUNT				5
 
 #define		CAR_A_TO_B_DATA_LENGTH			80
-#define		ROUTE_KEY_POINT_DATA_LENGTH		20
+#define		ROUTE_KEY_POINT_DATA_LENGTH		30
 #define		TOTAL_CARD_COUNT				150
 
 
