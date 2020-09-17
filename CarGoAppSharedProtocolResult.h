@@ -94,6 +94,7 @@ enum eCarDrivingStatus
 	eCDS_WAY_TO_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT,//
 	eCDS_STAY_AT_DELIVER_TRAFFIC_WAIT_POINT,
 	eCDS_STAY_AT_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT,//23
+	//eCDS_CAR_SEND_STATUS_INFO_TIME_OUT,//24
 	eCDS_MAX
 };
 
@@ -174,6 +175,9 @@ inline const wchar_t * GetCarDrivingStatusString(eCarDrivingStatus e_eCarDriving
 	case eCDS_STAY_AT_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT:
 		return L"stay at chancel deliver and go home point";
 		break;
+	//case eCDS_CAR_SEND_STATUS_INFO_TIME_OUT:
+	//	return L"car send status info time out";
+	//	break;
 	default:
 		return L"not support status";
 		break;
