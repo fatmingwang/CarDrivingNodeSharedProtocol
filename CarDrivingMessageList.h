@@ -60,10 +60,10 @@ enum eNodeType
 	eNT_TURN_POUNT_L150,//150
 	eNT_TURN_POUNT_L165,//165
 	eNT_TURN_POUNT_L180,//180
-	eNT_DUMMY_POINT_FOR_COLLISION_TEST,//a not exists node (no rfid card),only for route collision test.
+	eNT_DUMMY_POINT_FOR_COLLISION_TEST,//a not exists node (no rfid card),only for route collision test,void cCarSendA_TO_B_MessageController::StripDummyNodeCarDrivingRouteData()
 	//some turn position don't have wall,so make a more quick turn.
 	eNT_TURN_POUNT_RAPID_L90,//
-	eNT_TURN_POUNT_RAPID_L180,//
+	eNT_TURN_POUNT_RAPID_L180,//30
 	eNT_TURN_POUNT_RAPID_R90,//
 	eNT_TURN_POUNT_RAPID_R180,//
 	//for extend more special data
@@ -74,7 +74,7 @@ enum eNodeType
 	eNT_EXT5,
 	eNT_EXT6,
 	eNT_EXT7,
-	eNT_EXT8,
+	eNT_EXT8,//40
 	eNT_EXT9,
 	eNT_EXT10,
 	eNT_DELIVER_TRAFFIC_WAIT_POINT,
@@ -141,7 +141,23 @@ static int16 g_si16NodeTypeSpeed[eNT_MAX] =
 	50,//eNT_TURN_POUNT_L150,//150
 	50,//eNT_TURN_POUNT_L165,//165
 	50,//eNT_TURN_POUNT_L180,//180
-	50,//eNT_DUMMY_POINT_FOR_COLLISION_TEST,//180
+	50,//eNT_DUMMY_POINT_FOR_COLLISION_TEST,//180,28
+	50,//eNT_TURN_POUNT_RAPID_L90,//
+	50,//eNT_TURN_POUNT_RAPID_L180,//30
+	50,//eNT_TURN_POUNT_RAPID_R90,//
+	50,//eNT_TURN_POUNT_RAPID_R180,//
+	50,//eNT_EXT1,
+	50,//eNT_EXT2,
+	50,//eNT_EXT3,
+	50,//eNT_EXT4,
+	50,//eNT_EXT5,
+	50,//eNT_EXT6,
+	50,//eNT_EXT7,
+	50,//eNT_EXT8,40
+	50,//eNT_EXT9,
+	50,//eNT_EXT10,
+	50,//eNT_DELIVER_TRAFFIC_WAIT_POINT,
+	50//eNT_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT,
 };
 
 
@@ -156,5 +172,7 @@ enum eCarSendingStatus
 	eCSS_RFID_NOT_CORRECT,
 	//
 	eCSS_CAR_HW_ERROR_LID_OPEN_FAILED,
+	//
+	eCSS_CAR_GET_COLLIDED,
 	eCSS_MAX
 };

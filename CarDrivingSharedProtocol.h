@@ -11,8 +11,8 @@
 //20200819 immediately stop RFID change to deliver and charge point
 //20200914 Enlarge the maximum count of RFID cards(TOTAL_CARD_COUNT)
 //20200915 ROUTE_KEY_POINT_DATA_LENGTH		from 20 to 30
-
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			2020915
+//20200925 protocol add eMSL_GET_COLLIDED
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			2020925
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
 //0 for detect weight
@@ -102,7 +102,8 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 	int16				i16MaxAllowMotorOverLoading;//
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 #pragma pack(pop)
-
+//
+#pragma pack(push,1)
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
 	int		iCarID;
 	int		iNetworkProtocolVersion;
@@ -113,7 +114,9 @@ LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
 	int 	iTargetDeliverPointID;
 	char	strMapFileName[MAP_NAME_ARRAY_LENGTH];
 LAZY_RESULT_MESSAGE_HEADER_END(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
-
+#pragma pack(pop)
+//
+#pragma pack(push,1)
 struct sCarRunningData
 {
 	double	dbAppRunningTime;
@@ -122,7 +125,9 @@ struct sCarRunningData
 	int64	i64RighttWheelMovingDistance;
 	sCarRunningData() { memset(this, 0, sizeof(sCarRunningData)); }
 };
-
+#pragma pack(pop)
+//
+#pragma pack(push,1)
 LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 	int				iCarID;
 	RFID_DATA_TYPE	i64RFID;
@@ -137,7 +142,8 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 	int				iCPUTemperature;
 	sCarRunningData	CarRunningData;
 LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
-
+#pragma pack(pop)
+//=======================
 #pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
 struct sRouteDividedIntoSmallPartData
 {
@@ -199,6 +205,7 @@ enum eLidBehaviorType
 	eLBT_TEST,
 	eLBT_MAX
 };
+#pragma pack(push,1)
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_LID_MOTOR_HW_TEST)
 	int		iAngle;
 	int		iType;//eLidBehaviorType
@@ -206,20 +213,21 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_LID_MOTOR_HW_TEST)
 	int		iAcc;
 	bool	bSaveFile;
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_LID_MOTOR_HW_TEST)
+#pragma pack(pop)
 
 
 
-
-
+#pragma pack(push,1)
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_CANCEL_DELIVER_ORDER_REQUEST)
 	RFID_DATA_TYPE	i64StopRFID;
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_CANCEL_DELIVER_ORDER_REQUEST)
-
+#pragma pack(pop)
 //result code 0 car pass over,1 car will stop at chancel deliver point
+#pragma pack(push,1)
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_CANCEL_DELIVER_ORDER_RESULT)
 	int	iCarID;
 LAZY_RESULT_MESSAGE_HEADER_END(eCDNM_C2S_CANCEL_DELIVER_ORDER_RESULT)
-
+#pragma pack(pop)
 
 #pragma pack(push,1)
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_ALL_RFID_AND_NODE_ID_INFO)
