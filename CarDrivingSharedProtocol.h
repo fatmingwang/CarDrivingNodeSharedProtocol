@@ -12,6 +12,7 @@
 //20200914 Enlarge the maximum count of RFID cards(TOTAL_CARD_COUNT)
 //20200915 ROUTE_KEY_POINT_DATA_LENGTH		from 20 to 30
 //20200925 protocol add eMSL_GET_COLLIDED
+//20200926 add sRouteDividedIntoSmallPartData::i8DoOpenLoopTransfer;
 #define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			2020925
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
@@ -147,10 +148,8 @@ LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 #pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
 struct sRouteDividedIntoSmallPartData
 {
-	//eNodeType:eNT_ROAD
+	int8			i8DoOpenLoopTransfer;
 	int8			i8AngleType;
-	//RFID_DATA_TYPE	i64StartRFID;
-	//RFID_DATA_TYPE	i64EndRFID;
 	uint8			ui8StartNodeID;
 	uint8			ui8EndNodeID;
 	int16			i16Distance[CAR_WHEEL_COUNT];
