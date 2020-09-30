@@ -7,11 +7,11 @@
 //add setup IP at AppInfoPage
 //CarGoApp/Setup.xml add Amin attribute if 1 the CarGoApp won't be kicked,if the deliver point was selected
 //20200311 bind version for server and car
-#define		CAR_GO_APP_VERSION					20200311
+//20200930 eCarControlCarBehaviorList add eCCCBL_MOVE_LEFT_180,eCCCBL_MOVE_RIGHT_180
+#define		CAR_GO_APP_VERSION					20200930
 
 #define		CAR_GO_APP_TCP_IP_PORT				5978
 #define		CAR_GO_APP_NETWORK_MESSAGE_VERSION	20200214
-#define		MAP_NAME_ARRAY_LENGTH				40
 #define		DELIVER_POINT_DATA_LENGTH			20
 #define		CUSTOMER_POINT_DATA_LENGTH			80
 #define		MAX_CAR_COUNT						10
@@ -94,6 +94,17 @@ enum eCarGoAppNetworkMessage
 	//
 	//
 	eCGANM_MAX,
+};
+//
+enum eCarQuickMoingDirection
+{
+	eCQMD_LEFT = 0,
+	eCQMD_FORWARD,
+	eCQMD_RIGHT,
+	eCQMD_RESERVE,
+	eCQMD_LEFT_180,
+	eCQMD_RIGHT_180,
+	eCQMD_MAX
 };
 
 ////=====================================
@@ -269,12 +280,14 @@ LAZY_RESULT_MESSAGE_HEADER_END(eCGANM_S2C_CANCEL_DELIVER_ORDER_RESULT)
 enum eCarControlCarBehaviorList
 {
 	eCCCBL_MOVE_LEFT = 0,
-	eCCCBL_MOVE_UP,
+	eCCCBL_MOVE_FORWARD,
 	eCCCBL_MOVE_RIGHT,
-	eCCCBL_MOVE_DOWN,
+	eCCCBL_MOVE_REVERSE,
 	eCCCBL_STOP,
 	eCCCBL_GO_HOME,
 	eCCCBL_DELIVER_CONTINUE,
+	eCCCBL_MOVE_LEFT_180,
+	eCCCBL_MOVE_RIGHT_180,
 	eCCCBL_MAX
 };
 LAZY_MESSAGE_HEADER_STAR(eCGANM_C2S_CAR_CONTROL_PAGE_CAR_BEHAVIOR_CHANGE_REQUEST)

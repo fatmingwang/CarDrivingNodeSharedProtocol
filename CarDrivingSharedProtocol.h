@@ -53,10 +53,6 @@ enum eFetchMealHouseType
 #define		ROUTE_KEY_POINT_DATA_LENGTH		30
 #define		TOTAL_CARD_COUNT				150
 
-
-#ifndef		MAP_NAME_ARRAY_LENGTH
-#define		MAP_NAME_ARRAY_LENGTH			40
-#endif
 #define		RFID_DATA_TYPE					int64
 enum eCarDrivingTurnAngleList
 {
@@ -145,10 +141,18 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 #pragma pack(pop)
 //=======================
+enum eLoopTransferType
+{
+	eLTT_BOTH_OPEN = 0,
+	eLTT_LEFT_CLOSE_RIGHT_OPEN,//1
+	eLTT_RIGHTT_CLOSE_LEFT_OPEN,//2
+	eLTT_BOTH_CLOSE,//3
+	eLTT_MAX
+};
 #pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
 struct sRouteDividedIntoSmallPartData
 {
-	int8			i8DoOpenLoopTransfer;
+	int8			i8LoopTransferType;//eLoopTransferType
 	int8			i8AngleType;
 	uint8			ui8StartNodeID;
 	uint8			ui8EndNodeID;
