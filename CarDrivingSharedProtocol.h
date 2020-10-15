@@ -13,7 +13,7 @@
 //20200915 ROUTE_KEY_POINT_DATA_LENGTH		from 20 to 30
 //20200925 protocol add eMSL_GET_COLLIDED
 //20200926 add sRouteDividedIntoSmallPartData::i8DoOpenLoopTransfer;
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			2020925
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			2021012
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
 //0 for detect weight
@@ -137,6 +137,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 	int				iMotorSpeed[2];
 	int				iMotorExceptionCode;
 	int				iCPUTemperature;
+	int				iMotorEncoderTemperature[2];
 	sCarRunningData	CarRunningData;
 LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 #pragma pack(pop)
