@@ -51,7 +51,7 @@ enum eFetchMealHouseType
 
 #define		CAR_A_TO_B_DATA_LENGTH			80
 #define		ROUTE_KEY_POINT_DATA_LENGTH		30
-#define		TOTAL_CARD_COUNT				150
+#define		TOTAL_CARD_COUNT				165				//202010104 from 150 to 165
 
 #define		RFID_DATA_TYPE					int64
 enum eCarDrivingTurnAngleList
