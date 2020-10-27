@@ -13,7 +13,10 @@
 //20200915 ROUTE_KEY_POINT_DATA_LENGTH		from 20 to 30
 //20200925 protocol add eMSL_GET_COLLIDED
 //20200926 add sRouteDividedIntoSmallPartData::i8DoOpenLoopTransfer;
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			2021012
+//20201012 i8DoOpenLoopTransfer change to eLoopTransferType
+//20201023 add eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST::RFID_DATA_TYPE		i64CustomerPoint[CUSTOMER_POINT_COUNT];,wait traffic point should not open upper Lid.
+
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			2021023
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
 //0 for detect weight
@@ -48,6 +51,7 @@ enum eFetchMealHouseType
 
 #define		CHARGE_POINT_COUNT				15
 #define		DELIVER_POINT_COUNT				5
+#define		CUSTOMER_POINT_COUNT			50
 
 #define		CAR_A_TO_B_DATA_LENGTH			80
 #define		ROUTE_KEY_POINT_DATA_LENGTH		30
@@ -94,6 +98,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 	int					iSlowBreakDis;
 	RFID_DATA_TYPE		i64DeliverPoint[DELIVER_POINT_COUNT];
 	RFID_DATA_TYPE		i64ChargePoint[CHARGE_POINT_COUNT];
+	RFID_DATA_TYPE		i64CustomerPoint[CUSTOMER_POINT_COUNT];
 	//int					iFetchMealType;//
 	float				fSendHardwareDataToServerTC;//
 	int16				i16MaxAllowMotorOverLoading;//
