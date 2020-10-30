@@ -15,7 +15,7 @@
 //20200926 add sRouteDividedIntoSmallPartData::i8DoOpenLoopTransfer;
 //20201012 i8DoOpenLoopTransfer change to eLoopTransferType
 //20201023 add eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST::RFID_DATA_TYPE		i64CustomerPoint[CUSTOMER_POINT_COUNT];,wait traffic point should not open upper Lid.
-
+//20201030 eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST add fMotorWarningAsErrorTC
 #define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			2021023
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
@@ -99,9 +99,9 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 	RFID_DATA_TYPE		i64DeliverPoint[DELIVER_POINT_COUNT];
 	RFID_DATA_TYPE		i64ChargePoint[CHARGE_POINT_COUNT];
 	RFID_DATA_TYPE		i64CustomerPoint[CUSTOMER_POINT_COUNT];
-	//int					iFetchMealType;//
 	float				fSendHardwareDataToServerTC;//
 	int16				i16MaxAllowMotorOverLoading;//
+	float				fMotorWarningAsErrorTC;		//while motor keeps warning for a while treat it as error
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 #pragma pack(pop)
 //
