@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CarExceptionCode.h"
+
 enum eCarDrivingNetworkMessage
 {
 	eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST = 0,//HW ID
@@ -27,6 +29,7 @@ enum eCarDrivingNetworkMessage
 	//
 	eCDNM_S2C_COLLISION_TEST,
 	//
+	eCDNM_C2S_CAR_EXCEPTION_HAPPEN,
 	eCDNM_MAX
 };
 
@@ -175,20 +178,4 @@ enum eCarSendingStatus
 	//
 	eCSS_CAR_GET_COLLIDED,
 	eCSS_MAX
-};
-
-//bit 0 voltage too high or too low
-//bit 2 overheat
-//bit 5 current overloading
-enum eCarExceptionCode
-{
-	eCEC_LID_MOTOR_ERROR_VOLTAGE = 0,
-	eCEC_LID_MOTOR_ERROR_OVERHEAT,
-	eCEC_LID_MOTOR_ERROR_CURRENT_OVERLOADING,
-	eCEC_ENCODER_CURRENT_OVERLOADING,
-	eCEC_ENCODER_CURRENT_UNDER_THROUSHOLD,
-	eCEC_ENCODER_VOLTAGE_OVERLOADING,
-	eCEC_ENCODER_VOLTAGE_UNDER_THROUSHOLD,
-	eCEC_RFID_READER_ERROR,//always0
-	eCEC_MAX
 };

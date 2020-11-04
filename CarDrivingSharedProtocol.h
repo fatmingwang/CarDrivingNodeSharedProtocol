@@ -58,6 +58,9 @@ enum eFetchMealHouseType
 #define		TOTAL_CARD_COUNT				165				//202010104 from 150 to 165
 
 #define		RFID_DATA_TYPE					int64
+
+
+
 enum eCarDrivingTurnAngleList
 {
 	eCDTAL_0 = 0,
@@ -102,6 +105,9 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 	float				fSendHardwareDataToServerTC;//
 	int16				i16MaxAllowMotorOverLoading;//
 	float				fMotorWarningAsErrorTC;		//while motor keeps warning for a while treat it as error
+	float				fNodeToNodeTCStright;
+	float				fNodeToNodeTC90;
+	float				fNodeToNodeTC180;
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 #pragma pack(pop)
 //
@@ -250,6 +256,14 @@ LAZY_MESSAGE_HEADER_END(eCDNM_S2C_ALL_RFID_AND_NODE_ID_INFO)
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_COLLISION_TEST)
 	bool bHitted;
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_COLLISION_TEST)
+#pragma pack(pop)
+
+
+#pragma pack(push,1)
+LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_EXCEPTION_HAPPEN)
+	int	iCarID;
+	int iExceptionCode;
+LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_EXCEPTION_HAPPEN)
 #pragma pack(pop)
 
 
