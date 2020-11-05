@@ -16,7 +16,7 @@
 //20201012 i8DoOpenLoopTransfer change to eLoopTransferType
 //20201023 add eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST::RFID_DATA_TYPE		i64CustomerPoint[CUSTOMER_POINT_COUNT];,wait traffic point should not open upper Lid.
 //20201030 eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST add fMotorWarningAsErrorTC
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			2021023
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20201023
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
 //0 for detect weight
@@ -262,7 +262,7 @@ LAZY_MESSAGE_HEADER_END(eCDNM_S2C_COLLISION_TEST)
 #pragma pack(push,1)
 LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_EXCEPTION_HAPPEN)
 	int	iCarID;
-	int iExceptionCode;
+	int iCarExceptionCode;
 LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_EXCEPTION_HAPPEN)
 #pragma pack(pop)
 
