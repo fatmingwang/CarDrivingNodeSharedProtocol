@@ -16,6 +16,7 @@
 //20201012 i8DoOpenLoopTransfer change to eLoopTransferType
 //20201023 add eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST::RFID_DATA_TYPE		i64CustomerPoint[CUSTOMER_POINT_COUNT];,wait traffic point should not open upper Lid.
 //20201030 eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST add fMotorWarningAsErrorTC
+//20201110 eCDNM_S2C_LED_HW_TEST add char	strUpdateName[20];
 #define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20201023
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
@@ -208,8 +209,9 @@ LAZY_MESSAGE_HEADER_END(eCDNM_S2C_VOICE_TEST)
 
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_LED_HW_TEST)
 	unsigned char	ucColor[3];
-	int		iSpeed;
-	float	fLimunance;
+	int				iSpeed;
+	float			fLimunance;
+	char			strUpdateName[20];
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_LED_HW_TEST)
 
 
