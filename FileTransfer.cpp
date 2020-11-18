@@ -145,11 +145,12 @@ cFileSender::~cFileSender()
 
 bool cFileSender::OpenFileCollectData(const char* e_strFileName, const char* e_strTragetMachineFullFileName)
 {
-	m_strTagetMachineFileFullName = e_strTragetMachineFullFileName;
 	m_fProgress = 0.f;
 	m_pFile = MyFileOpen(e_strFileName, "r");
 	if (m_pFile)
 	{
+		m_strSelectFile = UT::GetFileNameWithoutFullPath(e_strFileName);
+		m_strTagetMachineFileFullName = e_strTragetMachineFullFileName;
 		m_iFileSize = (int)GetFileSize(m_pFile);
 		m_iRestDataToSendFileSize = m_iFileSize;
 		m_iNumPacket = m_iFileSize / TRANSFER_FILE_PACK_SIZE;
@@ -223,6 +224,7 @@ void cFileSender::SendFileThreadUpdate(float e_fElpaseTime)
 
 bool cFileSender::SendFile(const char* e_strFileName, const char* e_strTragetMachineFullFileName, cGameNetwork* e_pGameNetwork, bool e_bToClient)
 {
+	m_pGameNetwork = e_pGameNetwork;
 	if (IsThreadWorking())
 		return false;
 	if (OpenFileCollectData(e_strFileName, e_strTragetMachineFullFileName))
@@ -244,4 +246,54 @@ int cFileSender::GetProgress()
 bool cFileSender::IsTimeout()
 {
 	return m_TimeOutTC.bTragetTimrReached;
+}
+
+std::string cFileSender::GetInfo()
+{
+	int l_iProgress = this->GetProgress();
+	bool l_bTimeout = this->IsTimeout();
+	std::string l_str = "Send File";
+	l_str += this->m_strSelectFile;
+	l_str += " to target machine ";
+	l_str += this->m_strTagetMachineFileFullName;
+	l_str += ",";
+	if (l_iProgress == 100)
+	{
+		l_str += "upload success,please click screen to exit.";
+	}
+	else
+	if (l_bTimeout)
+	{
+		l_str += "upload time out FAILED!,please click screen to exit.";
+	}
+	else
+	if (!m_pFile)
+	{
+		l_str += "open file failed!";
+	}
+	else
+	{
+		if (this->m_bSendToClient)
+		{
+			l_str += "Progress:";
+			l_str += ValueToString(GetProgress());
+		}
+	}
+	return l_str;
+}
+
+bool cFileSender::IsFinish()
+{
+	if (GetProgress() >= 100 || IsTimeout())
+	{
+		return true;
+	}
+	return false;
+}
+
+void cFileSender::Render(Vector2 e_vRenderPos)
+{
+	//GLRender::RenderFilledRectangle(Vector2(0, 0), cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y, Vector4(0.5f, 0.5f, 0.5f, 0.8f), 0);
+	//auto l_str = GetInfo();
+	//cGameApp::RenderFont(Vector2(200, 600), ValueToStringW(l_str).c_str());
 }

@@ -1,5 +1,5 @@
 #pragma once
-#ifdef WIN32
+#if defined(WIN32) || defined(ANDROID)
 #include "../CarDrivingNodes/Code/Src/Core/AllCommonInclude.h"
 #endif
 
@@ -75,6 +75,7 @@ class cFileSender :public NamedTypedObject,public cCPP11Thread,public cMessageSe
 	void				SendFileThreadUpdate(float e_fElpaseTime);
 	NvFile*				m_pFile;
 	std::string			m_strTagetMachineFileFullName;
+	std::string			m_strSelectFile;
 	float				m_fProgress;
 	int					m_iFileSize;
 	int					m_iNumPacket;
@@ -92,6 +93,9 @@ public:
 	bool		SendFile(const char* e_strFileName,const char*e_strTragetMachineFullFileName,cGameNetwork*e_pGameNetwork,bool e_bToClient);
 	int			GetProgress();
 	bool		IsTimeout();
+	std::string GetInfo();
+	bool		IsFinish();
+	void		Render(Vector2 e_vRenderPos);
 };
 
 template<class TYPE>bool				cFileSender::SendData(TYPE* e_Data, bool e_bDoMultothread, bool e_bSendToClient)

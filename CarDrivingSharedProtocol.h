@@ -117,7 +117,6 @@ LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
 	int		iCarID;
 	int		iNetworkProtocolVersion;
 	int		iCarDrivingVersion;
-	int		iArduinoVersion;
 	int64	i64RASPI_SN;
 	int 	iFetchMealType;
 	int 	iTargetDeliverPointID;
