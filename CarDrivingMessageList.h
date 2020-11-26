@@ -30,6 +30,9 @@ enum eCarDrivingNetworkMessage
 	eCDNM_S2C_COLLISION_TEST,
 	//
 	eCDNM_C2S_CAR_EXCEPTION_HAPPEN,
+	//
+	eCDNM_S2C_LID_MOTOR_STATUC_CHANGE_REQUEST,
+	eCDNM_C2S_LID_MOTOR_STATUC_CHANGE_RESULT,
 	eCDNM_MAX
 };
 
@@ -37,7 +40,7 @@ enum eNodeType
 {
 	eNT_ROAD = 0,
 	eNT_CUSTOMER,
-	eNT_CHARGE_POINT,
+	eNT_CHARGE_POINT,//all car don't need battery now,it's not chage point,it's a wait to deliver point point.
 	eNT_DELIVER_POINT,//it also is a charge point,need this one?.server need to detect the deliver point is empty and ask idle card to move to next charge point or to deliver point!?
 	eNT_TURN_POUNT_R15,//15
 	eNT_TURN_POUNT_R30,//30
@@ -80,8 +83,10 @@ enum eNodeType
 	eNT_EXT8,//40
 	eNT_EXT9,
 	eNT_EXT10,
-	eNT_DELIVER_TRAFFIC_WAIT_POINT,
+	eNT_WAIT_TRAFFIC_POINT,
 	eNT_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT,
+	//eNT_WAIT_FOR_TO_COLLECT_GARBAGE_POINT_POINT,
+	//eNT_COLLECT_GARBAGE_POINT,
 	eNT_MAX,
 };
 
@@ -159,7 +164,7 @@ static int16 g_si16NodeTypeSpeed[eNT_MAX] =
 	50,//eNT_EXT8,40
 	50,//eNT_EXT9,
 	50,//eNT_EXT10,
-	50,//eNT_DELIVER_TRAFFIC_WAIT_POINT,
+	50,//eNT_WAIT_TRAFFIC_POINT,
 	50//eNT_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT,
 };
 

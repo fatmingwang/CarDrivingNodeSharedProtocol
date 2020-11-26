@@ -16,6 +16,7 @@ enum eAskCarGoResultMessage
 	eACGRM_OUT_OF_CONTROL,//some object is not exists(nullptr)
 	eACGRM_NO_ROUTE_DATA,
 	eACGRM_NODE_ID_WRONG,//eCGANM_C2S_ASK_CAR_TO_COLLECT_PLATE_REQUEST
+	eACGRM_COLLECT_PLATE_TARGET_DELIVER_NODE_ID_WRONG,
 	eACGRM_MAX
 };
 
@@ -45,6 +46,10 @@ inline const char*GetAskCarGoResultMessageString(eAskCarGoResultMessage e_eAskCa
 			return "out of control";
 		case eACGRM_NO_ROUTE_DATA:
 			return "route data is not correct";
+		case eACGRM_NODE_ID_WRONG:
+			return "Node ID is wrong";
+		case eACGRM_COLLECT_PLATE_TARGET_DELIVER_NODE_ID_WRONG:
+			return "collect plate node ID is wrong";
 		default:
 			return "not supporn result";
 	}

@@ -92,9 +92,14 @@ enum eCarDrivingStatus
 	//add at Feb/02/2020.new function for cat stop at specific point for go home or to customer point
 	eCDS_WAY_TO_DELIVER_TRAFFIC_WAIT_POINT,//20
 	eCDS_WAY_TO_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT,//
-	eCDS_STAY_AT_DELIVER_TRAFFIC_WAIT_POINT,
+	eCDS_STAY_AT_WAIT_TRAFFIC_POINT,
 	eCDS_STAY_AT_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT,//23
 	//eCDS_CAR_SEND_STATUS_INFO_TIME_OUT,//24
+	//
+	//eCDS_STAY_AT_COLLECT_GARBAGE_POINT,
+	//eCDS_WAY_TO_COLLECT_GARBAGE,
+	//eCDS_WAIT_FOR_COLLECT_GARBAGE,
+	//eCDS_WAIT_FOR_COLLECT_GARBAGE,
 	eCDS_MAX
 };
 
@@ -169,8 +174,8 @@ inline const wchar_t * GetCarDrivingStatusString(eCarDrivingStatus e_eCarDriving
 	case eCDS_WAY_TO_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT:
 		return L"way to chancel deliver and go home point";
 		break;
-	case eCDS_STAY_AT_DELIVER_TRAFFIC_WAIT_POINT:
-		return L"stay at deliver traffic wait point";
+	case eCDS_STAY_AT_WAIT_TRAFFIC_POINT:
+		return L"stay at wait traffic point";
 		break;
 	case eCDS_STAY_AT_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT:
 		return L"stay at chancel deliver and go home point";
