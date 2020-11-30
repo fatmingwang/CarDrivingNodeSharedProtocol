@@ -23,6 +23,8 @@ enum eCarGoAppSharedProtocolResult
 	eCGASPR_CAR_CANCEL_DELIVER_ORDER_CAR_NOT_START_FROM_DELIVER_POINT_FAILED,
 	eCGASPR_CAR_CANCEL_DELIVER_ORDER_CAR_ID_NOT_EORRECT_FAILED,
 	//
+	eCGASPR_CAR_IS_MOVING_NOT_ALLOW_OPEN_LID,
+	//
 	eCGASPR_MAX
 };
 
@@ -54,6 +56,9 @@ inline const wchar_t* ResultToString(eCarGoAppSharedProtocolResult e_eCarGoAppSh
 			return L"car not start from deliver point";
 		case eCGASPR_CAR_CANCEL_DELIVER_ORDER_CAR_ID_NOT_EORRECT_FAILED:
 			return L"cancel deliver order:no such car";
+			break;
+		case eCGASPR_CAR_IS_MOVING_NOT_ALLOW_OPEN_LID:
+			return L"car is moving not allow open lid";
 			break;
 		default:
 			return L"not support result";
