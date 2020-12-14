@@ -36,8 +36,11 @@ enum eCarDrivingNetworkMessage
 	//
 	eCDNM_S2C_TABLET_SEND_CAR_REJOIN_REQUEST,
 	//
+	eCDNM_C2S_SEND_CAR_DRIVING_ROUTE_DATA,
+	//
 	eCDNM_MAX
 };
+
 
 enum eNodeType
 {

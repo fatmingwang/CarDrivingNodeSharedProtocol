@@ -54,6 +54,7 @@ enum eFetchMealHouseType
 
 #define		RFID_DATA_TYPE					int64
 
+#define		PATH_NAME_LENGTH				20
 
 
 enum eCarDrivingTurnAngleList
@@ -278,6 +279,26 @@ LAZY_RESULT_MESSAGE_HEADER_END(eCDNM_C2S_LID_MOTOR_STATUC_CHANGE_RESULT)
 
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TABLET_SEND_CAR_REJOIN_REQUEST)
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_TABLET_SEND_CAR_REJOIN_REQUEST)
+
+struct sCarDrivingPathData
+{
+	char    strPathName[PATH_NAME_LENGTH];
+	float	fTime;
+	int16	iTargetDistance[CAR_WHEEL_COUNT];
+	int16	iMovedDistance[CAR_WHEEL_COUNT];
+	int16	iTargetSpeed[CAR_WHEEL_COUNT];
+	int16	iAvgSpeed[CAR_WHEEL_COUNT];
+	int16	iHighestSpeed[CAR_WHEEL_COUNT];
+	int16	iAverageLoading[CAR_WHEEL_COUNT];
+	int16	iHeightestLoading[CAR_WHEEL_COUNT];
+};
+
+LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_SEND_CAR_DRIVING_ROUTE_DATA)
+	int		iCarID;
+	int		iDataCount;
+	char    strRouteName[PATH_NAME_LENGTH];
+	sCarDrivingPathData Data[ROUTE_KEY_POINT_DATA_LENGTH];
+LAZY_MESSAGE_HEADER_END(eCDNM_C2S_SEND_CAR_DRIVING_ROUTE_DATA)
 
 
 //result code 0 car pass over,1 car will stop at chancel deliver point
