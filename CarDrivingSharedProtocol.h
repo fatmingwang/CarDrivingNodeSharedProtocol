@@ -17,7 +17,8 @@
 //20201023 add eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST::RFID_DATA_TYPE		i64CustomerPoint[CUSTOMER_POINT_COUNT];,wait traffic point should not open upper Lid.
 //20201030 eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST add fMotorWarningAsErrorTC
 //20201110 eCDNM_S2C_LED_HW_TEST add char	strUpdateName[20];
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20201023
+//20201217 add wait N second for wait fetch meal(CDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST::fWaitNSecondForFetchMeal)
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20201217
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
 //0 for detect weight
@@ -104,6 +105,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 	float				fNodeToNodeTCStright;
 	float				fNodeToNodeTC90;
 	float				fNodeToNodeTC180;
+	float				fWaitNSecondForFetchMeal;
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 #pragma pack(pop)
 //
