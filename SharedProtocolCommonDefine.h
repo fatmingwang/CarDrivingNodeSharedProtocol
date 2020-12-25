@@ -14,12 +14,14 @@
 #define		CAR_GO_APP_LAZY_SIZE_LOG(TYPE,YOUR_SIZE)						{auto l_strInfo = UT::ComposeMsgByFormat("Error:%s,ExpectedSize:%d,RealSize:%d", #TYPE, sizeof(TYPE), YOUR_SIZE);FMLog::Log(l_strInfo.c_str(), false);}
 #define		CAR_GO_APP_DO_RETURN_FALSE_IF_SIZE_INCORRECT(TYPE,YOUR_SIZE)	if(sizeof(TYPE)!=YOUR_SIZE){ CAR_GO_APP_LAZY_SIZE_LOG(TYPE,YOUR_SIZE); return false;}
 
+
+#define		LAZY_GET_NETWORK_DATA_AND_COMPARE_SIZE(TYPE)																	\
+						CAR_GO_APP_DO_RETURN_FALSE_IF_SIZE_INCORRECT(sNetwork_##TYPE, e_pNetworkReceivedPacket->iSize)		\
+						sNetwork_##TYPE* l_pData = (sNetwork_##TYPE*)e_pNetworkReceivedPacket->pData;
+
 //for map file name
 #define		MAP_NAME_ARRAY_LENGTH			40
-
-
 //tcpip 1 packet default maximum size is 65k
-
 struct sBaseNetworkMessage
 {
 	int		iSize;

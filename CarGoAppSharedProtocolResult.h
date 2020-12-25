@@ -27,6 +27,8 @@ enum eCarGoAppSharedProtocolResult
 	//
 	eCGASPR_CAR_NO_FOOD_NOT_ALLOW_TO_GO,//15
 	//
+	//Dec/25/2020
+	eCGASPR_CAR_CANNT_OPEN_LID,
 	eCGASPR_MAX
 };
 
