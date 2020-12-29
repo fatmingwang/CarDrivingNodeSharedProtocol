@@ -38,6 +38,8 @@ enum eCarDrivingNetworkMessage
 	//
 	eCDNM_C2S_SEND_CAR_DRIVING_ROUTE_DATA,
 	//
+	eCDNM_S2C_TIME_SYNC,
+	//
 	eCDNM_MAX
 };
 
