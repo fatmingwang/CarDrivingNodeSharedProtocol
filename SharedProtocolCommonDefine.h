@@ -19,6 +19,14 @@
 						CAR_GO_APP_DO_RETURN_FALSE_IF_SIZE_INCORRECT(sNetwork_##TYPE, e_pNetworkReceivedPacket->iSize)		\
 						sNetwork_##TYPE* l_pData = (sNetwork_##TYPE*)e_pNetworkReceivedPacket->pData;
 
+#define		UE4_LAZY_GET_DATA(TYPE)																							 \
+										if (sizeof(TYPE) != e_pUNetWorkMessageDelegateData->m_iSize)							 \
+										{																					 \
+											UE_LOG(LogTemp, Error, TEXT(#TYPE),TEXT(" size is not correct!"));				 \
+											return;																	 \
+										}																					 \
+										sNetwork_##TYPE*l_pData = (sNetwork_##TYPE*)e_pUNetWorkMessageDelegateData->m_pData;
+
 //for map file name
 #define		MAP_NAME_ARRAY_LENGTH			40
 //tcpip 1 packet default maximum size is 65k
