@@ -20,7 +20,7 @@
 						sNetwork_##TYPE* l_pData = (sNetwork_##TYPE*)e_pNetworkReceivedPacket->pData;
 
 #define		UE4_LAZY_GET_DATA(TYPE)																							 \
-										if (sizeof(TYPE) != e_pUNetWorkMessageDelegateData->m_iSize)							 \
+										if (sizeof(sNetwork_##TYPE) != e_pUNetWorkMessageDelegateData->m_iSize)							 \
 										{																					 \
 											UE_LOG(LogTemp, Error, TEXT(#TYPE),TEXT(" size is not correct!"));				 \
 											return;																	 \
