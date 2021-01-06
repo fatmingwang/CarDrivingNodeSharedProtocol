@@ -18,7 +18,8 @@
 //20201030 eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST add fMotorWarningAsErrorTC
 //20201110 eCDNM_S2C_LED_HW_TEST add char	strUpdateName[20];
 //20201217 add wait N second for wait fetch meal(CDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST::fWaitNSecondForFetchMeal)
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20201217
+//20210106 eCDNM_C2S_CAR_STATUS::iExceptionCode change to iLidOpen
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20210106
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
 //0 for detect weight
@@ -132,13 +133,23 @@ struct sCarRunningData
 };
 #pragma pack(pop)
 //
+enum eLidStatus
+{
+	eLS_UNKNOW = 0,
+	eLS_DO_OPEN,
+	eLS_OPENED,
+	eLS_DO_CLOSE,
+	eLS_CLOSED,
+	eLS_MAX,
+};
+//
 #pragma pack(push,1)
 LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 	int				iCarID;
 	RFID_DATA_TYPE	i64RFID;
 	int				i1Status;//eCarSendingStatus
 	int				iBattery;
-	int				iExceptionCode;
+	int				iLidStatus;//eLidStatus
 	int				iWIFISignalStrength;
 	int				iMotorMovedDistance[2];
 	int				iMotorLoading[2];
