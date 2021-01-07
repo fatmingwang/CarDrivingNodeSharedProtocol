@@ -3,6 +3,8 @@
 #include "SharedProtocolCommonDefine.h"
 #include "CarDrivingSharedProtocol.h"
 
+#define	TEST_APP_NETWORK_VERSION		20210107
+
 #define	DB_SERVER_TCPIP_PORT			9991
 
 #define	CAR_ID_LENGTH_FOR_DB			20
@@ -14,20 +16,22 @@
 //
 //
 //Car									CAR
-//CarDriving server is client			CDS
-//Mongo DB server is server				DBS
-//TestApp								TA
+//CarDriving server is server			CDS
+//Mongo DB server is client				DBS
+//TestApp	is client					TA
 //
 //
 enum eCarDrivingServerToDBServerMessage
 {
+	eCDSTDBSM_TELL_CDS_WHO_YOU_ARE = 20000,
 	//test app to DB and Car server.
-	eCDSTDBSM_TA2CDS_DBS_CREATE_NEW_TEST_REQUEST = 200000,
+	eCDSTDBSM_TA2CDS_DBS_CREATE_NEW_TEST_REQUEST,
 	//db and server return ok to test app?
 	eCDSTDBSM_DBS2TA_CREATE_NEW_TEST_RESULT,
-	//car to car server to DB
+	//car server to DB and TA(car to CDS)
 	eCDSTDBSM_CDS2DBS_ADD_CAR_ROUTE_DATA_REQUEST,
 	eCDSTDBSM_DBS2CDS_ADD_CAR_ROUTE_DATA_RESULT,
+	//
 	//server to db and Test app
 	eCDSTDBSM_CDS2DBS_UPDATE_TEST_RESULT_REQUEST,
 	eCDSTDBSM_DBS2CDS_UPDATE_TEST_RESULT_RESULT,
@@ -74,6 +78,20 @@ inline eTestResult GetTestResult(const char*e_strResult)
 	return eTestResult::eTR_MAX;
 }
 
+enum eTestApp_WhoIAm
+{
+	eTA_UNKNOW = 0,
+	eTA_TA,
+	eTA_CDS,
+	eTA_DB,
+	eTA_MAX,
+};
+#pragma pack(push,1)
+LAZY_MESSAGE_HEADER_STAR(eCDSTDBSM_TELL_CDS_WHO_YOU_ARE)
+	int	iRole;//eTestApp_WhoIAm
+	int	iVer;//TEST_APP_NETWORK_VERSION
+LAZY_MESSAGE_HEADER_END(eCDSTDBSM_TELL_CDS_WHO_YOU_ARE)
+#pragma pack(pop)
 
 #pragma pack(push,1)
 LAZY_MESSAGE_HEADER_STAR(eCDSTDBSM_TA2CDS_DBS_CREATE_NEW_TEST_REQUEST)
