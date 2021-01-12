@@ -158,6 +158,7 @@ enum eCarServerTestStatus
 	eCSTS_NONE = 0,
 	eCSTS_START,
 	eCSTS_PAUSE,
+	eCSTS_CONTINUE,//previous is puase
 	eCSTS_STOP,
 	eCSTS_FINISH,
 	eCSTS_MAX,
