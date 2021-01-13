@@ -58,6 +58,16 @@ enum eTestAppNetworkResultEnum
 	eTANRE_MAX,
 };
 
+static const char* g_streTestAppNetworkResultEnumString[eTestAppNetworkResultEnum::eTANRE_MAX] = {
+	"Okay",//eTANRE_OK = 0,
+	"Failed",//eTANRE_LAZY_FAILED,
+	"version not match",//eTANRE_VER_NOT_MATCH,
+	"database server not exits",//eTANRE_DBS_NOT_EXITS,
+	"Test App not exits",//eTANRE_TA_NOT_EXITS,
+	//"Okay",//eTANRE_MAX,
+};
+
+
 enum eTestResult
 {
 	eTR_NOT_FINISH = 0,
