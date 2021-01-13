@@ -65,8 +65,10 @@ static const char* g_streTestAppNetworkResultEnumString[eTestAppNetworkResultEnu
 	"Okay",//eTANRE_OK = 0,
 	"Failed",//eTANRE_LAZY_FAILED,
 	"version not match",//eTANRE_VER_NOT_MATCH,
-	"database server not exits",//eTANRE_DBS_NOT_EXITS,
+	"database server not exits,data won't write into DB!",//eTANRE_DBS_NOT_EXITS,
 	"Test App not exits",//eTANRE_TA_NOT_EXITS,
+	"No Car",//eTANRE_NO_CAR,
+	"No Scripting",//eTANRE_NO_SCRIPTING,
 	//"Okay",//eTANRE_MAX,
 };
 
