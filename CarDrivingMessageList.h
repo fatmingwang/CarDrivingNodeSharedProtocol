@@ -98,6 +98,56 @@ enum eNodeType
 	eNT_MAX,
 };
 
+static const wchar_t* g_sstrNotyTypeString[eNT_MAX] =
+{
+	L"0",
+	L"1",
+	L"2",
+	L"3",
+	L"R15",
+	L"R30",//5
+	L"R45",
+	L"R60",
+	L"R75",
+	L"R90",
+	L"R105",//10
+	L"R120",
+	L"R135",
+	L"R150",
+	L"R165",
+	L"R180",//15
+	L"L15",
+	L"L30",
+	L"L45",
+	L"L60",
+	L"L75",//20
+	L"L90",
+	L"L105",
+	L"L120",
+	L"L135",
+	L"L150",//25
+	L"L165",
+	L"L180",
+	L"28",//eNT_DUMMY_POINT_FOR_COLLISION_TEST
+	L"RapidL90",
+	L"RapidL180",//30
+	L"RapidR90",
+	L"RapidR180",
+	L"EXT1",
+	L"EXT2",
+	L"EXT3",//35
+	L"EXT4",
+	L"EXT5",
+	L"EXT6",
+	L"EXT7",
+	L"EXT8",//40
+	L"EXT9",
+	L"EXT10",
+	L"43",//eNT_WAIT_TRAFFIC_POINT
+	L"44",//eNT_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT			
+	//L"Max"//,eNT_MAX,
+};
+
 //although path is inverted but same wheel with nagative speed,so just give same type is fine.
 inline eNodeType	GetInvertNodeType(eNodeType e_eNodeType)
 {

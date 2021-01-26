@@ -117,6 +117,15 @@ enum eCarQuickMoingDirection
 	eCQMD_RIGHT_180,
 	eCQMD_MAX
 };
+static const wchar_t* g_ssCarQuickMoingDirectionString[eCQMD_MAX] =
+{
+   L"Forward",
+   L"Left",
+   L"Right",
+   L"Reserve",
+   L"Left180",
+   L"Right180"
+};
 
 ////=====================================
 LAZY_MESSAGE_HEADER_STAR(eCGANM_C2S_VERSION_AND_MAP_INFOR)
