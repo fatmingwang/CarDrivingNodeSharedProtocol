@@ -142,11 +142,36 @@ enum eLidStatus
 	eLS_CLOSED,
 	eLS_MAX,
 };
+//LAZY_MESSAGE_HEADER_STAR explain
+//sample
+//struct sNetwork_eCDNM_C2S_CAR_STATUS :public sBaseNetworkMessage
+//{
+//	int				iCarID;
+//	RFID_DATA_TYPE	i64RFID;
+//	int				i1Status;//eCarSendingStatus
+//	int				iBattery;
+//	int				iLidStatus;//eLidStatus
+//	int				iWIFISignalStrength;
+//	int				iMotorMovedDistance[2];
+//	int				iMotorLoading[2];
+//	int				iMotorSpeed[2];
+//	int				iMotorExceptionCode;
+//	int				iCPUTemperature;
+//	int				iMotorEncoderTemperature[2];
+//	sCarRunningData	CarRunningData;
+//	sNetwork_eCDNM_C2S_CAR_STATUS() :sBaseNetworkMessage() 
+//	{
+//		memset(this, 0, sizeof(sNetwork_eCDNM_C2S_CAR_STATUS)); 
+//		iMessage = eCDNM_C2S_CAR_STATUS; 
+//		iSize = (int)sizeof(sNetwork_eCDNM_C2S_CAR_STATUS); 
+//	}
+//};
+
 //
 #pragma pack(push,1)
 LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 	int				iCarID;
-	RFID_DATA_TYPE	i64RFID;
+	RFID_DATA_TYPE	i64RFID;//can replace by nodeID but I am lazy.
 	int				i1Status;//eCarSendingStatus
 	int				iBattery;
 	int				iLidStatus;//eLidStatus
