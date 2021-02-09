@@ -40,6 +40,8 @@ enum eCarDrivingNetworkMessage
 	//
 	eCDNM_S2C_TIME_SYNC,
 	//
+	eCDNM_S2C_TEST_PLAN_FOR_LOG,
+	//
 	eCDNM_MAX
 };
 
