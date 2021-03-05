@@ -56,7 +56,7 @@ enum eCarGoAppNetworkMessage
 	eCGANM_C2S_CAR_GO,
 	eCGANM_S2C_CAR_GO_RESULT,
 	//
-	eCGANM_S2C_MEAL_NOT_BEEN_FETCHED,
+	eCGANM_S2C_MEAL_NOT_BEEN_FETCHED,//100010
 
 	eCGANM_C2S_CAR_ACCIDENT_HAPPEN,
 	//query deliver point status,every 1 second try to fetch information.
