@@ -1,5 +1,18 @@
 #pragma once
 
+//add at Feb/02/2020.
+//new function for cat stop at specific point for go home or to customer point
+//Dec/25/2020
+//add
+//eCGASPR_CAR_CANNT_OPEN_LID,
+//Mar/09/2021
+//add
+//eCDS_STAY_AT_COLLECT_GARBAGE_POINT,
+//eCDS_STAY_AT_WAIT_TO_COLLECT_GARBAGE_POINT,
+//eCDS_WAY_TO_COLLECT_GARBAGE_POINT,
+//eCDS_WAY_TO_WAIT_TO_COLLECT_GARBAGE_POINT,
+//eCDS_WAY_TO_COLLECT_GARBAGE,
+
 
 enum eCarGoAppSharedProtocolResult
 {
@@ -106,12 +119,14 @@ enum eCarDrivingStatus
 	eCDS_WAY_TO_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT,//
 	eCDS_STAY_AT_WAIT_TRAFFIC_POINT,
 	eCDS_STAY_AT_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT,//23
-	//eCDS_CAR_SEND_STATUS_INFO_TIME_OUT,//24
-	//
-	//eCDS_STAY_AT_COLLECT_GARBAGE_POINT,
-	//eCDS_WAY_TO_COLLECT_GARBAGE,
-	//eCDS_WAIT_FOR_COLLECT_GARBAGE,
-	//eCDS_WAIT_FOR_COLLECT_GARBAGE,
+	//eCDS_CAR_SEND_STATUS_INFO_TIME_OUT,//
+	//Mar/09/2021
+	eCDS_STAY_AT_COLLECT_GARBAGE_POINT,//24
+	eCDS_STAY_AT_WAIT_TO_COLLECT_GARBAGE_POINT,
+	eCDS_WAY_TO_COLLECT_GARBAGE_POINT,
+	eCDS_WAY_TO_WAIT_TO_COLLECT_GARBAGE_POINT,
+	eCDS_WAY_TO_COLLECT_GARBAGE,
+	eCDS_WAIT_FOR_COLLECT_GARBAGE,//29
 	eCDS_MAX
 };
 
@@ -192,6 +207,18 @@ inline const wchar_t * GetCarDrivingStatusString(eCarDrivingStatus e_eCarDriving
 	case eCDS_STAY_AT_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT:
 		return L"stay at chancel deliver and go home point";
 		break;
+	case eCDS_STAY_AT_COLLECT_GARBAGE_POINT:
+		return L"stay at collect garbage point";
+	case eCDS_STAY_AT_WAIT_TO_COLLECT_GARBAGE_POINT:
+		return L"stay at way to collect garbage point";
+	case eCDS_WAY_TO_COLLECT_GARBAGE_POINT:
+		return L"way to collect garbage";
+	case eCDS_WAY_TO_WAIT_TO_COLLECT_GARBAGE_POINT:
+		return L"way to wait to collect garbage point";
+	case eCDS_WAY_TO_COLLECT_GARBAGE:
+		return L"wait for collect garbage";
+	case eCDS_WAIT_FOR_COLLECT_GARBAGE:
+		return L"wait for collect garbage.";
 	//case eCDS_CAR_SEND_STATUS_INFO_TIME_OUT:
 	//	return L"car send status info time out";
 	//	break;
@@ -211,7 +238,10 @@ inline bool IsCarDriving(eCarDrivingStatus e_eCarDrivingStatus)
 		e_eCarDrivingStatus == eCDS_WAY_TO_POINT ||
 		e_eCarDrivingStatus == eCDS_SEND_CAR_GO_SIGNAL_TO_CAR ||
 		e_eCarDrivingStatus == eCDS_WAY_TO_DELIVER_TRAFFIC_WAIT_POINT ||
-		e_eCarDrivingStatus == eCDS_WAY_TO_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT)
+		e_eCarDrivingStatus == eCDS_WAY_TO_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT||
+		e_eCarDrivingStatus == eCDS_WAY_TO_COLLECT_GARBAGE_POINT ||
+		e_eCarDrivingStatus == eCDS_WAY_TO_WAIT_TO_COLLECT_GARBAGE_POINT ||
+		e_eCarDrivingStatus == eCDS_WAY_TO_COLLECT_GARBAGE)
 		return true;
 	return false;
 }
