@@ -12,7 +12,8 @@
 //eCDS_WAY_TO_COLLECT_GARBAGE_POINT,
 //eCDS_WAY_TO_WAIT_TO_COLLECT_GARBAGE_POINT,
 //eCDS_WAY_TO_COLLECT_GARBAGE,
-
+//Mar/11/2012
+// add eCDS_SEND_EXPEND_ROUTE_MESSAGE_TO_CAR
 
 enum eCarGoAppSharedProtocolResult
 {
@@ -127,6 +128,8 @@ enum eCarDrivingStatus
 	eCDS_WAY_TO_WAIT_TO_COLLECT_GARBAGE_POINT,
 	eCDS_WAY_TO_COLLECT_GARBAGE,
 	eCDS_WAIT_FOR_COLLECT_GARBAGE,//29
+	//
+	eCDS_SEND_EXPEND_ROUTE_MESSAGE_TO_CAR,
 	eCDS_MAX
 };
 
@@ -219,6 +222,9 @@ inline const wchar_t * GetCarDrivingStatusString(eCarDrivingStatus e_eCarDriving
 		return L"wait for collect garbage";
 	case eCDS_WAIT_FOR_COLLECT_GARBAGE:
 		return L"wait for collect garbage.";
+	case eCDS_SEND_EXPEND_ROUTE_MESSAGE_TO_CAR:
+		return L"send expand message to car";
+
 	//case eCDS_CAR_SEND_STATUS_INFO_TIME_OUT:
 	//	return L"car send status info time out";
 	//	break;
@@ -241,7 +247,8 @@ inline bool IsCarDriving(eCarDrivingStatus e_eCarDrivingStatus)
 		e_eCarDrivingStatus == eCDS_WAY_TO_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT||
 		e_eCarDrivingStatus == eCDS_WAY_TO_COLLECT_GARBAGE_POINT ||
 		e_eCarDrivingStatus == eCDS_WAY_TO_WAIT_TO_COLLECT_GARBAGE_POINT ||
-		e_eCarDrivingStatus == eCDS_WAY_TO_COLLECT_GARBAGE)
+		e_eCarDrivingStatus == eCDS_WAY_TO_COLLECT_GARBAGE ||
+		e_eCarDrivingStatus == eCDS_SEND_EXPEND_ROUTE_MESSAGE_TO_CAR)
 		return true;
 	return false;
 }

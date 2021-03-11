@@ -19,6 +19,7 @@
 //20201110 eCDNM_S2C_LED_HW_TEST add char	strUpdateName[20];
 //20201217 add wait N second for wait fetch meal(CDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST::fWaitNSecondForFetchMeal)
 //20210106 eCDNM_C2S_CAR_STATUS::iExceptionCode change to iLidOpen
+//20210311 add eCDNM_S2C_ROUTE_EXPEND_REQUEST and eCDNM_C2S_ROUTE_EXPEND_RESULT
 #define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20210106
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
@@ -347,6 +348,26 @@ LAZY_MESSAGE_HEADER_END(eCDNM_S2C_TIME_SYNC)
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TEST_PLAN_FOR_LOG)
 LAZY_MESSAGE_HEADER_END(eCDNM_S2C_TEST_PLAN_FOR_LOG)
 
+
+
+#pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
+LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_ROUTE_EXPEND_REQUEST)
+	//node(RFID) count
+	int								iCount;//or do if Tag ID is -1 end?,2
+	int								iSmallPartDataCount;
+	int								iCarID;
+	uint8							ui8StopNodeID;//play sound by customer node ID
+	uint8							ui8NodeIDArray[CAR_A_TO_B_DATA_LENGTH];//160
+	sRouteDividedIntoSmallPartData	RouteDividedIntoSmallPartDataArray[ROUTE_KEY_POINT_DATA_LENGTH];
+LAZY_MESSAGE_HEADER_END(eCDNM_S2C_ROUTE_EXPEND_REQUEST)
+#pragma pack(pop)
+
+#pragma pack(push,1)
+LAZY_RESULT_MESSAGE_HEADER_STAR(eCDNM_C2S_ROUTE_EXPEND_RESULT)
+	int	iCarID;
+	int	iCount;
+LAZY_RESULT_MESSAGE_HEADER_END(eCDNM_C2S_ROUTE_EXPEND_RESULT)
+#pragma pack(pop)
 
 //result code 0 car pass over,1 car will stop at chancel deliver point
 
