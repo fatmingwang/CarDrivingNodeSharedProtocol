@@ -20,7 +20,9 @@
 //20201217 add wait N second for wait fetch meal(CDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST::fWaitNSecondForFetchMeal)
 //20210106 eCDNM_C2S_CAR_STATUS::iExceptionCode change to iLidOpen
 //20210311 add eCDNM_S2C_ROUTE_EXPEND_REQUEST and eCDNM_C2S_ROUTE_EXPEND_RESULT
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20210106
+//20210318 CHARGE_POINT_COUNT to 40,DELIVER_POINT_COUNTto 10,CUSTOMER_POINT_COUNT to 80,add COLLECT_PLATE_POINT_COUNT,WAIT_TO_COLLECT_PLATE_POINT_POINT_COUNT
+
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20210318
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 //for fetch meal type
 //0 for detect weight
@@ -45,19 +47,24 @@ enum eFetchMealHouseType
 #define		GATE_OPEN	false
 
 //data
+//FUCK i AM LAZY
+//#define		NODE_RFID_AND_TYPE_COUNT				120
+
+#define		CHARGE_POINT_COUNT						40
+#define		DELIVER_POINT_COUNT						10
+#define		CUSTOMER_POINT_COUNT					80
+
+#define		COLLECT_PLATE_POINT_COUNT				4//20210318
+#define		WAIT_TO_COLLECT_PLATE_POINT_POINT_COUNT	8
 
 
-#define		CHARGE_POINT_COUNT				15
-#define		DELIVER_POINT_COUNT				5
-#define		CUSTOMER_POINT_COUNT			50
+#define		CAR_A_TO_B_DATA_LENGTH					80
+#define		ROUTE_KEY_POINT_DATA_LENGTH				30
+#define		TOTAL_CARD_COUNT						165				//202010104 from 150 to 165
 
-#define		CAR_A_TO_B_DATA_LENGTH			80
-#define		ROUTE_KEY_POINT_DATA_LENGTH		30
-#define		TOTAL_CARD_COUNT				165				//202010104 from 150 to 165
+#define		RFID_DATA_TYPE							int64
 
-#define		RFID_DATA_TYPE					int64
-
-#define		PATH_NAME_LENGTH				20
+#define		PATH_NAME_LENGTH						20
 
 
 enum eCarDrivingTurnAngleList
@@ -89,18 +96,27 @@ struct sSlowDownParameters
 	}
 };
 
+//relateive to all node RFID and type.
+//LAZY to do this.
+//struct sNodeTypeAndRFID
+//{
+//	RFID_DATA_TYPE i64RFID;
+//	unsigned char  ucNodeType;
+//};
+
 //=====================================
 #pragma pack(push,1)// push current alignment to stack,set alignment to n byte boundary
 LAZY_MESSAGE_HEADER_STAR(eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST)
 	int					iVersion;
-	char				strMapFileName[MAP_NAME_ARRAY_LENGTH];
+	char				strMapFileName[MAP_NAME_ARRAY_LENGTH];//40
 	int					iDontSendBackToServer;//for server test slowbreak.
 	int					iSlowBreakAcc;
-	int					iSlowBreakSpeed;
 	int					iSlowBreakDis;
-	RFID_DATA_TYPE		i64DeliverPoint[DELIVER_POINT_COUNT];
-	RFID_DATA_TYPE		i64ChargePoint[CHARGE_POINT_COUNT];
-	RFID_DATA_TYPE		i64CustomerPoint[CUSTOMER_POINT_COUNT];
+	RFID_DATA_TYPE		i64DeliverPoint[DELIVER_POINT_COUNT];//10
+	RFID_DATA_TYPE		i64ChargePoint[CHARGE_POINT_COUNT];//40
+	RFID_DATA_TYPE		i64CustomerPoint[CUSTOMER_POINT_COUNT];//80
+	RFID_DATA_TYPE		i64CollexctPlatePoint[COLLECT_PLATE_POINT_COUNT];//8
+	RFID_DATA_TYPE		i64WaitToCollectPointPoint[WAIT_TO_COLLECT_PLATE_POINT_POINT_COUNT];//4
 	float				fSendHardwareDataToServerTC;//
 	int16				i16MaxAllowMotorOverLoading;//
 	float				fMotorWarningAsErrorTC;		//while motor keeps warning for a while treat it as error
@@ -180,7 +196,7 @@ LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 	int				iMotorMovedDistance[2];
 	int				iMotorLoading[2];
 	int				iMotorSpeed[2];
-	int				iMotorExceptionCode;
+	int				iMotorExceptionCode;//no use anymore...for all exception use car exception code.
 	int				iCPUTemperature;
 	int				iMotorEncoderTemperature[2];
 	sCarRunningData	CarRunningData;
