@@ -9,11 +9,11 @@
 //20200311 bind version for server and car
 //20200930 eCarControlCarBehaviorList add eCCCBL_MOVE_LEFT_180,eCCCBL_MOVE_RIGHT_180
 //20201103 add eCGANM_S2C_CAR_EXCEPTION_CODE
-
-#define		CAR_GO_APP_VERSION					20201119
+//20210323 eCGANM_S2C_QUERY_DELIVERPOINT_CAR_RESULT add sPointOfStationInfo		StationData[MAX_CAR_COUNT];
+#define		CAR_GO_APP_VERSION					20210323
 
 #define		CAR_GO_APP_TCP_IP_PORT				5978
-#define		CAR_GO_APP_NETWORK_MESSAGE_VERSION	20201103
+#define		CAR_GO_APP_NETWORK_MESSAGE_VERSION	20210323
 #define		DELIVER_POINT_DATA_LENGTH			20
 #define		CUSTOMER_POINT_DATA_LENGTH			80
 #define		COLLECT_PLATE_POINT_DATA_LENGTH		5
@@ -238,12 +238,20 @@ struct sCarCurrentAndTargetInfo
 	int		CarTargetCustomerTableID;
 };
 
+struct sPointOfStationInfo
+{
+	int		iNodeID;//-1for no data
+	int		iCarID;//-1 for no car
+	bool	bMealSetted;
+};
+
 LAZY_RESULT_MESSAGE_HEADER_STAR(eCGANM_S2C_QUERY_DELIVERPOINT_CAR_RESULT)
 	int							iCarID;//-1 no car
 	int							iCarStatus;//eCarDrivingStatus,show car is waiting or read y to go.
 	bool						bMealSettled;//gate open(0) or close(1)
 	int							iNumCar;
 	sCarCurrentAndTargetInfo	CarCurrentAndTargetInfoArray[MAX_CAR_COUNT];
+	sPointOfStationInfo			StationData[MAX_CAR_COUNT];	//Mar 03_2021 added 
 LAZY_RESULT_MESSAGE_HEADER_END(eCGANM_S2C_QUERY_DELIVERPOINT_CAR_RESULT)
 
 
