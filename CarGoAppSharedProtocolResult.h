@@ -96,7 +96,7 @@ enum eCarDrivingStatus
 	eCDS_STAY_AT_DELIVERY_POINT,//car ready to go
 	eCDS_STAY_AT_POINT,//nor charge nor deliver nor customer
 	eCDS_STAY_AT_CUSTOMER_POINT,//5
-	eCDS_STAY_AT_CUSTOMER_POINT_MEAL_IS_EMPTY_MAKE_CAR_GO_HOME,
+	eCDS_CAR_IS_CALCULATING_GO_HOME_ROUTE,
 	//
 	eCDS_WAIT_CHECK_TRAFFIC,//ask car go to some where,wait car send me it's going
 	eCDS_SEND_CAR_GO_SIGNAL_TO_CAR,//traffic is safe to go then send message to car
@@ -153,8 +153,8 @@ inline const wchar_t * GetCarDrivingStatusString(eCarDrivingStatus e_eCarDriving
 	case eCDS_STAY_AT_POINT:
 		return L"stay at point";
 		break;
-	case eCDS_STAY_AT_CUSTOMER_POINT_MEAL_IS_EMPTY_MAKE_CAR_GO_HOME:
-		return L"stay at customer point and meal is empty,ready to home";
+	case eCDS_CAR_IS_CALCULATING_GO_HOME_ROUTE:
+		return L"car is calculating go home route";
 		break;
 	case eCDS_STAY_AT_CUSTOMER_POINT:
 		return L"stay at cusomter point";
