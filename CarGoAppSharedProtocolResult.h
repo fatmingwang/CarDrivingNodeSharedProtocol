@@ -43,6 +43,10 @@ enum eCarGoAppSharedProtocolResult
 	//
 	//Dec/25/2020
 	eCGASPR_CAR_CANNT_OPEN_LID,
+	//20010325,someone told me make sure all car is stand by or no car can move,although this is not right but no one cares.
+	//fuck language data not set yet.
+	eCGASPR_ASK_TRAFFIC_START_FAILED,
+	eCGASPR_TRAFFIC_NOT_START,
 	eCGASPR_MAX
 };
 
@@ -81,6 +85,10 @@ inline const wchar_t* ResultToString(eCarGoAppSharedProtocolResult e_eCarGoAppSh
 		case eCGASPR_CAR_NO_FOOD_NOT_ALLOW_TO_GO:
 			return L"No food not allow to go";
 			break;
+		case eCGASPR_ASK_TRAFFIC_START_FAILED:
+			return L"Tablet ask traffix start failed";
+		case eCGASPR_TRAFFIC_NOT_START:
+			return L"traffic not start yet";
 		default:
 			return L"not support result";
 			break;
