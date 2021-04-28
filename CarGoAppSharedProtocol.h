@@ -6,11 +6,12 @@
 //20201103
 //add setup IP at AppInfoPage
 //CarGoApp/Setup.xml add Amin attribute if 1 the CarGoApp won't be kicked,if the deliver point was selected
-//20200311 bind version for server and car
-//20200930 eCarControlCarBehaviorList add eCCCBL_MOVE_LEFT_180,eCCCBL_MOVE_RIGHT_180
-//20201103 add eCGANM_S2C_CAR_EXCEPTION_CODE
-//20210323 eCGANM_S2C_QUERY_DELIVERPOINT_CAR_RESULT add sPointOfStationInfo		StationData[MAX_CAR_COUNT];
-#define		CAR_GO_APP_VERSION					20210323
+//20200311	bind version for server and car
+//20200930	eCarControlCarBehaviorList add eCCCBL_MOVE_LEFT_180,eCCCBL_MOVE_RIGHT_180
+//20201103	add eCGANM_S2C_CAR_EXCEPTION_CODE
+//20210323	eCGANM_S2C_QUERY_DELIVERPOINT_CAR_RESULT add sPointOfStationInfo		StationData[MAX_CAR_COUNT];
+//20210428	eCGANM_C2S_CAR_GO_REQUEST add strMealName
+#define		CAR_GO_APP_VERSION					20210428
 
 #define		CAR_GO_APP_TCP_IP_PORT				5978
 #define		CAR_GO_APP_NETWORK_MESSAGE_VERSION	20210323
@@ -18,6 +19,8 @@
 #define		CUSTOMER_POINT_DATA_LENGTH			80
 #define		COLLECT_PLATE_POINT_DATA_LENGTH		5
 #define		MAX_CAR_COUNT						10
+//
+#define		MEAL_NAME_LENGTH					100
 
 //1
 //eCGANM_C2S_VERSION_AND_MAP_INFOR_REQUEST
@@ -167,6 +170,7 @@ LAZY_MESSAGE_HEADER_STAR(eCGANM_C2S_CAR_GO_REQUEST)
 	int		iEndID;//customer table ID
 	//if true don't wait customer fetch meal
 	bool	bDemoMode;
+	char	strMealName[MEAL_NAME_LENGTH];
 LAZY_MESSAGE_HEADER_END(eCGANM_C2S_CAR_GO_REQUEST)
 
 //result eCarGoAppSharedProtocolResult
