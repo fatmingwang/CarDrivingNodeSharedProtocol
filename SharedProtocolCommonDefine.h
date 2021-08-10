@@ -38,8 +38,47 @@ struct sBaseNetworkMessage
 	sBaseNetworkMessage() { iSize = 0; iMessage = 0; }
 };
 
+
 struct sBaseNetworkResultMessage :public sBaseNetworkMessage
 {
 	int		iResultCode;//basicly 0 for false 1 for true
 	sBaseNetworkResultMessage() {}
 };
+
+
+struct sUniqueIDStruct
+{
+	unsigned int	uiID;
+	sUniqueIDStruct()
+	{
+		uiID = 0;
+	}
+	void	AssignUniqueID()
+	{
+		static unsigned int l_siID = 0;
+		uiID = l_siID;
+		++l_siID;
+	}
+};
+
+struct sBaseNetworkMessageWithUniqueID :public sBaseNetworkMessage,public sUniqueIDStruct
+{
+};
+
+struct sBaseNetworkResultMessageWithUniqueID :public sBaseNetworkResultMessage, public sUniqueIDStruct
+{
+};
+
+
+
+#define		UNIQUE_MESSAGE_ID_ASSIGN(TYPE,ID)TYPE(){memset(this,0,sizeof(TYPE));iMessage = ID;iSize = (int)sizeof(TYPE);AssignUniqueID();}};
+
+
+
+#define		LAZY_MESSAGE_WITH_UNIQUE_HEADER_STAR(ID)			struct sNetwork_##ID:public sBaseNetworkMessageWithUniqueID{
+#define		LAZY_MESSAGE_WITH_UNIQUE_HEADER_END(ID)				UNIQUE_MESSAGE_ID_ASSIGN(sNetwork_##ID, ID)
+
+
+
+#define		LAZY_RESULT_WITH_UNIQUE_MESSAGE_HEADER_STAR(ID)					struct sNetwork_##ID:public sBaseNetworkResultMessageWithUniqueID{
+#define		LAZY_RESULT_WITH_UNIQUE_MESSAGE_HEADER_END(ID)					UNIQUE_MESSAGE_ID_ASSIGN(sNetwork_##ID, ID)

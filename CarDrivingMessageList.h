@@ -46,6 +46,8 @@ enum eCarDrivingNetworkMessage
 	eCDNM_C2S_ROUTE_EXPEND_RESULT,
 	//April/28/2021 
 	eCDNM_S2C_LCD_SHOW_TEXT,
+	//July/12/2021
+	eCDNM_S2C_LID_LIGHT_TEST,
 	//
 	eCDNM_MAX
 };

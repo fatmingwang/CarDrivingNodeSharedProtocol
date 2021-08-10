@@ -1,5 +1,5 @@
 #pragma once
-#if defined(WIN32) || defined(ANDROID)
+#if defined(WIN32) || defined(ANDROID) || defined(WASM)
 #include "../CarDrivingNodes/Code/Src/Core/AllCommonInclude.h"
 #endif
 
