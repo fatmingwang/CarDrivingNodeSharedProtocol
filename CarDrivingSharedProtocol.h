@@ -3,6 +3,7 @@
 #include	"SharedProtocolCommonDefine.h"
 #include	"CarDrivingMessageList.h"
 #include	"CarDrivingResultMessage.h"
+
 //first version 20200102
 //20200304 add motor speed eCDNM_C2S_CAR_STATUS:iMotorSpeed
 //20200311 add eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST:fSendHardwareDataToServerTC
@@ -23,19 +24,23 @@
 //20210318 CHARGE_POINT_COUNT to 40,DELIVER_POINT_COUNTto 10,CUSTOMER_POINT_COUNT to 80,add COLLECT_PLATE_POINT_COUNT,WAIT_TO_COLLECT_PLATE_POINT_POINT_COUNT
 //20210428 add eCDNM_S2C_LCD_SHOW_TEXT.
 //20210713 add sBaseNetworkMessageWithUniqueID,sBaseNetworkResultMessageWithUniqueID
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20210713
+//20210930 add eFetchMealHouseType::eFMHT_WEIGHT_DECTOR_HX711
+
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20210930
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
+
 //for fetch meal type
 //0 for detect weight
 //1 for detect door open and close
+
 enum eFetchMealHouseType
 {
 	eFMHT_WEIGHT_DECTOR = 0,
 	eFMHT_WANG_DOUBLE_COW_MAGNATIC_GATE,
 	//server size behavior  just like eFMHT_WANG_DOUBLE_COW_MAGNATIC_GATE,all rest thing will be done by Car.
 	eFMHT_MOTOR_UPPER_LID_GATE,
-	eFMHT_PLATE_COLLECTOR,
-	eFMHT_MAX
+	eFMHT_PLATE_COLLECTOR,	
+	eFMHT_WEIGHT_DECTOR_HX711,
 };
 
 
