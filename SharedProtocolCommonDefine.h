@@ -29,6 +29,8 @@
 
 //for map file name
 #define		MAP_NAME_ARRAY_LENGTH			40
+//Oct/25/2021
+#define		HC_PRODUCT_ID_LENGTH			80
 //tcpip 1 packet default maximum size is 65k
 struct sBaseNetworkMessage
 {

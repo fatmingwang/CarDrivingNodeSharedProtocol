@@ -5,28 +5,29 @@
 #include	"CarDrivingResultMessage.h"
 
 //first version 20200102
-//20200304 add motor speed eCDNM_C2S_CAR_STATUS:iMotorSpeed
-//20200311 add eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST:fSendHardwareDataToServerTC
-//20200423 add eCSS_RFID_NOT_CORRECT event while car has accidently reach wrong RFID
-//20200617 add RFID_DATA_TYPE
-//20200819 immediately stop RFID change to deliver and charge point
-//20200914 Enlarge the maximum count of RFID cards(TOTAL_CARD_COUNT)
-//20200915 ROUTE_KEY_POINT_DATA_LENGTH		from 20 to 30
-//20200925 protocol add eMSL_GET_COLLIDED
-//20200926 add sRouteDividedIntoSmallPartData::i8DoOpenLoopTransfer;
-//20201012 i8DoOpenLoopTransfer change to eLoopTransferType
-//20201023 add eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST::RFID_DATA_TYPE		i64CustomerPoint[CUSTOMER_POINT_COUNT];,wait traffic point should not open upper Lid.
-//20201030 eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST add fMotorWarningAsErrorTC
-//20201110 eCDNM_S2C_LED_HW_TEST add char	strUpdateName[20];
-//20201217 add wait N second for wait fetch meal(CDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST::fWaitNSecondForFetchMeal)
-//20210106 eCDNM_C2S_CAR_STATUS::iExceptionCode change to iLidOpen
-//20210311 add eCDNM_S2C_ROUTE_EXPEND_REQUEST and eCDNM_C2S_ROUTE_EXPEND_RESULT
-//20210318 CHARGE_POINT_COUNT to 40,DELIVER_POINT_COUNTto 10,CUSTOMER_POINT_COUNT to 80,add COLLECT_PLATE_POINT_COUNT,WAIT_TO_COLLECT_PLATE_POINT_POINT_COUNT
-//20210428 add eCDNM_S2C_LCD_SHOW_TEXT.
-//20210713 add sBaseNetworkMessageWithUniqueID,sBaseNetworkResultMessageWithUniqueID
-//20210930 add eFetchMealHouseType::eFMHT_WEIGHT_DECTOR_HX711
+//20200304	add motor speed eCDNM_C2S_CAR_STATUS:iMotorSpeed
+//20200311	add eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST:fSendHardwareDataToServerTC
+//20200423	add eCSS_RFID_NOT_CORRECT event while car has accidently reach wrong RFID
+//20200617	add RFID_DATA_TYPE
+//20200819	immediately stop RFID change to deliver and charge point
+//20200914	Enlarge the maximum count of RFID cards(TOTAL_CARD_COUNT)
+//20200915	ROUTE_KEY_POINT_DATA_LENGTH		from 20 to 30
+//20200925	protocol add eMSL_GET_COLLIDED
+//20200926	add sRouteDividedIntoSmallPartData::i8DoOpenLoopTransfer;
+//20201012	i8DoOpenLoopTransfer change to eLoopTransferType
+//20201023	add eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST::RFID_DATA_TYPE		i64CustomerPoint[CUSTOMER_POINT_COUNT];,wait traffic point should not open upper Lid.
+//20201030	eCDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST add fMotorWarningAsErrorTC
+//20201110	eCDNM_S2C_LED_HW_TEST add char	strUpdateName[20];
+//20201217	add wait N second for wait fetch meal(CDNM_S2C_TELL_SERVER_WHO_YOU_ARE_REQUEST::fWaitNSecondForFetchMeal)
+//20210106	eCDNM_C2S_CAR_STATUS::iExceptionCode change to iLidOpen
+//20210311	add eCDNM_S2C_ROUTE_EXPEND_REQUEST and eCDNM_C2S_ROUTE_EXPEND_RESULT
+//20210318	CHARGE_POINT_COUNT to 40,DELIVER_POINT_COUNTto 10,CUSTOMER_POINT_COUNT to 80,add COLLECT_PLATE_POINT_COUNT,WAIT_TO_COLLECT_PLATE_POINT_POINT_COUNT
+//20210428	add eCDNM_S2C_LCD_SHOW_TEXT.
+//20210713	add sBaseNetworkMessageWithUniqueID,sBaseNetworkResultMessageWithUniqueID
+//20210930	add eFetchMealHouseType::eFMHT_WEIGHT_DECTOR_HX711
+//20211025	add eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT::strHCProductID
 
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20210930
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20211025
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 
 //for fetch meal type
@@ -142,6 +143,7 @@ LAZY_RESULT_WITH_UNIQUE_MESSAGE_HEADER_STAR(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RE
 	int 	iFetchMealType;
 	int 	iTargetDeliverPointID;
 	char	strMapFileName[MAP_NAME_ARRAY_LENGTH];
+	char	strCarHCProductID[HC_PRODUCT_ID_LENGTH];
 LAZY_RESULT_WITH_UNIQUE_MESSAGE_HEADER_END(eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT)
 #pragma pack(pop)
 //
