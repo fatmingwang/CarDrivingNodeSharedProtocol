@@ -1,6 +1,8 @@
 #pragma once
 #if defined(WIN32) || defined(ANDROID) || defined(WASM)
 #include "../CarDrivingNodes/Code/Src/Core/AllCommonInclude.h"
+#elif defined(LINUX)
+#include "AllCommonInclude.h"
 #endif
 
 #include "SharedProtocolCommonDefine.h"

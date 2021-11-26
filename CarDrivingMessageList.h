@@ -49,6 +49,10 @@ enum eCarDrivingNetworkMessage
 	//July/12/2021
 	eCDNM_S2C_LID_LIGHT_TEST,
 	//
+	//20211019
+	eCDNM_C2S_WEIGHT_ZERO_REQUEST,
+	eCDNM_S2C_WEIGHT_ZERO_RESULT,
+	//
 	eCDNM_MAX
 };
 
