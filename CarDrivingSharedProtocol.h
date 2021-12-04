@@ -26,8 +26,9 @@
 //20210713	add sBaseNetworkMessageWithUniqueID,sBaseNetworkResultMessageWithUniqueID
 //20210930	add eFetchMealHouseType::eFMHT_WEIGHT_DECTOR_HX711
 //20211025	add eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT::strHCProductID
-
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20211124
+//20211130  eCDNM_C2S_CAR_STATUS remove iMotorExceptionCode
+//
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20211130
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 
 //for fetch meal type
@@ -205,7 +206,6 @@ LAZY_MESSAGE_WITH_UNIQUE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 	int				iMotorMovedDistance[2];
 	int				iMotorLoading[2];
 	int				iMotorSpeed[2];
-	int				iMotorExceptionCode;//no use anymore...for all exception use car exception code.
 	int				iCPUTemperature;
 	int				iMotorEncoderTemperature[2];
 	int				iMealWeight;
