@@ -28,7 +28,7 @@ enum eCarGoAppSharedProtocolResult
 	//below for eCGANM_S2C_CAR_GO_RESULT
 	eCGASPR_CAR_GO_FAILED,
 	eCGASPR_CAR_NOT_EXISTS,
-	eCGASPR_CAR_GATE_OPEN,
+	eCGASPR_CAR_GATE_OPEN_OR_LOW_BATTERY,
 	//eCGASPR_CAR_POWER_NOT_100,
 	//below for eCGANM_S2C_CANCEL_DELIVER_ORDER_RESULT
 	eCGASPR_CAR_CANCEL_DELIVER_ORDER_CAR_STAY_AT_DELIVER_POINT_OK,
@@ -68,6 +68,10 @@ inline const wchar_t* ResultToString(eCarGoAppSharedProtocolResult e_eCarGoAppSh
 			return L"server shut down please restart app.";
 		case eCGASPR_CAR_GO_FAILED:
 			return L"ask car to go failed!,already received message!?";
+		case eCGASPR_CAR_NOT_EXISTS:
+			return L"car not exists";
+		case eCGASPR_CAR_GATE_OPEN_OR_LOW_BATTERY:
+			return L"gate open or low battery";
 		case eCGASPR_CAR_CANCEL_DELIVER_ORDER_CAR_STAY_AT_DELIVER_POINT_OK:
 			return L"order canceled";
 		case eCGASPR_CAR_CANCEL_DELIVER_ORDER_STOP_AT_CANCEL_DELIVER_POINT_OK:
@@ -250,12 +254,12 @@ inline bool IsCarDriving(eCarDrivingStatus e_eCarDrivingStatus)
 		e_eCarDrivingStatus == eCDS_WAY_TO_CHARGE_POINT ||
 		e_eCarDrivingStatus == eCDS_WAY_TO_DELIVER_POINT ||
 		e_eCarDrivingStatus == eCDS_WAY_TO_POINT ||
-		e_eCarDrivingStatus == eCDS_SEND_CAR_GO_SIGNAL_TO_CAR ||
 		e_eCarDrivingStatus == eCDS_WAY_TO_DELIVER_TRAFFIC_WAIT_POINT ||
 		e_eCarDrivingStatus == eCDS_WAY_TO_CANCEL_DELIVER_AND_WAIT_FOR_GO_HOME_POINT||
 		e_eCarDrivingStatus == eCDS_WAY_TO_COLLECT_GARBAGE_POINT ||
 		e_eCarDrivingStatus == eCDS_WAY_TO_WAIT_TO_COLLECT_GARBAGE_POINT ||
 		e_eCarDrivingStatus == eCDS_WAY_TO_COLLECT_GARBAGE ||
+		e_eCarDrivingStatus == eCDS_SEND_CAR_GO_SIGNAL_TO_CAR ||
 		e_eCarDrivingStatus == eCDS_SEND_EXPEND_ROUTE_MESSAGE_TO_CAR)
 		return true;
 	return false;

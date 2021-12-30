@@ -219,6 +219,7 @@ void cFileSender::SendFileThreadUpdate(float e_fElpaseTime)
 	{
 		m_TimeOutTC.Start();
 	}
+	Sleep(1);
 }
 
 
