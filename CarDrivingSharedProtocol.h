@@ -28,9 +28,9 @@
 //20211025	add eCDNM_C2S_TELL_SERVER_WHO_YOU_ARE_RESULT::strHCProductID
 //20211130  eCDNM_C2S_CAR_STATUS remove iMotorExceptionCode
 //20211230  add eCDNM_C2S_CAR_EXCEPTION_HAPPEN::bSetCarInProblem.
-
+//20220111  remove eCDNM_C2S_CAR_STATUS::iMealWeight
 //
-#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20211230
+#define		CAR_DRIVING_SERVER_NETWORK_MESSAGE_VERSION			20210111
 #define		CAR_DRIVING_SERVER_NETWORK_TARGET_PORT				2978
 
 //for fetch meal type
@@ -210,7 +210,7 @@ LAZY_MESSAGE_WITH_UNIQUE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
 	int				iMotorSpeed[2];
 	int				iCPUTemperature;
 	int				iMotorEncoderTemperature[2];
-	int				iMealWeight;
+	//int				iMealWeight;
 	sCarRunningData	CarRunningData;
 LAZY_MESSAGE_WITH_UNIQUE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 #pragma pack(pop)
