@@ -20,7 +20,7 @@ enum eCarDrivingNetworkMessage
 	//if car still stay at deliver point chancel order or make car slow down and stop at chancel deliver point and wait go home
 	//if car already apart and pass over chancel deliver,car keep going and keep deliver
 	eCDNM_S2C_CANCEL_DELIVER_ORDER_REQUEST,
-	eCDNM_C2S_CANCEL_DELIVER_ORDER_RESULT,//
+	eCDNM_C2S_CANCEL_DELIVER_ORDER_RESULT,//10
 	//
 	eCDNM_S2C_ALL_RFID_AND_NODE_ID_INFO,
 	//
@@ -38,7 +38,7 @@ enum eCarDrivingNetworkMessage
 	//
 	eCDNM_C2S_SEND_CAR_DRIVING_ROUTE_DATA,
 	//
-	eCDNM_S2C_TIME_SYNC,
+	eCDNM_S2C_TIME_SYNC,//20
 	//
 	eCDNM_S2C_TEST_PLAN_FOR_LOG,
 	//Mar/11/2021
